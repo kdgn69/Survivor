@@ -10,9 +10,11 @@ private:
     int vie;
     float vitesse;
     Arme arme;
+    //il faudra un tableau darme que stocke  le joueur
 
 public:
-    void SeDeplacer();
+    Joueur();
+    void seDeplacerVersEnnemi();
     void tirer();    
 
 };

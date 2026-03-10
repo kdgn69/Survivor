@@ -6,19 +6,13 @@ using namespace std;
 #include <string>
 
 class Arme {
-
 private:
-    
     int degats;
     float cadence;
-    string TypeTir;
-
-
+    int armeChoisie;
 
 public:
-
-void Tirer () ;
-
+    void tirer () ;
 };
 
 

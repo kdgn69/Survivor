@@ -6,15 +6,14 @@ using namespace std;
 
 class Ennemi {
 private:
-    
     Position pos;
     int vie;
     float vitesse;
  
 public:
-
-void SeDeplacer () ;
-void Attaquer () ;
+    Ennemi();
+    void seDeplacerVersJoueur () ;
+    void attaquer () ;
 };
 
 
