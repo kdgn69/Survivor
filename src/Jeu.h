@@ -4,6 +4,7 @@
 #include <vector>
 #include "Vague.h"
 #include "Joueur.h"
+#include "Projectile.h"
 
 using namespace std;
 
