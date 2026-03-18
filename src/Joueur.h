@@ -5,19 +5,30 @@
 #include "Arme.h"
 #include <SDL2/SDL.h>
 
+using namespace std;
+
 class Joueur {
 private:
     Position pos;
     int vie;
     float vitesse;
+    int largeur;
+    int hauteur;
     Arme arme;
-    //il faudra un tableau darme que stocke le joueur
 
 public:
     Joueur();
-    void seDeplacer(const Uint8* etatClavier);
-    void tirer();    
 
+    void seDeplacer(const Uint8* etatClavier, int largeurCarte, int hauteurCarte);
+
+    Position getPosition() const;
+    int getVie() const;
+    int getLargeur() const;
+    int getHauteur() const;
+
+    SDL_Rect getRect() const;
+
+    void tirer();
 };
 
 #endif

@@ -3,42 +3,76 @@
 
 using namespace std;
 
-const int LARGEUR_FENETRE = 1920;
-const int HAUTEUR_FENETRE = 1080;
+const int LARGEUR_CARTE_DEFAUT=1280;
+const int HAUTEUR_CARTE_DEFAUT=720;
 
 Joueur::Joueur() {
     vie = 100;
     vitesse = 5;
-    pos.x = LARGEUR_FENETRE / 2;
-    pos.y = HAUTEUR_FENETRE / 2;
+    largeur = 40;
+    hauteur = 40;
+
+    pos.x = LARGEUR_CARTE_DEFAUT/2 - largeur/2;
+    pos.y = HAUTEUR_CARTE_DEFAUT/2 - hauteur/2;
 }
 
-void Joueur::seDeplacer(const Uint8* etatClavier) { //on pourrait aussi creer une struct "touches" pour alleger le code ici
-    if (etatClavier[SDL_SCANCODE_Z]) {
-        pos.y -= vitesse;
+void Joueur::seDeplacer(const Uint8* etatClavier, int largeurCarte, int hauteurCarte) {
+    float nouveauX = pos.x;
+    float nouveauY = pos.y;
+
+    if (etatClavier[SDL_SCANCODE_W]) {
+    nouveauY -= vitesse;
     }
     if (etatClavier[SDL_SCANCODE_S]) {
-        pos.y += vitesse;
+    nouveauY += vitesse;
     }
-    if (etatClavier[SDL_SCANCODE_Q]) {
-        pos.x -= vitesse;
+    if (etatClavier[SDL_SCANCODE_A]) {
+    nouveauX -= vitesse;
     }
     if (etatClavier[SDL_SCANCODE_D]) {
-        pos.x += vitesse;
+    nouveauX += vitesse;
     }
 
-    if (pos.x < 0) {
-        pos.x = 0;
+    if (nouveauX < 0) {
+        nouveauX = 0;
     }
-    if (pos.y < 0) {
-        pos.y = 0;
+    if (nouveauY < 0) {
+        nouveauY = 0;
     }
-    if (pos.x > LARGEUR_FENETRE) {
-        pos.x = LARGEUR_FENETRE;
+    if (nouveauX + largeur > largeurCarte) {
+        nouveauX = largeurCarte - largeur;
     }
-    if (pos.y > HAUTEUR_FENETRE) {
-        pos.y = HAUTEUR_FENETRE;
+    if (nouveauY + hauteur > hauteurCarte) {
+        nouveauY = hauteurCarte - hauteur;
     }
+
+    pos.x = nouveauX;
+    pos.y = nouveauY;
+}
+
+Position Joueur::getPosition() const {
+    return pos;
+}
+
+int Joueur::getVie() const {
+    return vie;
+}
+
+int Joueur::getLargeur() const {
+    return largeur;
+}
+
+int Joueur::getHauteur() const {
+    return hauteur;
+}
+
+SDL_Rect Joueur::getRect() const {
+    SDL_Rect r;
+    r.x = (int) pos.x;
+    r.y = (int) pos.y;
+    r.w = largeur;
+    r.h = hauteur;
+    return r;
 }
 
 void Joueur::tirer() {

@@ -2,6 +2,9 @@
 #define ENNEMI_H
 
 #include "Position.h"
+#include <SDL2/SDL.h>
+#include <string>
+
 using namespace std;
 
 class Ennemi {
@@ -9,13 +12,27 @@ private:
     Position pos;
     int vie;
     float vitesse;
- 
+    int largeur;
+    int hauteur;
+    string typeEnnemi;
+    bool distance;
+
 public:
     Ennemi();
-    void seDeplacerVersJoueur () ;
-    void attaquer () ;
+
+    void initialiser(float x, float y, string type, bool attaqueDistance, int pv, float vit, int larg, int haut);
+
+    Position getPosition() const;
+    int getVie() const;
+    int getLargeur() const;
+    int getHauteur() const;
+    string getTypeEnnemi() const;
+    bool estDistance() const;
+
+    SDL_Rect getRect() const;
+
+    void seDeplacerVersJoueur();
+    void attaquer();
 };
-
-
 
 #endif

@@ -1,10 +1,15 @@
+#define SDL_MAIN_HANDLED
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <iostream>
+#include <string>
+#include "Jeu.h"
 
 using namespace std;
 
 int main() {
+    SDL_SetMainReady();
+    
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         cerr << "Erreur SDL : " << SDL_GetError() << endl;
         return 1;
@@ -16,12 +21,15 @@ int main() {
         return 1;
     }
 
+    const int LARGEUR_FENETRE = 1280;
+    const int HAUTEUR_FENETRE = 720;
+
     SDL_Window* fenetre = SDL_CreateWindow(
         "Survivor",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
-        1280,
-        720,
+        LARGEUR_FENETRE,
+        HAUTEUR_FENETRE,
         0
     );
 
@@ -42,16 +50,8 @@ int main() {
         return 1;
     }
 
-    SDL_Texture* fond = IMG_LoadTexture(rendu, "data/fondNiv1.png");
-
-    if (fond == nullptr) {
-        cerr << "Erreur chargement image : " << IMG_GetError() << endl;
-        SDL_DestroyRenderer(rendu);
-        SDL_DestroyWindow(fenetre);
-        IMG_Quit();
-        SDL_Quit();
-        return 1;
-    }
+    Jeu jeu;
+    jeu.initialiser();
 
     bool quitter = false;
     SDL_Event event;
@@ -63,12 +63,19 @@ int main() {
             }
         }
 
-        SDL_RenderClear(rendu);
-        SDL_RenderCopy(rendu, fond, nullptr, nullptr);
+        const Uint8* etatClavier = SDL_GetKeyboardState(nullptr);
+        jeu.update(etatClavier);
+
+        string titre = "Survivor - Niveau " + to_string(jeu.getNiveauActuel()) +
+                       " - Vague " + to_string(jeu.getNumeroVague());
+        SDL_SetWindowTitle(fenetre, titre.c_str());
+
+        jeu.render(rendu);
         SDL_RenderPresent(rendu);
+
+        SDL_Delay(16);
     }
 
-    SDL_DestroyTexture(fond);
     SDL_DestroyRenderer(rendu);
     SDL_DestroyWindow(fenetre);
     IMG_Quit();
