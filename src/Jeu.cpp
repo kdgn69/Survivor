@@ -20,7 +20,13 @@ void Jeu::initialiser() {
 
 void Jeu::update(const Uint8* etatClavier) {
     joueur.seDeplacer(etatClavier, largeurCarte, hauteurCarte);
-}
+
+    Position posJoueur = joueur.getPosition();
+
+    for (unsigned int i = 0; i < ennemis.size(); i++) {
+        ennemis[i].seDeplacerVersJoueur(posJoueur, joueur.getLargeur(), joueur.getHauteur());
+    }
+} 
 
 void Jeu::genererEnnemisDebut() {
     ennemis.clear();
