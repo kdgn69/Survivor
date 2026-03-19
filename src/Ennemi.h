@@ -1,3 +1,4 @@
+
 #ifndef ENNEMI_H
 #define ENNEMI_H
 
@@ -22,6 +23,7 @@ public:
 
     void initialiser(float x, float y, string type, bool attaqueDistance, int pv, float vit, int larg, int haut);
     void seDeplacerVersJoueur(const Position& posJoueur, int largeurJoueur, int hauteurJoueur);
+    bool toucheJoueur(const SDL_Rect& rectJoueur) const;
 
     Position getPosition() const;
     int getVie() const;
@@ -31,8 +33,9 @@ public:
     bool estDistance() const;
 
     SDL_Rect getRect() const;
+    SDL_Rect getRectAvecPosition(float x, float y) const;
 
     void attaquer();
 };
 
-#endif 
+#endif

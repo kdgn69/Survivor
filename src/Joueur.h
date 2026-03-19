@@ -4,6 +4,8 @@
 #include "Position.h"
 #include "Arme.h"
 #include <SDL2/SDL.h>
+#include <vector>
+#include "Ennemi.h"
 
 using namespace std;
 
@@ -19,7 +21,7 @@ private:
 public:
     Joueur();
 
-    void seDeplacer(const Uint8* etatClavier, int largeurCarte, int hauteurCarte);
+    void seDeplacer(const Uint8* etatClavier, int largeurCarte, int hauteurCarte, const vector<Ennemi>& ennemis);
 
     Position getPosition() const;
     int getVie() const;
@@ -27,8 +29,9 @@ public:
     int getHauteur() const;
 
     SDL_Rect getRect() const;
+    SDL_Rect getRectAvecPosition(float x, float y) const;
 
     void tirer();
 };
 
-#endif
+#endif 

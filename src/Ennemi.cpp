@@ -27,11 +27,11 @@ void Ennemi::initialiser(float x, float y, string type, bool attaqueDistance, in
 }
 
 void Ennemi::seDeplacerVersJoueur(const Position& posJoueur, int largeurJoueur, int hauteurJoueur) {
-    float centreEnnemiX = pos.x + largeur / 2;
-    float centreEnnemiY = pos.y + hauteur / 2;
+    float centreEnnemiX = pos.x + largeur / 2.0;
+    float centreEnnemiY = pos.y + hauteur / 2.0;
 
-    float centreJoueurX = posJoueur.x + largeurJoueur / 2;
-    float centreJoueurY = posJoueur.y + hauteurJoueur / 2;
+    float centreJoueurX = posJoueur.x + largeurJoueur / 2.0;
+    float centreJoueurY = posJoueur.y + hauteurJoueur / 2.0;
 
     float dx = centreJoueurX - centreEnnemiX;
     float dy = centreJoueurY - centreEnnemiY;
@@ -39,9 +39,26 @@ void Ennemi::seDeplacerVersJoueur(const Position& posJoueur, int largeurJoueur, 
     float distanceJoueur = sqrt(dx * dx + dy * dy);
 
     if (distanceJoueur > 0) {
-        pos.x += (dx / distanceJoueur) * vitesse;
-        pos.y += (dy / distanceJoueur) * vitesse;
+        float nouveauX = pos.x + (dx / distanceJoueur) * vitesse;
+        float nouveauY = pos.y + (dy / distanceJoueur) * vitesse;
+
+        SDL_Rect futurRect = getRectAvecPosition(nouveauX, nouveauY);
+        SDL_Rect rectJoueur;
+        rectJoueur.x = int(posJoueur.x);
+        rectJoueur.y = int(posJoueur.y);
+        rectJoueur.w = largeurJoueur;
+        rectJoueur.h = hauteurJoueur;
+
+        if (!SDL_HasIntersection(&futurRect, &rectJoueur)) {
+            pos.x = nouveauX;
+            pos.y = nouveauY;
+        }
     }
+}
+
+bool Ennemi::toucheJoueur(const SDL_Rect& rectJoueur) const {
+    SDL_Rect rectEnnemi = getRect();
+    return SDL_HasIntersection(&rectEnnemi, &rectJoueur);
 }
 
 Position Ennemi::getPosition() const {
@@ -72,6 +89,15 @@ SDL_Rect Ennemi::getRect() const {
     SDL_Rect r;
     r.x = int(pos.x);
     r.y = int(pos.y);
+    r.w = largeur;
+    r.h = hauteur;
+    return r;
+}
+
+SDL_Rect Ennemi::getRectAvecPosition(float x, float y) const {
+    SDL_Rect r;
+    r.x = int(x);
+    r.y = int(y);
     r.w = largeur;
     r.h = hauteur;
     return r;
