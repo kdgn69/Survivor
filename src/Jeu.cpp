@@ -19,7 +19,7 @@ void Jeu::initialiser() {
 }
 
 void Jeu::update(const Uint8* etatClavier) {
-    joueur.seDeplacer(etatClavier, largeurCarte, hauteurCarte);
+    joueur.seDeplacer(etatClavier, largeurCarte, hauteurCarte, ennemis);
 
     Position posJoueur = joueur.getPosition();
 
