@@ -9,8 +9,8 @@ Ennemi::Ennemi() {
     pos.y = 0;
     vie = 100;
     vitesse = 1;
-    largeur = 30;
-    hauteur = 30;
+    largeur = 1;
+    hauteur = 1;
     typeEnnemi = "zombie";
     distance = false;
 }
@@ -42,23 +42,23 @@ void Ennemi::seDeplacerVersJoueur(const Position& posJoueur, int largeurJoueur, 
         float nouveauX = pos.x + (dx / distanceJoueur) * vitesse;
         float nouveauY = pos.y + (dy / distanceJoueur) * vitesse;
 
-        SDL_Rect futurRect = getRectAvecPosition(nouveauX, nouveauY);
-        SDL_Rect rectJoueur;
+        Rectangle futurRect = getRectangleAvecPosition(nouveauX, nouveauY);
+        Rectangle rectJoueur;
         rectJoueur.x = int(posJoueur.x);
         rectJoueur.y = int(posJoueur.y);
-        rectJoueur.w = largeurJoueur;
-        rectJoueur.h = hauteurJoueur;
+        rectJoueur.largeur = largeurJoueur;
+        rectJoueur.hauteur = hauteurJoueur;
 
-        if (!SDL_HasIntersection(&futurRect, &rectJoueur)) {
+        if (!collisionRectangles(futurRect, rectJoueur)) {
             pos.x = nouveauX;
             pos.y = nouveauY;
         }
     }
 }
 
-bool Ennemi::toucheJoueur(const SDL_Rect& rectJoueur) const {
-    SDL_Rect rectEnnemi = getRect();
-    return SDL_HasIntersection(&rectEnnemi, &rectJoueur);
+bool Ennemi::toucheJoueur(const Rectangle& rectJoueur) const {
+    Rectangle rectEnnemi = getRectangle();
+    return collisionRectangles(rectEnnemi, rectJoueur);
 }
 
 Position Ennemi::getPosition() const {
@@ -85,24 +85,24 @@ bool Ennemi::estDistance() const {
     return distance;
 }
 
-SDL_Rect Ennemi::getRect() const {
-    SDL_Rect r;
+Rectangle Ennemi::getRectangle() const {
+    Rectangle r;
     r.x = int(pos.x);
     r.y = int(pos.y);
-    r.w = largeur;
-    r.h = hauteur;
+    r.largeur = largeur;
+    r.hauteur = hauteur;
     return r;
 }
 
-SDL_Rect Ennemi::getRectAvecPosition(float x, float y) const {
-    SDL_Rect r;
+Rectangle Ennemi::getRectangleAvecPosition(float x, float y) const {
+    Rectangle r;
     r.x = int(x);
     r.y = int(y);
-    r.w = largeur;
-    r.h = hauteur;
+    r.largeur = largeur;
+    r.hauteur = hauteur;
     return r;
 }
 
 void Ennemi::attaquer() {
 
-} 
+}

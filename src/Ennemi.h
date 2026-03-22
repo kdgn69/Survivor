@@ -1,9 +1,8 @@
-
 #ifndef ENNEMI_H
 #define ENNEMI_H
 
 #include "Position.h"
-#include <SDL2/SDL.h>
+#include "Rectangle.h"
 #include <string>
 
 using namespace std;
@@ -23,7 +22,7 @@ public:
 
     void initialiser(float x, float y, string type, bool attaqueDistance, int pv, float vit, int larg, int haut);
     void seDeplacerVersJoueur(const Position& posJoueur, int largeurJoueur, int hauteurJoueur);
-    bool toucheJoueur(const SDL_Rect& rectJoueur) const;
+    bool toucheJoueur(const Rectangle& rectJoueur) const;
 
     Position getPosition() const;
     int getVie() const;
@@ -32,8 +31,8 @@ public:
     string getTypeEnnemi() const;
     bool estDistance() const;
 
-    SDL_Rect getRect() const;
-    SDL_Rect getRectAvecPosition(float x, float y) const;
+    Rectangle getRectangle() const;
+    Rectangle getRectangleAvecPosition(float x, float y) const;
 
     void attaquer();
 };
