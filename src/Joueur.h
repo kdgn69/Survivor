@@ -3,11 +3,12 @@
 
 #include "Position.h"
 #include "Arme.h"
-#include <SDL2/SDL.h>
+#include "Rectangle.h"
 #include <vector>
-#include "Ennemi.h"
 
 using namespace std;
+
+class Ennemi;
 
 class Joueur {
 private:
@@ -21,17 +22,17 @@ private:
 public:
     Joueur();
 
-    void seDeplacer(const Uint8* etatClavier, int largeurCarte, int hauteurCarte, const vector<Ennemi>& ennemis);
+    void deplacerAvecDirection(char direction, int largeurCarte, int hauteurCarte, const vector<Ennemi>& ennemis);
 
     Position getPosition() const;
     int getVie() const;
     int getLargeur() const;
     int getHauteur() const;
 
-    SDL_Rect getRect() const;
-    SDL_Rect getRectAvecPosition(float x, float y) const;
+    Rectangle getRectangle() const;
+    Rectangle getRectangleAvecPosition(float x, float y) const;
 
     void tirer();
 };
 
-#endif 
+#endif
