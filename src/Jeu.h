@@ -3,8 +3,6 @@
 
 #include <vector>
 #include <string>
-#include <SDL2/SDL.h>
-#include "Vague.h"
 #include "Joueur.h"
 #include "Projectile.h"
 #include "Ennemi.h"
@@ -27,11 +25,11 @@ public:
     Jeu();
 
     void initialiser();
-    void update(const Uint8* etatClavier);
+    void updateConsole(char commande);
     void genererEnnemisDebut();
-    void render(SDL_Renderer* rendu) const;
 
     Joueur& getJoueur();
+    const Joueur& getJoueur() const;
     const vector<Ennemi>& getEnnemis() const;
     int getNiveauActuel() const;
     int getNumeroVague() const;
