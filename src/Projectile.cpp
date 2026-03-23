@@ -29,14 +29,6 @@ Position Projectile::getPosition() const {
     return pos;
 }
 
-int Projectile::getDirectionX() const {
-    return direction.dx;
-}
-
-int Projectile::getDirectionY() const {
-    return direction.dy;
-}
-
 bool Projectile::estActif() const {
     return actif;
 }

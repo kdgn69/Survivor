@@ -19,8 +19,6 @@ public:
     void avancer();
 
     Position getPosition() const;
-    int getDirectionX() const;
-    int getDirectionY() const;
     bool estActif() const;
 
     void desactiver();
