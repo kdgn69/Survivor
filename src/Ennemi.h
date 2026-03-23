@@ -22,19 +22,14 @@ public:
 
     void initialiser(float x, float y, string type, bool attaqueDistance, int pv, float vit, int larg, int haut);
     void seDeplacerVersJoueur(const Position& posJoueur, int largeurJoueur, int hauteurJoueur);
-    bool toucheJoueur(const Rectangle& rectJoueur) const;
 
     Position getPosition() const;
     int getVie() const;
     int getLargeur() const;
     int getHauteur() const;
-    string getTypeEnnemi() const;
-    bool estDistance() const;
 
     Rectangle getRectangle() const;
     Rectangle getRectangleAvecPosition(float x, float y) const;
-
-    void attaquer();
 };
 
 #endif

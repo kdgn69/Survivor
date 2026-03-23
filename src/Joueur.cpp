@@ -1,6 +1,6 @@
-#include <iostream>
 #include "Joueur.h"
 #include "Ennemi.h"
+#include <iostream>
 
 using namespace std;
 
@@ -34,6 +34,7 @@ void Joueur::deplacerAvecDirection(char direction, int largeurCarte, int hauteur
         nouveauX += vitesse;
     }
 
+    // On empêche le joueur de sortir de la carte
     if (nouveauX < 0) {
         nouveauX = 0;
     }
@@ -50,6 +51,7 @@ void Joueur::deplacerAvecDirection(char direction, int largeurCarte, int hauteur
     Rectangle futurRect = getRectangleAvecPosition(nouveauX, nouveauY);
     bool collision = false;
 
+    // On vérifie si la case suivante toucherait un ennemi
     for (unsigned int i = 0; i < ennemis.size(); i++) {
         Rectangle rectEnnemi = ennemis[i].getRectangle();
         if (collisionRectangles(futurRect, rectEnnemi)) {
@@ -95,8 +97,4 @@ Rectangle Joueur::getRectangleAvecPosition(float x, float y) const {
     r.largeur = largeur;
     r.hauteur = hauteur;
     return r;
-}
-
-void Joueur::tirer() {
-
 }

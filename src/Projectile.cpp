@@ -1,4 +1,5 @@
 #include "Projectile.h"
+#include <iostream>
 
 using namespace std;
 
@@ -19,6 +20,7 @@ void Projectile::initialiser(float x, float y, int dx, int dy) {
 }
 
 void Projectile::avancer() {
+    // le projectile avance d'une case dans sa direction
     if (actif) {
         pos.x += direction.dx;
         pos.y += direction.dy;

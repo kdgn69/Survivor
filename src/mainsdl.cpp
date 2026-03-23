@@ -1,4 +1,4 @@
-#define SDL_MAIN_HANDLED
+/* #define SDL_MAIN_HANDLED
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <iostream>
@@ -82,4 +82,4 @@ int main() {
     SDL_Quit();
 
     return 0;
-}
+} */

@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <cmath>
+#include <iostream>
 
 using namespace std;
 
@@ -18,23 +19,23 @@ void Jeu::initialiser() {
 }
 
 void Jeu::updateConsole(char commande) {
-    // Déplacement du joueur
+    //déplacement joueur
     if (commande == 'z' || commande == 'q' || commande == 's' || commande == 'd') {
         joueur.deplacerAvecDirection(commande, largeurCarte, hauteurCarte, ennemis);
     }
 
-    // Tir clavier pour la version console
+    // tir clavier pour la version console
     if (commande == 'i' || commande == 'j' || commande == 'k' || commande == 'l') {
         tirerConsole(commande);
     }
 
-    // Les projectiles avancent après l'action du joueur
+    // les projectiles avancent après l'action du joueur
     deplacerProjectilesAllies();
 
-    // On regarde ensuite s'ils touchent un ennemi
+    // on regarde ensuite s'ils touchent un ennemi
     gererCollisionsProjectilesEnnemis();
 
-    // Puis les ennemis jouent leur tour
+    // puis les ennemis jouent leur tour
     Position posJoueur = joueur.getPosition();
     for (unsigned int i = 0; i < ennemis.size(); i++) {
         ennemis[i].seDeplacerVersJoueur(posJoueur, joueur.getLargeur(), joueur.getHauteur());
@@ -50,7 +51,6 @@ void Jeu::genererEnnemisDebut() {
 
     for (int i = 0; i < 6; i++) {
         Ennemi e;
-
         bool positionValide = false;
         float x = 0;
         float y = 0;
@@ -66,6 +66,7 @@ void Jeu::genererEnnemisDebut() {
             float dy = centreEnnemiY - centreJoueurY;
             float distance = sqrt(dx * dx + dy * dy);
 
+            // on évite de faire apparaître les ennemis trop près du joueur
             if (distance >= 5) {
                 positionValide = true;
             }
@@ -106,48 +107,48 @@ void Jeu::tirerConsole(char commande) {
 
     Projectile p;
     p.initialiser(xDepart, yDepart, dx, dy);
-    projectileAllie.push_back(p);
+    projectilesAllies.push_back(p);
 }
 
 void Jeu::deplacerProjectilesAllies() {
-    for (unsigned int i = 0; i < projectileAllie.size(); i++) {
-        if (projectileAllie[i].estActif()) {
-            projectileAllie[i].avancer();
+    for (unsigned int i = 0; i < projectilesAllies.size(); i++) {
+        if (projectilesAllies[i].estActif()) {
+            projectilesAllies[i].avancer();
 
-            Position pos = projectileAllie[i].getPosition();
+            Position pos = projectilesAllies[i].getPosition();
 
-            // Si le projectile sort de la carte, on le supprime
+            // Si le projectile sort de la carte, on le désactive
             if (pos.x < 0 || pos.x >= largeurCarte || pos.y < 0 || pos.y >= hauteurCarte) {
-                projectileAllie[i].desactiver();
+                projectilesAllies[i].desactiver();
             }
         }
     }
 
     vector<Projectile> nouveauxProjectiles;
 
-    for (unsigned int i = 0; i < projectileAllie.size(); i++) {
-        if (projectileAllie[i].estActif()) {
-            nouveauxProjectiles.push_back(projectileAllie[i]);
+    // on garde seulement les projectiles encore actifs
+    for (unsigned int i = 0; i < projectilesAllies.size(); i++) {
+        if (projectilesAllies[i].estActif()) {
+            nouveauxProjectiles.push_back(projectilesAllies[i]);
         }
     }
 
-    projectileAllie = nouveauxProjectiles;
+    projectilesAllies = nouveauxProjectiles;
 }
 
 void Jeu::gererCollisionsProjectilesEnnemis() {
     vector<Projectile> nouveauxProjectiles;
     vector<Ennemi> nouveauxEnnemis;
+    vector<bool> ennemiTouche(ennemis.size(), false);
 
-    vector<bool> ennemiTouche;
-    ennemiTouche.resize(ennemis.size(), false);
-
-    for (unsigned int i = 0; i < projectileAllie.size(); i++) {
+    for (unsigned int i = 0; i < projectilesAllies.size(); i++) {
         bool projectileATouche = false;
-        Position posProjectile = projectileAllie[i].getPosition();
+        Position posProjectile = projectilesAllies[i].getPosition();
 
         for (unsigned int j = 0; j < ennemis.size(); j++) {
             Position posEnnemi = ennemis[j].getPosition();
 
+            // Si le projectile arrive sur l'ennemi, on supprime les deux
             if (int(posProjectile.x) == int(posEnnemi.x) && int(posProjectile.y) == int(posEnnemi.y)) {
                 projectileATouche = true;
                 ennemiTouche[j] = true;
@@ -155,7 +156,7 @@ void Jeu::gererCollisionsProjectilesEnnemis() {
         }
 
         if (!projectileATouche) {
-            nouveauxProjectiles.push_back(projectileAllie[i]);
+            nouveauxProjectiles.push_back(projectilesAllies[i]);
         }
     }
 
@@ -165,7 +166,7 @@ void Jeu::gererCollisionsProjectilesEnnemis() {
         }
     }
 
-    projectileAllie = nouveauxProjectiles;
+    projectilesAllies = nouveauxProjectiles;
     ennemis = nouveauxEnnemis;
 }
 
@@ -182,7 +183,7 @@ const vector<Ennemi>& Jeu::getEnnemis() const {
 }
 
 const vector<Projectile>& Jeu::getProjectilesAllies() const {
-    return projectileAllie;
+    return projectilesAllies;
 }
 
 int Jeu::getNiveauActuel() const {

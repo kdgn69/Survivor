@@ -1,6 +1,6 @@
-#include <iostream>
 #include <cmath>
 #include "Ennemi.h"
+#include <iostream>
 
 using namespace std;
 
@@ -38,27 +38,25 @@ void Ennemi::seDeplacerVersJoueur(const Position& posJoueur, int largeurJoueur, 
 
     float distanceJoueur = sqrt(dx * dx + dy * dy);
 
+    // On évite une division par 0 si l'ennemi est déjà exactement sur la cible
     if (distanceJoueur > 0) {
         float nouveauX = pos.x + (dx / distanceJoueur) * vitesse;
         float nouveauY = pos.y + (dy / distanceJoueur) * vitesse;
 
         Rectangle futurRect = getRectangleAvecPosition(nouveauX, nouveauY);
+
         Rectangle rectJoueur;
         rectJoueur.x = int(posJoueur.x);
         rectJoueur.y = int(posJoueur.y);
         rectJoueur.largeur = largeurJoueur;
         rectJoueur.hauteur = hauteurJoueur;
 
+        // Si l'ennemi toucherait le joueur, il s'arrête juste avant
         if (!collisionRectangles(futurRect, rectJoueur)) {
             pos.x = nouveauX;
             pos.y = nouveauY;
         }
     }
-}
-
-bool Ennemi::toucheJoueur(const Rectangle& rectJoueur) const {
-    Rectangle rectEnnemi = getRectangle();
-    return collisionRectangles(rectEnnemi, rectJoueur);
 }
 
 Position Ennemi::getPosition() const {
@@ -77,14 +75,6 @@ int Ennemi::getHauteur() const {
     return hauteur;
 }
 
-string Ennemi::getTypeEnnemi() const {
-    return typeEnnemi;
-}
-
-bool Ennemi::estDistance() const {
-    return distance;
-}
-
 Rectangle Ennemi::getRectangle() const {
     Rectangle r;
     r.x = int(pos.x);
@@ -101,8 +91,4 @@ Rectangle Ennemi::getRectangleAvecPosition(float x, float y) const {
     r.largeur = largeur;
     r.hauteur = hauteur;
     return r;
-}
-
-void Ennemi::attaquer() {
-
 }

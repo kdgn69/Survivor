@@ -18,8 +18,7 @@ private:
 
     Joueur joueur;
     vector<Ennemi> ennemis;
-    vector<Projectile> projectileEnnemi;
-    vector<Projectile> projectileAllie;
+    vector<Projectile> projectilesAllies;
 
 public:
     Jeu();

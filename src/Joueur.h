@@ -31,8 +31,6 @@ public:
 
     Rectangle getRectangle() const;
     Rectangle getRectangleAvecPosition(float x, float y) const;
-
-    void tirer();
 };
 
 #endif

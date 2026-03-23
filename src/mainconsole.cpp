@@ -9,8 +9,7 @@ void afficherJeuConsole(const Jeu& jeu) {
     int largeur = jeu.getLargeurCarte();
     int hauteur = jeu.getHauteurCarte();
 
-    vector<string> grille;
-    grille.resize(hauteur, string(largeur, '.'));
+    vector<string> grille(hauteur, string(largeur, '.'));
 
     Position posJoueur = jeu.getJoueur().getPosition();
     grille[int(posJoueur.y)][int(posJoueur.x)] = 'J';
@@ -58,9 +57,10 @@ int main() {
     char commande = ' ';
 
     while (commande != 'x') {
+        // petit nettoyage visuel entre deux tours
         cout << string(30, '\n');
-        afficherJeuConsole(jeu);
 
+        afficherJeuConsole(jeu);
         cin >> commande;
         jeu.updateConsole(commande);
     }
