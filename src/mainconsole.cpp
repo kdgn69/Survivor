@@ -18,9 +18,20 @@ void afficherJeuConsole(const Jeu& jeu) {
     const vector<Ennemi>& ennemis = jeu.getEnnemis();
     for (unsigned int i = 0; i < ennemis.size(); i++) {
         Position posEnnemi = ennemis[i].getPosition();
+
         if (int(posEnnemi.y) >= 0 && int(posEnnemi.y) < hauteur &&
             int(posEnnemi.x) >= 0 && int(posEnnemi.x) < largeur) {
             grille[int(posEnnemi.y)][int(posEnnemi.x)] = 'E';
+        }
+    }
+
+    const vector<Projectile>& projectiles = jeu.getProjectilesAllies();
+    for (unsigned int i = 0; i < projectiles.size(); i++) {
+        Position posProjectile = projectiles[i].getPosition();
+
+        if (int(posProjectile.y) >= 0 && int(posProjectile.y) < hauteur &&
+            int(posProjectile.x) >= 0 && int(posProjectile.x) < largeur) {
+            grille[int(posProjectile.y)][int(posProjectile.x)] = '*';
         }
     }
 
@@ -35,7 +46,9 @@ void afficherJeuConsole(const Jeu& jeu) {
     }
 
     cout << endl;
-    cout << "x pour quitter" << endl;
+    cout << "Deplacement : z q s d" << endl;
+    cout << "Tir : i j k l" << endl;
+    cout << "Quitter : x" << endl;
 }
 
 int main() {

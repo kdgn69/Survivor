@@ -28,9 +28,15 @@ public:
     void updateConsole(char commande);
     void genererEnnemisDebut();
 
+    void tirerConsole(char commande);
+    void deplacerProjectilesAllies();
+    void gererCollisionsProjectilesEnnemis();
+
     Joueur& getJoueur();
     const Joueur& getJoueur() const;
     const vector<Ennemi>& getEnnemis() const;
+    const vector<Projectile>& getProjectilesAllies() const;
+
     int getNiveauActuel() const;
     int getNumeroVague() const;
     int getLargeurCarte() const;
