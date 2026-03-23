@@ -2,19 +2,28 @@
 #define PROJECTILE_H
 
 #include "Position.h"
+#include "Direction.h"
 
 using namespace std;
 
 class Projectile {
-public:
-    Position pos;
-    Position direction;
-    float vitesse;
-    int degats;
-
 private:
+    Position pos;
+    Direction direction;
+    bool actif;
+
+public:
+    Projectile();
+
+    void initialiser(float x, float y, int dx, int dy);
     void avancer();
-    void verifierCollision();
+
+    Position getPosition() const;
+    int getDirectionX() const;
+    int getDirectionY() const;
+    bool estActif() const;
+
+    void desactiver();
 };
 
 #endif
