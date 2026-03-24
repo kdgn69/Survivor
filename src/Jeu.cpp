@@ -14,33 +14,29 @@ Jeu::Jeu() {
 }
 
 void Jeu::initialiser() {
-    srand((unsigned int)time(nullptr));
+    srand(time(0));
     genererEnnemisDebut();
 }
 
 void Jeu::updateConsole(char commande) {
-    //déplacement joueur
     if (commande == 'z' || commande == 'q' || commande == 's' || commande == 'd') {
         joueur.deplacerAvecDirection(commande, largeurCarte, hauteurCarte, ennemis);
+        deplacerProjectilesAllies();
+        gererCollisionsProjectilesEnnemis();
     }
 
-    // tir clavier pour la version console
     if (commande == 'i' || commande == 'j' || commande == 'k' || commande == 'l') {
         tirerConsole(commande);
+        gererCollisionsProjectilesEnnemis();
     }
 
-    // les projectiles avancent après l'action du joueur
-    deplacerProjectilesAllies();
-
-    // on regarde ensuite s'ils touchent un ennemi
-    gererCollisionsProjectilesEnnemis();
-
-    // puis les ennemis jouent leur tour
     Position posJoueur = joueur.getPosition();
     for (unsigned int i = 0; i < ennemis.size(); i++) {
         ennemis[i].seDeplacerVersJoueur(posJoueur, joueur.getLargeur(), joueur.getHauteur());
     }
-}
+
+    gererCollisionsProjectilesEnnemis();
+}  
 
 void Jeu::genererEnnemisDebut() {
     ennemis.clear();
