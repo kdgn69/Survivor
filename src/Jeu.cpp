@@ -15,20 +15,19 @@ Jeu::Jeu() {
 
 void Jeu::initialiser() {
     srand(time(0));
+
+    joueur.setPosition(largeurCarte / 2, hauteurCarte / 2);
+
     genererEnnemisDebut();
 }
 
 void Jeu::updateConsole(char commande) {
     if (commande == 'z' || commande == 'q' || commande == 's' || commande == 'd') {
         joueur.deplacerAvecDirection(commande, largeurCarte, hauteurCarte, ennemis);
-        deplacerProjectilesAllies();
-        gererCollisionsProjectilesEnnemis();
     }
 
-    if (commande == 'i' || commande == 'j' || commande == 'k' || commande == 'l') {
-        tirerConsole(commande);
-        gererCollisionsProjectilesEnnemis();
-    }
+    deplacerProjectilesAllies();
+    gererCollisionsProjectilesEnnemis();
 
     Position posJoueur = joueur.getPosition();
     for (unsigned int i = 0; i < ennemis.size(); i++) {
@@ -36,7 +35,22 @@ void Jeu::updateConsole(char commande) {
     }
 
     gererCollisionsProjectilesEnnemis();
-}  
+}
+
+void Jeu::updateTirConsole(float angleDegres) {
+    deplacerProjectilesAllies();
+    gererCollisionsProjectilesEnnemis();
+
+    tirerConsole(angleDegres);
+    gererCollisionsProjectilesEnnemis();
+
+    Position posJoueur = joueur.getPosition();
+    for (unsigned int i = 0; i < ennemis.size(); i++) {
+        ennemis[i].seDeplacerVersJoueur(posJoueur, joueur.getLargeur(), joueur.getHauteur());
+    }
+
+    gererCollisionsProjectilesEnnemis();
+}
 
 void Jeu::genererEnnemisDebut() {
     ennemis.clear();
@@ -62,7 +76,6 @@ void Jeu::genererEnnemisDebut() {
             float dy = centreEnnemiY - centreJoueurY;
             float distance = sqrt(dx * dx + dy * dy);
 
-            // on évite de faire apparaître les ennemis trop près du joueur
             if (distance >= 5) {
                 positionValide = true;
             }
@@ -73,30 +86,17 @@ void Jeu::genererEnnemisDebut() {
     }
 }
 
-void Jeu::tirerConsole(char commande) {
-    int dx = 0;
-    int dy = 0;
+void Jeu::tirerConsole(float angleDegres) {
+    float angleRadians = angleDegres * 3.14159265f / 180.0f;
 
-    if (commande == 'i') {
-        dy = -1;
-    }
-    if (commande == 'k') {
-        dy = 1;
-    }
-    if (commande == 'j') {
-        dx = -1;
-    }
-    if (commande == 'l') {
-        dx = 1;
-    }
+    float dx = cos(angleRadians);
+    float dy = -sin(angleRadians);
 
     Position posJoueur = joueur.getPosition();
 
-    // Le projectile apparaît juste à côté du joueur
     float xDepart = posJoueur.x + dx;
     float yDepart = posJoueur.y + dy;
 
-    // On évite de créer un projectile en dehors de la carte
     if (xDepart < 0 || xDepart >= largeurCarte || yDepart < 0 || yDepart >= hauteurCarte) {
         return;
     }
@@ -113,7 +113,6 @@ void Jeu::deplacerProjectilesAllies() {
 
             Position pos = projectilesAllies[i].getPosition();
 
-            // Si le projectile sort de la carte, on le désactive
             if (pos.x < 0 || pos.x >= largeurCarte || pos.y < 0 || pos.y >= hauteurCarte) {
                 projectilesAllies[i].desactiver();
             }
@@ -122,7 +121,6 @@ void Jeu::deplacerProjectilesAllies() {
 
     vector<Projectile> nouveauxProjectiles;
 
-    // on garde seulement les projectiles encore actifs
     for (unsigned int i = 0; i < projectilesAllies.size(); i++) {
         if (projectilesAllies[i].estActif()) {
             nouveauxProjectiles.push_back(projectilesAllies[i]);
@@ -144,7 +142,6 @@ void Jeu::gererCollisionsProjectilesEnnemis() {
         for (unsigned int j = 0; j < ennemis.size(); j++) {
             Position posEnnemi = ennemis[j].getPosition();
 
-            // Si le projectile arrive sur l'ennemi, on supprime les deux
             if (int(posProjectile.x) == int(posEnnemi.x) && int(posProjectile.y) == int(posEnnemi.y)) {
                 projectileATouche = true;
                 ennemiTouche[j] = true;

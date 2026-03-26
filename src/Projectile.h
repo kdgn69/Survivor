@@ -15,7 +15,7 @@ private:
 public:
     Projectile();
 
-    void initialiser(float x, float y, int dx, int dy);
+    void initialiser(float x, float y, float dx, float dy);
     void avancer();
 
     Position getPosition() const;

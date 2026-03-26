@@ -2,8 +2,8 @@
 #define DIRECTION_H
 
 struct Direction {
-    int dx;
-    int dy;
+    float dx;
+    float dy;
 };
 
 #endif

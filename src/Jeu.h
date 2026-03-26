@@ -25,9 +25,10 @@ public:
 
     void initialiser();
     void updateConsole(char commande);
+    void updateTirConsole(float angleDegres);
     void genererEnnemisDebut();
 
-    void tirerConsole(char commande);
+    void tirerConsole(float angleDegres);
     void deplacerProjectilesAllies();
     void gererCollisionsProjectilesEnnemis();
 

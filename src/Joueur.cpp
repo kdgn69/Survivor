@@ -4,17 +4,19 @@
 
 using namespace std;
 
-const int LARGEUR_CARTE_DEFAUT = 40;
-const int HAUTEUR_CARTE_DEFAUT = 20;
-
 Joueur::Joueur() {
     vie = 100;
     vitesse = 1;
     largeur = 1;
     hauteur = 1;
 
-    pos.x = LARGEUR_CARTE_DEFAUT / 2;
-    pos.y = HAUTEUR_CARTE_DEFAUT / 2;
+    pos.x = 0;
+    pos.y = 0;
+}
+
+void Joueur::setPosition(float x, float y) {
+    pos.x = x;
+    pos.y = y;
 }
 
 void Joueur::deplacerAvecDirection(char direction, int largeurCarte, int hauteurCarte, const vector<Ennemi>& ennemis) {
@@ -35,6 +37,7 @@ void Joueur::deplacerAvecDirection(char direction, int largeurCarte, int hauteur
     }
 
     // On empêche le joueur de sortir de la carte
+
     if (nouveauX < 0) {
         nouveauX = 0;
     }
@@ -51,7 +54,6 @@ void Joueur::deplacerAvecDirection(char direction, int largeurCarte, int hauteur
     Rectangle futurRect = getRectangleAvecPosition(nouveauX, nouveauY);
     bool collision = false;
 
-    // On vérifie si la case suivante toucherait un ennemi
     for (unsigned int i = 0; i < ennemis.size(); i++) {
         Rectangle rectEnnemi = ennemis[i].getRectangle();
         if (collisionRectangles(futurRect, rectEnnemi)) {

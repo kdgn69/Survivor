@@ -46,7 +46,7 @@ void afficherJeuConsole(const Jeu& jeu) {
 
     cout << endl;
     cout << "Deplacement : z q s d" << endl;
-    cout << "Tir : i j k l" << endl;
+    cout << "Tir : t puis angle" << endl;
     cout << "Quitter : x" << endl;
 }
 
@@ -57,12 +57,20 @@ int main() {
     char commande = ' ';
 
     while (commande != 'x') {
-        // petit nettoyage visuel entre deux tours
         cout << string(30, '\n');
 
         afficherJeuConsole(jeu);
         cin >> commande;
-        jeu.updateConsole(commande);
+
+        if (commande == 't') {
+            float angle;
+            cout << "Angle de tir : ";
+            cin >> angle;
+            jeu.updateTirConsole(angle);
+        }
+        else {
+            jeu.updateConsole(commande);
+        }
     }
 
     return 0;

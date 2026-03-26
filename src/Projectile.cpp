@@ -11,7 +11,7 @@ Projectile::Projectile() {
     actif = false;
 }
 
-void Projectile::initialiser(float x, float y, int dx, int dy) {
+void Projectile::initialiser(float x, float y, float dx, float dy) {
     pos.x = x;
     pos.y = y;
     direction.dx = dx;
