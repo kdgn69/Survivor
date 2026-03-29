@@ -6,9 +6,8 @@
 
 using namespace std;
 
-// Ces constantes ne servent qu'à cette interface SDL
-const int LARGEUR_FENETRE = 1280;
-const int HAUTEUR_FENETRE = 640;
+const int LARGEUR_FENETRE = 1920;
+const int HAUTEUR_FENETRE = 1080;
 
 int main() {
     SDL_SetMainReady();

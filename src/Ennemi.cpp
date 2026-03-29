@@ -15,7 +15,7 @@ Ennemi::Ennemi() {
     distance = false;
 }
 
-void Ennemi::initialiser(float x, float y, string type, bool attaqueDistance, int pv, float vit, int larg, int haut) {
+Ennemi::Ennemi(float x, float y, string type, bool attaqueDistance, int pv, float vit, int larg, int haut) {
     pos.x = x;
     pos.y = y;
     typeEnnemi = type;

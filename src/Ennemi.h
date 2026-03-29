@@ -19,8 +19,8 @@ private:
 
 public:
     Ennemi();
-
-    void initialiser(float x, float y, string type, bool attaqueDistance, int pv, float vit, int larg, int haut);
+    Ennemi(float x, float y, string type, bool attaqueDistance, int pv, float vit, int larg, int haut);
+    
     void seDeplacerVersJoueur(const Position& posJoueur, int largeurJoueur, int hauteurJoueur);
 
     Position getPosition() const;
