@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <SDL2/SDL.h>
 #include "Joueur.h"
 #include "Projectile.h"
 #include "Ennemi.h"
@@ -24,8 +25,15 @@ public:
     Jeu();
 
     void initialiser();
+
+    // Version console
     void updateConsole(char commande);
     void updateTirConsole(float angleDegres);
+
+    // Version SDL
+    void updateSDL(const Uint8* etatClavier);
+    void renderSDL(SDL_Renderer* rendu) const;
+
     void genererEnnemisDebut();
 
     void tirerConsole(float angleDegres);

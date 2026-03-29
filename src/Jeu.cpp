@@ -6,6 +6,8 @@
 
 using namespace std;
 
+const int TAILLE_CASE_SDL = 32;
+
 Jeu::Jeu() {
     niveauActuel = 1;
     numeroVague = 1;
@@ -16,6 +18,7 @@ Jeu::Jeu() {
 void Jeu::initialiser() {
     srand(time(0));
 
+    // On place le joueur au centre de la carte
     joueur.setPosition(largeurCarte / 2, hauteurCarte / 2);
 
     genererEnnemisDebut();
@@ -52,6 +55,92 @@ void Jeu::updateTirConsole(float angleDegres) {
     gererCollisionsProjectilesEnnemis();
 }
 
+void Jeu::updateSDL(const Uint8* etatClavier) {
+    // On réutilise la logique de déplacement du joueur
+    if (etatClavier[SDL_SCANCODE_W]) {
+        joueur.deplacerAvecDirection('z', largeurCarte, hauteurCarte, ennemis);
+    }
+    if (etatClavier[SDL_SCANCODE_S]) {
+        joueur.deplacerAvecDirection('s', largeurCarte, hauteurCarte, ennemis);
+    }
+    if (etatClavier[SDL_SCANCODE_A]) {
+        joueur.deplacerAvecDirection('q', largeurCarte, hauteurCarte, ennemis);
+    }
+    if (etatClavier[SDL_SCANCODE_D]) {
+        joueur.deplacerAvecDirection('d', largeurCarte, hauteurCarte, ennemis);
+    }
+
+    deplacerProjectilesAllies();
+    gererCollisionsProjectilesEnnemis();
+
+    Position posJoueur = joueur.getPosition();
+    for (unsigned int i = 0; i < ennemis.size(); i++) {
+        ennemis[i].seDeplacerVersJoueur(posJoueur, joueur.getLargeur(), joueur.getHauteur());
+    }
+
+    gererCollisionsProjectilesEnnemis();
+}
+
+void Jeu::renderSDL(SDL_Renderer* rendu) const {
+    // On vide l'écran
+    SDL_SetRenderDrawColor(rendu, 30, 30, 30, 255);
+    SDL_RenderClear(rendu);
+
+    // Fond de la carte
+    SDL_Rect fondCarte;
+    fondCarte.x = 0;
+    fondCarte.y = 0;
+    fondCarte.w = largeurCarte * TAILLE_CASE_SDL;
+    fondCarte.h = hauteurCarte * TAILLE_CASE_SDL;
+
+    SDL_SetRenderDrawColor(rendu, 70, 120, 70, 255);
+    SDL_RenderFillRect(rendu, &fondCarte);
+
+    // Bordure rouge pour voir les limites de la map
+    SDL_SetRenderDrawColor(rendu, 220, 40, 40, 255);
+    SDL_RenderDrawRect(rendu, &fondCarte);
+
+    // Affichage du joueur
+    Position posJoueur = joueur.getPosition();
+
+    SDL_Rect rectJoueur;
+    rectJoueur.x = int(posJoueur.x * TAILLE_CASE_SDL);
+    rectJoueur.y = int(posJoueur.y * TAILLE_CASE_SDL);
+    rectJoueur.w = joueur.getLargeur() * TAILLE_CASE_SDL;
+    rectJoueur.h = joueur.getHauteur() * TAILLE_CASE_SDL;
+
+    SDL_SetRenderDrawColor(rendu, 50, 100, 255, 255);
+    SDL_RenderFillRect(rendu, &rectJoueur);
+
+    // Affichage des ennemis
+    for (unsigned int i = 0; i < ennemis.size(); i++) {
+        Position posEnnemi = ennemis[i].getPosition();
+
+        SDL_Rect rectEnnemi;
+        rectEnnemi.x = int(posEnnemi.x * TAILLE_CASE_SDL);
+        rectEnnemi.y = int(posEnnemi.y * TAILLE_CASE_SDL);
+        rectEnnemi.w = ennemis[i].getLargeur() * TAILLE_CASE_SDL;
+        rectEnnemi.h = ennemis[i].getHauteur() * TAILLE_CASE_SDL;
+
+        SDL_SetRenderDrawColor(rendu, 120, 50, 50, 255);
+        SDL_RenderFillRect(rendu, &rectEnnemi);
+    }
+
+    // Affichage des projectiles déjà existants
+    for (unsigned int i = 0; i < projectilesAllies.size(); i++) {
+        Position posProjectile = projectilesAllies[i].getPosition();
+
+        SDL_Rect rectProjectile;
+        rectProjectile.x = int(posProjectile.x * TAILLE_CASE_SDL + TAILLE_CASE_SDL / 4);
+        rectProjectile.y = int(posProjectile.y * TAILLE_CASE_SDL + TAILLE_CASE_SDL / 4);
+        rectProjectile.w = TAILLE_CASE_SDL / 2;
+        rectProjectile.h = TAILLE_CASE_SDL / 2;
+
+        SDL_SetRenderDrawColor(rendu, 255, 230, 80, 255);
+        SDL_RenderFillRect(rendu, &rectProjectile);
+    }
+}
+
 void Jeu::genererEnnemisDebut() {
     ennemis.clear();
 
@@ -76,6 +165,7 @@ void Jeu::genererEnnemisDebut() {
             float dy = centreEnnemiY - centreJoueurY;
             float distance = sqrt(dx * dx + dy * dy);
 
+            // On évite de faire apparaître les ennemis trop près du joueur
             if (distance >= 5) {
                 positionValide = true;
             }
@@ -113,6 +203,7 @@ void Jeu::deplacerProjectilesAllies() {
 
             Position pos = projectilesAllies[i].getPosition();
 
+            // Si le projectile sort de la carte, on le désactive
             if (pos.x < 0 || pos.x >= largeurCarte || pos.y < 0 || pos.y >= hauteurCarte) {
                 projectilesAllies[i].desactiver();
             }
