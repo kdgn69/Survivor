@@ -8,8 +8,8 @@ using namespace std;
 Jeu::Jeu() {
     niveauActuel = 1;
     numeroVague = 1;
-    largeurCarte = 40;
-    hauteurCarte = 20;
+    largeurCarte = 1920;
+    hauteurCarte = 1080;
 }
 
 void Jeu::initialiser() {
@@ -26,7 +26,6 @@ void Jeu::genererEnnemisDebut() {
     int centreJoueurY = int(posJoueur.y) + joueur.getHauteur() / 2;
 
     for (int i = 0; i < 6; i++) {
-        Ennemi e;
         bool positionValide = false;
         float x = 0;
         float y = 0;
@@ -48,7 +47,7 @@ void Jeu::genererEnnemisDebut() {
             }
         }
 
-        e.initialiser(x, y, "zombie", false, 100, 1, 1, 1);
+        Ennemi e(x, y, "zombie", false, 100, 2, 20, 20);
         ennemis.push_back(e);
     }
 }
