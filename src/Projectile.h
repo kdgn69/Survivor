@@ -3,6 +3,7 @@
 
 #include "Position.h"
 #include "Direction.h"
+#include "Rectangle.h"
 
 using namespace std;
 
@@ -19,6 +20,7 @@ public:
     void avancer();
 
     Position getPosition() const;
+    Rectangle getRectangle() const;
     bool estActif() const;
 
     void desactiver();

@@ -27,11 +27,11 @@ Ennemi::Ennemi(float x, float y, string type, bool attaqueDistance, int pv, floa
 }
 
 void Ennemi::seDeplacerVersJoueur(const Position& posJoueur, int largeurJoueur, int hauteurJoueur) {
-    float centreEnnemiX = pos.x + largeur / 2.0;
-    float centreEnnemiY = pos.y + hauteur / 2.0;
+    float centreEnnemiX = pos.x + largeur / 2;
+    float centreEnnemiY = pos.y + hauteur / 2;
 
-    float centreJoueurX = posJoueur.x + largeurJoueur / 2.0;
-    float centreJoueurY = posJoueur.y + hauteurJoueur / 2.0;
+    float centreJoueurX = posJoueur.x + largeurJoueur / 2;
+    float centreJoueurY = posJoueur.y + hauteurJoueur / 2;
 
     float dx = centreJoueurX - centreEnnemiX;
     float dy = centreJoueurY - centreEnnemiY;
@@ -46,8 +46,8 @@ void Ennemi::seDeplacerVersJoueur(const Position& posJoueur, int largeurJoueur, 
         Rectangle futurRect = getRectangleAvecPosition(nouveauX, nouveauY);
 
         Rectangle rectJoueur;
-        rectJoueur.x = int(posJoueur.x);
-        rectJoueur.y = int(posJoueur.y);
+        rectJoueur.x = posJoueur.x;
+        rectJoueur.y = posJoueur.y;
         rectJoueur.largeur = largeurJoueur;
         rectJoueur.hauteur = hauteurJoueur;
 
@@ -77,8 +77,8 @@ int Ennemi::getHauteur() const {
 
 Rectangle Ennemi::getRectangle() const {
     Rectangle r;
-    r.x = int(pos.x);
-    r.y = int(pos.y);
+    r.x = pos.x;
+    r.y = pos.y;
     r.largeur = largeur;
     r.hauteur = hauteur;
     return r;
@@ -86,8 +86,8 @@ Rectangle Ennemi::getRectangle() const {
 
 Rectangle Ennemi::getRectangleAvecPosition(float x, float y) const {
     Rectangle r;
-    r.x = int(x);
-    r.y = int(y);
+    r.x = x;
+    r.y = y;
     r.largeur = largeur;
     r.hauteur = hauteur;
     return r;

@@ -9,7 +9,6 @@ using namespace std;
 
 const int LARGEUR_FENETRE = 1920;
 const int HAUTEUR_FENETRE = 1080;
-const int TAILLE_CASE_SDL = 1;
 
 // convertir la position de la souris en angle
 float calculerAngleDegres(const Jeu& jeu, int sourisX, int sourisY) {
@@ -36,8 +35,8 @@ void afficherJeuSDL(SDL_Renderer* rendu, const Jeu& jeu) {
     SDL_FRect fondCarte;
     fondCarte.x = 0;
     fondCarte.y = 0;
-    fondCarte.w = jeu.getLargeurCarte() * TAILLE_CASE_SDL;
-    fondCarte.h = jeu.getHauteurCarte() * TAILLE_CASE_SDL;
+    fondCarte.w = jeu.getLargeurCarte();
+    fondCarte.h = jeu.getHauteurCarte();
 
     SDL_SetRenderDrawColor(rendu, 70, 120, 70, 255);
     SDL_RenderFillRectF(rendu, &fondCarte);
@@ -50,10 +49,10 @@ void afficherJeuSDL(SDL_Renderer* rendu, const Jeu& jeu) {
     Position posJoueur = jeu.getJoueur().getPosition();
 
     SDL_FRect rectJoueur;
-    rectJoueur.x = int(posJoueur.x * TAILLE_CASE_SDL);
-    rectJoueur.y = int(posJoueur.y * TAILLE_CASE_SDL);
-    rectJoueur.w = jeu.getJoueur().getLargeur() * TAILLE_CASE_SDL;
-    rectJoueur.h = jeu.getJoueur().getHauteur() * TAILLE_CASE_SDL;
+    rectJoueur.x = posJoueur.x ;
+    rectJoueur.y = posJoueur.y;
+    rectJoueur.w = jeu.getJoueur().getLargeur();
+    rectJoueur.h = jeu.getJoueur().getHauteur();
 
     SDL_SetRenderDrawColor(rendu, 50, 100, 255, 255);
     SDL_RenderFillRectF(rendu, &rectJoueur);
@@ -64,10 +63,10 @@ void afficherJeuSDL(SDL_Renderer* rendu, const Jeu& jeu) {
         Position posEnnemi = ennemis[i].getPosition();
 
         SDL_FRect rectEnnemi;
-        rectEnnemi.x = int(posEnnemi.x * TAILLE_CASE_SDL);
-        rectEnnemi.y = int(posEnnemi.y * TAILLE_CASE_SDL);
-        rectEnnemi.w = ennemis[i].getLargeur() * TAILLE_CASE_SDL;
-        rectEnnemi.h = ennemis[i].getHauteur() * TAILLE_CASE_SDL;
+        rectEnnemi.x = posEnnemi.x;
+        rectEnnemi.y = posEnnemi.y;
+        rectEnnemi.w = ennemis[i].getLargeur();
+        rectEnnemi.h = ennemis[i].getHauteur();
 
         SDL_SetRenderDrawColor(rendu, 120, 50, 50, 255);
         SDL_RenderFillRectF(rendu, &rectEnnemi);
@@ -79,8 +78,8 @@ void afficherJeuSDL(SDL_Renderer* rendu, const Jeu& jeu) {
         Position posProjectile = projectiles[i].getPosition();
 
         SDL_FRect rectProjectile;
-        rectProjectile.x = int(posProjectile.x * TAILLE_CASE_SDL);
-        rectProjectile.y = int(posProjectile.y * TAILLE_CASE_SDL);
+        rectProjectile.x = posProjectile.x;
+        rectProjectile.y = posProjectile.y;
         rectProjectile.w = 6;
         rectProjectile.h = 6;
 

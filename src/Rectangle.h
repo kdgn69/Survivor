@@ -2,12 +2,11 @@
 #define RECTANGLE_H
 
 struct Rectangle {
-    int x;
-    int y;
-    int largeur;
-    int hauteur;
+    float x;
+    float y;
+    float largeur;
+    float hauteur;
 };
-
 bool collisionRectangles(const Rectangle& a, const Rectangle& b);
 
 #endif

@@ -1,4 +1,5 @@
 #include "Projectile.h"
+#include "Rectangle.h"
 #include <iostream>
 
 using namespace std;
@@ -29,6 +30,15 @@ void Projectile::avancer() {
 
 Position Projectile::getPosition() const {
     return pos;
+}
+
+Rectangle Projectile::getRectangle() const {
+    Rectangle r;
+    r.x = pos.x;
+    r.y = pos.y;
+    r.largeur = 6;
+    r.hauteur = 6;
+    return r;
 }
 
 bool Projectile::estActif() const {

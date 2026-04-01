@@ -31,7 +31,7 @@ public:
     void avancerTour();
 
     void deplacerProjectilesAllies();
-    void gererCollisionsProjectilesEnnemis();
+    void gererCollisionsProjectilesAllieSurLesEnnemis();
 
     Joueur& getJoueur();
     const Joueur& getJoueur() const;

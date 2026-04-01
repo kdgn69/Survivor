@@ -44,11 +44,11 @@ void Joueur::deplacerAvecDirection(char direction, int largeurCarte, int hauteur
     if (nouveauY < 0) {
         nouveauY = 0;
     }
-    if (nouveauX >= largeurCarte) {
-        nouveauX = largeurCarte - 1;
+    if (nouveauX + largeur > largeurCarte) {
+    nouveauX = largeurCarte - largeur;
     }
-    if (nouveauY >= hauteurCarte) {
-        nouveauY = hauteurCarte - 1;
+    if (nouveauY + hauteur > hauteurCarte) {
+    nouveauY = hauteurCarte - hauteur;
     }
 
     Rectangle futurRect = getRectangleAvecPosition(nouveauX, nouveauY);
@@ -85,8 +85,8 @@ int Joueur::getHauteur() const {
 
 Rectangle Joueur::getRectangle() const {
     Rectangle r;
-    r.x = int(pos.x);
-    r.y = int(pos.y);
+    r.x = pos.x;
+    r.y = pos.y;
     r.largeur = largeur;
     r.hauteur = hauteur;
     return r;
@@ -94,8 +94,8 @@ Rectangle Joueur::getRectangle() const {
 
 Rectangle Joueur::getRectangleAvecPosition(float x, float y) const {
     Rectangle r;
-    r.x = int(x);
-    r.y = int(y);
+    r.x = x;
+    r.y = y;
     r.largeur = largeur;
     r.hauteur = hauteur;
     return r;

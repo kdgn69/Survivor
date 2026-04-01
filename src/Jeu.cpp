@@ -22,8 +22,8 @@ void Jeu::genererEnnemisDebut() {
     ennemis.clear();
 
     Position posJoueur = joueur.getPosition();
-    int centreJoueurX = int(posJoueur.x) + joueur.getLargeur() / 2;
-    int centreJoueurY = int(posJoueur.y) + joueur.getHauteur() / 2;
+    float centreJoueurX = posJoueur.x + joueur.getLargeur() / 2;
+    float centreJoueurY = posJoueur.y + joueur.getHauteur() / 2;
 
     for (int i = 0; i < 6; i++) {
         bool positionValide = false;
@@ -34,15 +34,15 @@ void Jeu::genererEnnemisDebut() {
             x = rand() % largeurCarte;
             y = rand() % hauteurCarte;
 
-            int centreEnnemiX = int(x);
-            int centreEnnemiY = int(y);
+            float centreEnnemiX = x;
+            float centreEnnemiY = y;
 
             float dx = centreEnnemiX - centreJoueurX;
             float dy = centreEnnemiY - centreJoueurY;
             float distance = sqrt(dx * dx + dy * dy);
 
             // On évite de faire apparaître un ennemi trop près du joueur
-            if (distance >= 5) {
+            if (distance >= 100) {
                 positionValide = true;
             }
         }
@@ -59,7 +59,7 @@ void Jeu::deplacerJoueur(char direction) {
 }
 
 void Jeu::tirerAngle(float angleDegres) {
-    float angleRadians = angleDegres * 3.14159265f / 180.0f;
+    float angleRadians = angleDegres * 3.14159265f / 180;
 
     float dx = cos(angleRadians);
     float dy = -sin(angleRadians);
@@ -82,7 +82,7 @@ void Jeu::tirerAngle(float angleDegres) {
 void Jeu::avancerTour() {
     // Les projectiles avancent d'abord
     deplacerProjectilesAllies();
-    gererCollisionsProjectilesEnnemis();
+    gererCollisionsProjectilesAllieSurLesEnnemis();
 
     // Puis les ennemis jouent leur tour
     Position posJoueur = joueur.getPosition();
@@ -90,7 +90,7 @@ void Jeu::avancerTour() {
         ennemis[i].seDeplacerVersJoueur(posJoueur, joueur.getLargeur(), joueur.getHauteur());
     }
 
-    gererCollisionsProjectilesEnnemis();
+    gererCollisionsProjectilesAllieSurLesEnnemis();
 }
 
 void Jeu::deplacerProjectilesAllies() {
@@ -118,29 +118,32 @@ void Jeu::deplacerProjectilesAllies() {
     projectilesAllies = nouveauxProjectiles;
 }
 
-void Jeu::gererCollisionsProjectilesEnnemis() {
+void Jeu::gererCollisionsProjectilesAllieSurLesEnnemis() {
     vector<Projectile> nouveauxProjectiles;
     vector<Ennemi> nouveauxEnnemis;
     vector<bool> ennemiTouche(ennemis.size(), false);
 
     for (unsigned int i = 0; i < projectilesAllies.size(); i++) {
         bool projectileATouche = false;
-        Position posProjectile = projectilesAllies[i].getPosition();
+        Rectangle rectProjectile = projectilesAllies[i].getRectangle();
 
         for (unsigned int j = 0; j < ennemis.size(); j++) {
-            Position posEnnemi = ennemis[j].getPosition();
+            Rectangle rectEnnemi = ennemis[j].getRectangle();
 
-            if (int(posProjectile.x) == int(posEnnemi.x) && int(posProjectile.y) == int(posEnnemi.y)) {
+            // Si le rectangle du projectile touche celui d'un ennemi,
+            // on supprime le projectile et on marque l'ennemi comme touché
+            if (collisionRectangles(rectProjectile, rectEnnemi)) {
                 projectileATouche = true;
                 ennemiTouche[j] = true;
+                break;
             }
         }
-
+        // On garde seulement les projectiles qui n'ont touché personne
         if (!projectileATouche) {
             nouveauxProjectiles.push_back(projectilesAllies[i]);
         }
     }
-
+    // On garde seulement les ennemis qui n'ont pas été touchés
     for (unsigned int j = 0; j < ennemis.size(); j++) {
         if (!ennemiTouche[j]) {
             nouveauxEnnemis.push_back(ennemis[j]);
