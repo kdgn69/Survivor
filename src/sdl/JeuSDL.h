@@ -6,10 +6,8 @@
 
 using namespace std;
 
-// Affiche l'état du jeu en SDL
+float calculerAngleDegres(const Jeu& jeu, int sourisX, int sourisY);
 void afficherJeuSDL(SDL_Renderer* rendu, const Jeu& jeu);
-
-// Lance la boucle complète du mode SDL
 void BoucleSDL(Jeu& jeu);
 
 #endif 

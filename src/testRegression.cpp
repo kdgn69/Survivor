@@ -50,7 +50,7 @@ void testJoueurBloqueParBord() {
 
 void testEnnemiSeRapprocheDuJoueur() {
     Ennemi e;
-    e.initialiser(10, 10, "zombie", false, 100, 1, 1, 1);
+    Ennemi e(10, 10, "zombie", false, 100, 1, 1, 1);
 
     Position posJoueur;
     posJoueur.x = 15;
