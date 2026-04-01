@@ -10,14 +10,18 @@ Projectile::Projectile() {
     direction.dx = 0;
     direction.dy = 0;
     actif = false;
+    degats = 0;
+    largeur = 6;
+    hauteur = 6;
 }
 
-void Projectile::initialiser(float x, float y, float dx, float dy) {
+void Projectile::initialiser(float x, float y, float dx, float dy, int deg) {
     pos.x = x;
     pos.y = y;
     direction.dx = dx;
     direction.dy = dy;
     actif = true;
+    degats = deg;
 }
 
 void Projectile::avancer() {
@@ -36,13 +40,25 @@ Rectangle Projectile::getRectangle() const {
     Rectangle r;
     r.x = pos.x;
     r.y = pos.y;
-    r.largeur = 6;
-    r.hauteur = 6;
+    r.largeur = largeur;
+    r.hauteur = hauteur;
     return r;
 }
 
 bool Projectile::estActif() const {
     return actif;
+}
+
+int Projectile::getDegats() const {
+    return degats;
+}
+
+float Projectile::getLargeur() const {
+    return largeur;
+}
+
+float Projectile::getHauteur() const {
+    return hauteur;
 }
 
 void Projectile::desactiver() {

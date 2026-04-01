@@ -49,7 +49,6 @@ void testJoueurBloqueParBord() {
 }
 
 void testEnnemiSeRapprocheDuJoueur() {
-    Ennemi e;
     Ennemi e(10, 10, "zombie", false, 100, 1, 1, 1);
 
     Position posJoueur;
@@ -61,6 +60,7 @@ void testEnnemiSeRapprocheDuJoueur() {
     Position posEnnemi = e.getPosition();
 
     assert(posEnnemi.x > 10);
+    assert(int(posEnnemi.y) == 10);
 
     cout << "testEnnemiSeRapprocheDuJoueur OK" << endl;
 }

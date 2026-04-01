@@ -5,11 +5,11 @@
 
 using namespace std;
 
-Jeu::Jeu() {
+Jeu::Jeu(int largeur, int hauteur) {
     niveauActuel = 1;
     numeroVague = 1;
-    largeurCarte = 1920;
-    hauteurCarte = 1080;
+    largeurCarte = largeur;
+    hauteurCarte = hauteur;
 }
 
 void Jeu::initialiser() {
@@ -47,7 +47,7 @@ void Jeu::genererEnnemisDebut() {
             }
         }
 
-        Ennemi e(x, y, "zombie", false, 100, 2, 20, 20);
+        Ennemi e(x, y, "zombie", false, 5, 2, 20, 20);
         ennemis.push_back(e);
     }
 }
@@ -66,8 +66,11 @@ void Jeu::tirerAngle(float angleDegres) {
 
     Position posJoueur = joueur.getPosition();
 
-    float xDepart = posJoueur.x + dx;
-    float yDepart = posJoueur.y + dy;
+    float centreJoueurX = posJoueur.x + joueur.getLargeur() / 2;
+    float centreJoueurY = posJoueur.y + joueur.getHauteur() / 2;
+
+    float xDepart = centreJoueurX;
+    float yDepart = centreJoueurY;
 
     // Si le projectile démarre hors de la carte, on annule
     if (xDepart < 0 || xDepart >= largeurCarte || yDepart < 0 || yDepart >= hauteurCarte) {
@@ -75,7 +78,7 @@ void Jeu::tirerAngle(float angleDegres) {
     }
 
     Projectile p;
-    p.initialiser(xDepart, yDepart, dx, dy);
+    p.initialiser(xDepart, yDepart, dx, dy, 10);
     projectilesAllies.push_back(p);
 }
 
@@ -121,35 +124,36 @@ void Jeu::deplacerProjectilesAllies() {
 void Jeu::gererCollisionsProjectilesAllieSurLesEnnemis() {
     vector<Projectile> nouveauxProjectiles;
     vector<Ennemi> nouveauxEnnemis;
-    vector<bool> ennemiTouche(ennemis.size(), false);
 
+    // On parcourt tous les projectiles
     for (unsigned int i = 0; i < projectilesAllies.size(); i++) {
         bool projectileATouche = false;
         Rectangle rectProjectile = projectilesAllies[i].getRectangle();
 
+        // On teste collision avec chaque ennemi
         for (unsigned int j = 0; j < ennemis.size(); j++) {
             Rectangle rectEnnemi = ennemis[j].getRectangle();
 
-            // Si le rectangle du projectile touche celui d'un ennemi,
-            // on supprime le projectile et on marque l'ennemi comme touché
             if (collisionRectangles(rectProjectile, rectEnnemi)) {
+                // on enlève des PV à l'ennemi
+                ennemis[j].prendreDegats(projectilesAllies[i].getDegats());
+
                 projectileATouche = true;
-                ennemiTouche[j] = true;
-                break;
+                break; // un projectile ne touche qu'un ennemi
             }
         }
-        // On garde seulement les projectiles qui n'ont touché personne
+        // si le projectile n'a rien touché, on le garde
         if (!projectileATouche) {
             nouveauxProjectiles.push_back(projectilesAllies[i]);
         }
     }
-    // On garde seulement les ennemis qui n'ont pas été touchés
+    // on garde seulement les ennemis encore en vie
     for (unsigned int j = 0; j < ennemis.size(); j++) {
-        if (!ennemiTouche[j]) {
+        if (!ennemis[j].estMort()) {
             nouveauxEnnemis.push_back(ennemis[j]);
         }
     }
-
+    // mise à jour des listes
     projectilesAllies = nouveauxProjectiles;
     ennemis = nouveauxEnnemis;
 }

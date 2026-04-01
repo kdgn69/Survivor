@@ -59,6 +59,14 @@ void Ennemi::seDeplacerVersJoueur(const Position& posJoueur, int largeurJoueur, 
     }
 }
 
+void Ennemi::prendreDegats(int degats) {
+    vie -= degats;
+}
+
+bool Ennemi::estMort() const {
+    return vie <= 0;
+}
+
 Position Ennemi::getPosition() const {
     return pos;
 }

@@ -21,7 +21,7 @@ private:
     vector<Projectile> projectilesAllies;
 
 public:
-    Jeu();
+    Jeu(int largeur, int hauteur);
 
     void initialiser();
     void genererEnnemisDebut();

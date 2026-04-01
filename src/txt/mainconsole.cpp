@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-    Jeu jeu;
+    Jeu jeu(40, 20);
     Boucle(jeu);
     return 0;
 }

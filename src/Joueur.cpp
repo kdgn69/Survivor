@@ -58,6 +58,7 @@ void Joueur::deplacerAvecDirection(char direction, int largeurCarte, int hauteur
         Rectangle rectEnnemi = ennemis[i].getRectangle();
         if (collisionRectangles(futurRect, rectEnnemi)) {
             collision = true;
+            break;
         }
     }
 
