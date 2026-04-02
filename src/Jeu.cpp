@@ -58,11 +58,11 @@ void Jeu::deplacerJoueur(char direction) {
     }
 }
 
-void Jeu::tirerAngle(float angleDegres) {
+void Jeu::tirer(float angleDegres) {
     float angleRadians = angleDegres * 3.14159265f / 180;
 
-    float dx = cos(angleRadians);
-    float dy = -sin(angleRadians);
+    float dx = cos(angleRadians) * 3;
+    float dy = -sin(angleRadians) * 3;
 
     Position posJoueur = joueur.getPosition();
 
@@ -77,8 +77,7 @@ void Jeu::tirerAngle(float angleDegres) {
         return;
     }
 
-    Projectile p;
-    p.initialiser(xDepart, yDepart, dx, dy, 10);
+    Projectile p(xDepart, yDepart, dx, dy, 10, 5, 5);
     projectilesAllies.push_back(p);
 }
 

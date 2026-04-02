@@ -27,7 +27,7 @@ public:
     void genererEnnemisDebut();
 
     void deplacerJoueur(char direction);
-    void tirerAngle(float angleDegres);
+    void tirer(float angleDegres);
     void avancerTour();
 
     void deplacerProjectilesAllies();

@@ -19,7 +19,7 @@ private:
 public:
     Projectile();
 
-    void initialiser(float x, float y, float dx, float dy, int deg);
+    Projectile(float x, float y, float dx, float dy, int deg, float larg, float taille);
     void avancer();
 
     Position getPosition() const;

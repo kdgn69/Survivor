@@ -66,7 +66,7 @@ void Boucle(Jeu& jeu) {
             cout << "Angle de tir : ";
             cin >> angle;
 
-            jeu.tirerAngle(angle);
+            jeu.tirer(angle);
             jeu.avancerTour();
         }
         else if (commande == 'z' || commande == 'q' || commande == 's' || commande == 'd') {

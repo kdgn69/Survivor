@@ -20,8 +20,7 @@ void testCollisionRectangles() {
 }
 
 void testProjectileAvance() {
-    Projectile p;
-    p.initialiser(5, 5, 1, 0);
+    Projectile p(5, 5, 1, 0, 1, 1, 1);
     p.avancer();
 
     Position pos = p.getPosition();

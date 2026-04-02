@@ -80,8 +80,8 @@ void afficherJeuSDL(SDL_Renderer* rendu, const Jeu& jeu) {
         SDL_FRect rectProjectile;
         rectProjectile.x = posProjectile.x;
         rectProjectile.y = posProjectile.y;
-        rectProjectile.w = 6;
-        rectProjectile.h = 6;
+        rectProjectile.w = projectiles[i].getLargeur();
+        rectProjectile.h = projectiles[i].getHauteur();
 
         SDL_SetRenderDrawColor(rendu, 255, 230, 80, 255);
         SDL_RenderFillRectF(rendu, &rectProjectile);
@@ -126,7 +126,7 @@ void BoucleSDL(Jeu& jeu) {
     SDL_Event event;
 
     Uint32 dernierTir = 0;
-    Uint32 intervalleTir = 150;
+    Uint32 intervalleTir = 500;
 
     while (!quitter) {
         while (SDL_PollEvent(&event)) {
@@ -159,7 +159,7 @@ void BoucleSDL(Jeu& jeu) {
         Uint32 tempsActuel = SDL_GetTicks();
         if (tempsActuel - dernierTir >= intervalleTir) {
             float angle = calculerAngleDegres(jeu, sourisX, sourisY);
-            jeu.tirerAngle(angle);
+            jeu.tirer(angle);
             dernierTir = tempsActuel;
         }
 

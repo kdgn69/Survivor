@@ -15,13 +15,15 @@ Projectile::Projectile() {
     hauteur = 6;
 }
 
-void Projectile::initialiser(float x, float y, float dx, float dy, int deg) {
+Projectile::Projectile(float x, float y, float dx, float dy, int deg, float larg, float taille) {
     pos.x = x;
     pos.y = y;
     direction.dx = dx;
     direction.dy = dy;
     actif = true;
     degats = deg;
+    largeur = larg;
+    hauteur = taille;
 }
 
 void Projectile::avancer() {
