@@ -20,34 +20,35 @@ void Jeu::initialiser() {
 
 void Jeu::genererEnnemisDebut() {
     ennemis.clear();
+    genererEnnemis(6, "zombie", false, 5, 2, 20, 20, 100);
+}
 
+void Jeu::genererEnnemis(int nombre, const string& type, bool attaqueDistance, int pv, float vitesse, int largeur, int hauteur, float distanceMinJoueur) {
     Position posJoueur = joueur.getPosition();
-    float centreJoueurX = posJoueur.x;
-    float centreJoueurY = posJoueur.y;
 
-    for (int i = 0; i < 6; i++) {
+    float demiLargeur = largeur / 2;
+    float demiHauteur = hauteur / 2;
+
+    for (int i = 0; i < nombre; i++) {
         bool positionValide = false;
-        float x = 0;
-        float y = 0;
+        float centreX = 0;
+        float centreY = 0;
 
         while (!positionValide) {
-            x = rand() % largeurCarte;
-            y = rand() % hauteurCarte;
+            centreX = demiLargeur + rand() % int(largeurCarte - largeur);
+            centreY = demiHauteur + rand() % int(hauteurCarte - hauteur);
 
-            float centreEnnemiX = x;
-            float centreEnnemiY = y;
-
-            float dx = centreEnnemiX - centreJoueurX;
-            float dy = centreEnnemiY - centreJoueurY;
+            float dx = centreX - posJoueur.x;
+            float dy = centreY - posJoueur.y;
             float distance = sqrt(dx * dx + dy * dy);
 
-            // On évite de faire apparaître un ennemi trop près du joueur
-            if (distance >= 100) {
+            //Pour ne pas faire spawn l'ennemi trop près du joueur
+            if (distance >= distanceMinJoueur) {
                 positionValide = true;
             }
         }
 
-        Ennemi e(x, y, "zombie", false, 5, 2, 20, 20);
+        Ennemi e(centreX, centreY, type, attaqueDistance, pv, vitesse, largeur, hauteur);
         ennemis.push_back(e);
     }
 }
@@ -61,23 +62,12 @@ void Jeu::deplacerJoueur(char direction) {
 void Jeu::tirer(float angleDegres) {
     float angleRadians = angleDegres * 3.14159265f / 180;
 
-    float dx = cos(angleRadians) * 3;
-    float dy = -sin(angleRadians) * 3;
+    float dx = cos(angleRadians);
+    float dy = -sin(angleRadians);
 
     Position posJoueur = joueur.getPosition();
 
-    float centreJoueurX = posJoueur.x + joueur.getLargeur() / 2;
-    float centreJoueurY = posJoueur.y + joueur.getHauteur() / 2;
-
-    float xDepart = centreJoueurX;
-    float yDepart = centreJoueurY;
-
-    // Si le projectile démarre hors de la carte, on annule
-    if (xDepart < 0 || xDepart >= largeurCarte || yDepart < 0 || yDepart >= hauteurCarte) {
-        return;
-    }
-
-    Projectile p(xDepart, yDepart, dx, dy, 10, 5, 5);
+    Projectile p(posJoueur.x, posJoueur.y, dx, dy, 10, 5, 5);
     projectilesAllies.push_back(p);
 }
 

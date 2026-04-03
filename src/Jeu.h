@@ -25,6 +25,7 @@ public:
 
     void initialiser();
     void genererEnnemisDebut();
+    void genererEnnemis(int nombre, const string& type, bool attaqueDistance, int pv, float vitesse, int largeur, int hauteur, float distanceMinJoueur);
 
     void deplacerJoueur(char direction);
     void tirer(float angleDegres);
