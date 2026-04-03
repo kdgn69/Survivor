@@ -23,32 +23,26 @@ void Joueur::deplacerAvecDirection(char direction, int largeurCarte, int hauteur
     float nouveauX = pos.x;
     float nouveauY = pos.y;
 
-    if (direction == 'z') {
-        nouveauY -= vitesse;
-    }
-    if (direction == 's') {
-        nouveauY += vitesse;
-    }
-    if (direction == 'q') {
-        nouveauX -= vitesse;
-    }
-    if (direction == 'd') {
-        nouveauX += vitesse;
-    }
+    if (direction == 'z') nouveauY -= vitesse;
+    if (direction == 's') nouveauY += vitesse;
+    if (direction == 'q') nouveauX -= vitesse;
+    if (direction == 'd') nouveauX += vitesse;
 
     // On empêche le joueur de sortir de la carte
+    float demiLargeur = largeur / 2.;
+    float demiHauteur = hauteur / 2.;
 
-    if (nouveauX < 0) {
-        nouveauX = 0;
+    if (nouveauX - demiLargeur < 0) {
+        nouveauX = demiLargeur;
     }
-    if (nouveauY < 0) {
-        nouveauY = 0;
+    if (nouveauY - demiHauteur < 0) {
+        nouveauY = demiHauteur;
     }
-    if (nouveauX + largeur > largeurCarte) {
-    nouveauX = largeurCarte - largeur;
+    if (nouveauX + demiLargeur > largeurCarte) {
+        nouveauX = largeurCarte - demiLargeur;
     }
-    if (nouveauY + hauteur > hauteurCarte) {
-    nouveauY = hauteurCarte - hauteur;
+    if (nouveauY + demiHauteur > hauteurCarte) {
+        nouveauY = hauteurCarte - demiHauteur;
     }
 
     Rectangle futurRect = getRectangleAvecPosition(nouveauX, nouveauY);
@@ -86,17 +80,17 @@ int Joueur::getHauteur() const {
 
 Rectangle Joueur::getRectangle() const {
     Rectangle r;
-    r.x = pos.x;
-    r.y = pos.y;
+    r.x = pos.x - largeur / 2;
+    r.y = pos.y - hauteur / 2;
     r.largeur = largeur;
     r.hauteur = hauteur;
     return r;
 }
 
-Rectangle Joueur::getRectangleAvecPosition(float x, float y) const {
+Rectangle Joueur::getRectangleAvecPosition(float centreX, float centreY) const {
     Rectangle r;
-    r.x = x;
-    r.y = y;
+    r.x = centreX - largeur / 2;
+    r.y = centreY - hauteur / 2;
     r.largeur = largeur;
     r.hauteur = hauteur;
     return r;
