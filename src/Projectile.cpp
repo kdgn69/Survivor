@@ -40,8 +40,8 @@ Position Projectile::getPosition() const {
 
 Rectangle Projectile::getRectangle() const {
     Rectangle r;
-    r.x = pos.x;
-    r.y = pos.y;
+    r.x = pos.x - largeur / 2;
+    r.y = pos.y - hauteur / 2;
     r.largeur = largeur;
     r.hauteur = hauteur;
     return r;
