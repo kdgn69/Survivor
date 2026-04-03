@@ -6,8 +6,21 @@
 
 using namespace std;
 
-float calculerAngleDegres(const Jeu& jeu, int sourisX, int sourisY);
-void afficherJeuSDL(SDL_Renderer* rendu, const Jeu& jeu);
-void BoucleSDL(Jeu& jeu);
+class JeuSDL {
+private:
+    Jeu jeu;
+    SDL_Window* fenetre;
+    SDL_Renderer* rendu;
 
-#endif 
+    float calculerAngleJoueurVersSouris(int sourisX, int sourisY) const;
+
+public:
+    JeuSDL();
+
+    void afficher() const;
+    void boucle();
+
+    const Jeu& getJeu() const;
+};
+
+#endif

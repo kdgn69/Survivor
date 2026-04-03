@@ -35,14 +35,14 @@ void testJoueurBloqueParBord() {
     Joueur j;
     vector<Ennemi> ennemis;
 
-    j.setPosition(0, 0);
+    j.setPosition(10, 10);
     j.deplacerAvecDirection('q', 40, 20, ennemis);
     j.deplacerAvecDirection('z', 40, 20, ennemis);
 
     Position pos = j.getPosition();
 
-    assert(int(pos.x) == 0);
-    assert(int(pos.y) == 0);
+    assert(int(pos.x) == 10);
+    assert(int(pos.y) == 10);
 
     cout << "testJoueurBloqueParBord OK" << endl;
 }

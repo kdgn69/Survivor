@@ -9,7 +9,6 @@ class Arme {
 private:
     int degats;
     float cadence;
-    int armeChoisie;
 
 public:
     void tirer () ;

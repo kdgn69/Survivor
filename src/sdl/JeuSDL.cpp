@@ -11,7 +11,7 @@ const int LARGEUR_FENETRE = 1920;
 const int HAUTEUR_FENETRE = 1080;
 
 // convertir la position de la souris en angle
-float calculerAngleDegres(const Jeu& jeu, int sourisX, int sourisY) {
+float calculerAngleJoueurVersSouris(const Jeu& jeu, int sourisX, int sourisY) {
     Position posJoueur = jeu.getJoueur().getPosition();
 
     float centreJoueurX = posJoueur.x + jeu.getJoueur().getLargeur() / 2;
@@ -158,7 +158,7 @@ void BoucleSDL(Jeu& jeu) {
 
         Uint32 tempsActuel = SDL_GetTicks();
         if (tempsActuel - dernierTir >= intervalleTir) {
-            float angle = calculerAngleDegres(jeu, sourisX, sourisY);
+            float angle = calculerAngleJoueurVersSouris(jeu, sourisX, sourisY);
             jeu.tirer(angle);
             dernierTir = tempsActuel;
         }

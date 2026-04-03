@@ -5,10 +5,15 @@
 
 using namespace std;
 
-// Affiche la grille texte du jeu
-void afficherJeuConsole(const Jeu& jeu);
+class JeuConsole {
+private:
+    Jeu jeu;
 
-// Gère la boucle complète du mode texte
-void Boucle(Jeu& jeu);
+public:
+    JeuConsole();
 
-#endif 
+    void afficher() const;
+    void boucle();
+};
+
+#endif

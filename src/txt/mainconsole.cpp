@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-    Jeu jeu(40, 20);
-    Boucle(jeu);
+    JeuConsole jeuConsole;
+    jeuConsole.boucle();
     return 0;
 }
