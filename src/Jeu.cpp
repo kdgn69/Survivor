@@ -5,11 +5,11 @@
 
 using namespace std;
 
-Jeu::Jeu(int largeur, int hauteur) {
+Jeu::Jeu() {
     niveauActuel = 1;
     numeroVague = 1;
-    largeurCarte = largeur;
-    hauteurCarte = hauteur;
+    largeurCarte = 1920;
+    hauteurCarte = 1080;
 }
 
 void Jeu::initialiser() {
@@ -22,8 +22,8 @@ void Jeu::genererEnnemisDebut() {
     ennemis.clear();
 
     Position posJoueur = joueur.getPosition();
-    float centreJoueurX = posJoueur.x + joueur.getLargeur() / 2;
-    float centreJoueurY = posJoueur.y + joueur.getHauteur() / 2;
+    float centreJoueurX = posJoueur.x;
+    float centreJoueurY = posJoueur.y;
 
     for (int i = 0; i < 6; i++) {
         bool positionValide = false;

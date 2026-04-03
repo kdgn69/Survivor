@@ -27,18 +27,11 @@ Ennemi::Ennemi(float x, float y, string type, bool attaqueDistance, int pv, floa
 }
 
 void Ennemi::seDeplacerVersJoueur(const Position& posJoueur, int largeurJoueur, int hauteurJoueur) {
-    float centreEnnemiX = pos.x + largeur / 2;
-    float centreEnnemiY = pos.y + hauteur / 2;
-
-    float centreJoueurX = posJoueur.x + largeurJoueur / 2;
-    float centreJoueurY = posJoueur.y + hauteurJoueur / 2;
-
-    float dx = centreJoueurX - centreEnnemiX;
-    float dy = centreJoueurY - centreEnnemiY;
+    float dx = posJoueur.x - pos.x;
+    float dy = posJoueur.y - pos.y;
 
     float distanceJoueur = sqrt(dx * dx + dy * dy);
 
-    // On évite une division par 0 si l'ennemi est déjà exactement sur la cible
     if (distanceJoueur > 0) {
         float nouveauX = pos.x + (dx / distanceJoueur) * vitesse;
         float nouveauY = pos.y + (dy / distanceJoueur) * vitesse;
@@ -46,12 +39,11 @@ void Ennemi::seDeplacerVersJoueur(const Position& posJoueur, int largeurJoueur, 
         Rectangle futurRect = getRectangleAvecPosition(nouveauX, nouveauY);
 
         Rectangle rectJoueur;
-        rectJoueur.x = posJoueur.x;
-        rectJoueur.y = posJoueur.y;
+        rectJoueur.x = posJoueur.x - largeurJoueur / 2;
+        rectJoueur.y = posJoueur.y - hauteurJoueur / 2;
         rectJoueur.largeur = largeurJoueur;
         rectJoueur.hauteur = hauteurJoueur;
 
-        // Si l'ennemi toucherait le joueur, il s'arrête juste avant
         if (!collisionRectangles(futurRect, rectJoueur)) {
             pos.x = nouveauX;
             pos.y = nouveauY;
@@ -85,17 +77,17 @@ int Ennemi::getHauteur() const {
 
 Rectangle Ennemi::getRectangle() const {
     Rectangle r;
-    r.x = pos.x;
-    r.y = pos.y;
+    r.x = pos.x - largeur / 2;
+    r.y = pos.y - hauteur / 2;
     r.largeur = largeur;
     r.hauteur = hauteur;
     return r;
 }
 
-Rectangle Ennemi::getRectangleAvecPosition(float x, float y) const {
+Rectangle Ennemi::getRectangleAvecPosition(float centreX, float centreY) const {
     Rectangle r;
-    r.x = x;
-    r.y = y;
+    r.x = centreX - largeur / 2;
+    r.y = centreY - hauteur / 2;
     r.largeur = largeur;
     r.hauteur = hauteur;
     return r;
