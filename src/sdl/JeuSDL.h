@@ -19,8 +19,6 @@ public:
 
     void afficher() const;
     void boucle();
-
-    const Jeu& getJeu() const;
 };
 
 #endif
