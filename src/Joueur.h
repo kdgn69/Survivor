@@ -30,6 +30,9 @@ public:
     int getLargeur() const;
     int getHauteur() const;
 
+    Arme& getArme();
+    const Arme& getArme() const;
+
     Rectangle getRectangle() const;
     Rectangle getRectangleAvecPosition(float x, float y) const;
 };

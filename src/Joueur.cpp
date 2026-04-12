@@ -78,6 +78,14 @@ int Joueur::getHauteur() const {
     return hauteur;
 }
 
+Arme& Joueur::getArme() {
+    return arme;
+}
+
+const Arme& Joueur::getArme() const {
+    return arme;
+}
+
 Rectangle Joueur::getRectangle() const {
     Rectangle r;
     r.x = pos.x - largeur / 2;
