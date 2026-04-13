@@ -1,19 +1,22 @@
 #ifndef VAGUE_H
 #define VAGUE_H
 
-#include "Ennemi.h"
-#include <vector>
-
 using namespace std;
 
 class Vague {
 private:
+    int niveau;
     int numero;
-    int nombreEnnemis;
-    vector<Ennemi>ennemis;
 
 public:
-    void genererEnnemis ();
+    Vague();
+
+    void passerSuivante();
+
+    int getNumero() const;
+    int getNiveau() const;
+
+    int getNombreEnnemis() const;
 };
 
 #endif

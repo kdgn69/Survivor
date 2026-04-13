@@ -1,7 +1,7 @@
 # VERSION CONSOLE
 
-console: mainconsole.o JeuConsole.o Jeu.o Joueur.o Ennemi.o Projectile.o Rectangle.o Arme.o
-	g++ -Wall mainconsole.o JeuConsole.o Jeu.o Joueur.o Ennemi.o Projectile.o Rectangle.o Arme.o -o bin/console.exe
+console: mainconsole.o JeuConsole.o Jeu.o Joueur.o Ennemi.o Projectile.o Rectangle.o Arme.o Vague.o
+	g++ -Wall mainconsole.o JeuConsole.o Jeu.o Joueur.o Ennemi.o Projectile.o Rectangle.o Arme.o Vague.o -o bin/console.exe
 
 mainconsole.o: src/txt/mainconsole.cpp
 	g++ -Wall -c src/txt/mainconsole.cpp
@@ -27,10 +27,13 @@ Rectangle.o: src/Rectangle.cpp
 Arme.o: src/Arme.cpp
 	g++ -Wall -c src/Arme.cpp
 
+Vague.o: src/Vague.cpp
+	g++ -Wall -c src/Vague.cpp
+
 # VERSION SDL
 
-sdl: mainsdl.o JeuSDL.o Jeu.o Joueur.o Ennemi.o Projectile.o Rectangle.o Arme.o
-	g++ -Wall mainsdl.o JeuSDL.o Jeu.o Joueur.o Ennemi.o Projectile.o Rectangle.o Arme.o -o bin/sdl.exe -lSDL2
+sdl: mainsdl.o JeuSDL.o Jeu.o Joueur.o Ennemi.o Projectile.o Rectangle.o Arme.o Vague.o
+	g++ -Wall mainsdl.o JeuSDL.o Jeu.o Joueur.o Ennemi.o Projectile.o Rectangle.o Arme.o Vague.o -o bin/sdl.exe -lSDL2
 
 mainsdl.o: src/sdl/mainsdl.cpp
 	g++ -Wall -c src/sdl/mainsdl.cpp

@@ -6,8 +6,6 @@
 using namespace std;
 
 Jeu::Jeu() {
-    niveauActuel = 1;
-    numeroVague = 1;
     largeurCarte = 1920;
     hauteurCarte = 1080;
 }
@@ -15,12 +13,33 @@ Jeu::Jeu() {
 void Jeu::initialiser() {
     srand(time(0));
     joueur.setPosition(largeurCarte / 2, hauteurCarte / 2);
-    genererEnnemisDebut();
+    genererVagueActuelle();
 }
 
-void Jeu::genererEnnemisDebut() {
+void Jeu::avancerTour() {
+    // Les projectiles avancent d'abord
+    deplacerProjectilesAllies();
+    gererCollisionsProjectilesAllieSurLesEnnemis();
+
+    // Puis les ennemis jouent leur tour
+    Position posJoueur = joueur.getPosition();
+    for (unsigned int i = 0; i < ennemis.size(); i++) {
+        ennemis[i].seDeplacerVersJoueur(posJoueur, joueur.getLargeur(), joueur.getHauteur());
+    }
+
+    gererCollisionsProjectilesAllieSurLesEnnemis();
+
+    //passer a la vague suivante si y'a plus d'ennemis
+    if (ennemis.empty()) {
+    vague.passerSuivante();
+    genererVagueActuelle();
+    }
+}
+
+void Jeu::genererVagueActuelle() {
     ennemis.clear();
-    genererEnnemis(6, "zombie", false, 5, 2, 20, 20, 100);
+    int nombre = vague.getNombreEnnemis();
+    genererEnnemis(nombre, "zombie", false, 5, 2, 20, 20, 100);
 }
 
 void Jeu::genererEnnemis(int nombre, const string& type, bool attaqueDistance, int pv, float vitesse, int largeur, int hauteur, float distanceMinJoueur) {
@@ -77,20 +96,6 @@ void Jeu::tirer(float angleDegres) {
 
     Projectile p(posJoueur.x, posJoueur.y, dx, dy, degats, largeur, hauteur);
     projectilesAllies.push_back(p);
-}
-
-void Jeu::avancerTour() {
-    // Les projectiles avancent d'abord
-    deplacerProjectilesAllies();
-    gererCollisionsProjectilesAllieSurLesEnnemis();
-
-    // Puis les ennemis jouent leur tour
-    Position posJoueur = joueur.getPosition();
-    for (unsigned int i = 0; i < ennemis.size(); i++) {
-        ennemis[i].seDeplacerVersJoueur(posJoueur, joueur.getLargeur(), joueur.getHauteur());
-    }
-
-    gererCollisionsProjectilesAllieSurLesEnnemis();
 }
 
 void Jeu::deplacerProjectilesAllies() {
@@ -172,11 +177,11 @@ const vector<Projectile>& Jeu::getProjectilesAllies() const {
 }
 
 int Jeu::getNiveauActuel() const {
-    return niveauActuel;
+    return vague.getNiveau();
 }
 
 int Jeu::getNumeroVague() const {
-    return numeroVague;
+    return vague.getNumero();
 }
 
 int Jeu::getLargeurCarte() const {

@@ -6,13 +6,13 @@
 #include "Joueur.h"
 #include "Projectile.h"
 #include "Ennemi.h"
+#include "Vague.h"
 
 using namespace std;
 
 class Jeu {
 private:
-    int niveauActuel;
-    int numeroVague;
+    Vague vague;
     int largeurCarte;
     int hauteurCarte;
 
@@ -24,12 +24,12 @@ public:
     Jeu();
 
     void initialiser();
-    void genererEnnemisDebut();
+    void avancerTour();
+    void genererVagueActuelle();
     void genererEnnemis(int nombre, const string& type, bool attaqueDistance, int pv, float vitesse, int largeur, int hauteur, float distanceMinJoueur);
 
     void deplacerJoueur(char direction);
     void tirer(float angleDegres);
-    void avancerTour();
 
     void deplacerProjectilesAllies();
     void gererCollisionsProjectilesAllieSurLesEnnemis();
