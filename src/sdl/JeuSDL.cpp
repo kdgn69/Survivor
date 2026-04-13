@@ -117,9 +117,7 @@ void JeuSDL::boucle() {
 
     bool quitter = false;
     SDL_Event event;
-
     Uint32 dernierTir = 0;
-    Uint32 intervalleTir = 500;
 
     while (!quitter) {
         while (SDL_PollEvent(&event)) {
@@ -140,6 +138,8 @@ void JeuSDL::boucle() {
         SDL_GetMouseState(&sourisX, &sourisY);
 
         Uint32 tempsActuel = SDL_GetTicks();
+        Uint32 intervalleTir = jeu.getJoueur().getArme().getIntervalleTirMs();
+
         if (tempsActuel - dernierTir >= intervalleTir) {
             float angle = calculerAngleJoueurVersSouris(sourisX, sourisY);
             jeu.tirer(angle);

@@ -60,14 +60,22 @@ void Jeu::deplacerJoueur(char direction) {
 }
 
 void Jeu::tirer(float angleDegres) {
-    float angleRadians = angleDegres * 3.14159265f / 180;
+    const Arme& arme = joueur.getArme();
 
-    float dx = cos(angleRadians);
-    float dy = -sin(angleRadians);
+    float angleRadians = angleDegres * 3.14159265 / 180;
+
+    float vitesseProjectile = arme.getVitesseProjectile();
+    float dx = cos(angleRadians) * vitesseProjectile;
+    float dy = -sin(angleRadians) * vitesseProjectile;
 
     Position posJoueur = joueur.getPosition();
 
-    Projectile p(posJoueur.x, posJoueur.y, dx, dy, 10, 5, 5);
+    float largeur = arme.getLargeurProjectile();
+    float hauteur = arme.getHauteurProjectile();
+
+    int degats = arme.getDegats();
+
+    Projectile p(posJoueur.x, posJoueur.y, dx, dy, degats, largeur, hauteur);
     projectilesAllies.push_back(p);
 }
 

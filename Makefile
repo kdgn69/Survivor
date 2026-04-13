@@ -1,7 +1,7 @@
 # VERSION CONSOLE
 
-console: mainconsole.o JeuConsole.o Jeu.o Joueur.o Ennemi.o Projectile.o Rectangle.o
-	g++ -Wall mainconsole.o JeuConsole.o Jeu.o Joueur.o Ennemi.o Projectile.o Rectangle.o -o bin/console.exe
+console: mainconsole.o JeuConsole.o Jeu.o Joueur.o Ennemi.o Projectile.o Rectangle.o Arme.o
+	g++ -Wall mainconsole.o JeuConsole.o Jeu.o Joueur.o Ennemi.o Projectile.o Rectangle.o Arme.o -o bin/console.exe
 
 mainconsole.o: src/txt/mainconsole.cpp
 	g++ -Wall -c src/txt/mainconsole.cpp
@@ -24,10 +24,13 @@ Projectile.o: src/Projectile.cpp
 Rectangle.o: src/Rectangle.cpp
 	g++ -Wall -c src/Rectangle.cpp
 
+Arme.o: src/Arme.cpp
+	g++ -Wall -c src/Arme.cpp
+
 # VERSION SDL
 
-sdl: mainsdl.o JeuSDL.o Jeu.o Joueur.o Ennemi.o Projectile.o Rectangle.o
-	g++ -Wall mainsdl.o JeuSDL.o Jeu.o Joueur.o Ennemi.o Projectile.o Rectangle.o -o bin/sdl.exe -lSDL2
+sdl: mainsdl.o JeuSDL.o Jeu.o Joueur.o Ennemi.o Projectile.o Rectangle.o Arme.o
+	g++ -Wall mainsdl.o JeuSDL.o Jeu.o Joueur.o Ennemi.o Projectile.o Rectangle.o Arme.o -o bin/sdl.exe -lSDL2
 
 mainsdl.o: src/sdl/mainsdl.cpp
 	g++ -Wall -c src/sdl/mainsdl.cpp
@@ -37,8 +40,8 @@ JeuSDL.o: src/sdl/JeuSDL.cpp
 
 # TESTS DE REGRESSION
 
-tests: testRegression.o Joueur.o Ennemi.o Projectile.o Rectangle.o
-	g++ -Wall testRegression.o Joueur.o Ennemi.o Projectile.o Rectangle.o -o bin/tests.exe
+tests: testRegression.o Joueur.o Ennemi.o Projectile.o Rectangle.o Arme.o
+	g++ -Wall testRegression.o Joueur.o Ennemi.o Projectile.o Rectangle.o Arme.o -o bin/tests.exe
 
 testRegression.o: src/testRegression.cpp
 	g++ -Wall -c src/testRegression.cpp
@@ -46,4 +49,4 @@ testRegression.o: src/testRegression.cpp
 
 clean:
 	rm -f *.o
-	rm -f bin/*.exe 
+	rm -f bin/*.exe
