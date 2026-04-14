@@ -7,6 +7,7 @@
 #include "Projectile.h"
 #include "Ennemi.h"
 #include "Vague.h"
+#include "Amelioration.h"
 
 using namespace std;
 
@@ -19,6 +20,9 @@ private:
     Joueur joueur;
     vector<Ennemi> ennemis;
     vector<Projectile> projectilesAllies;
+
+    vector<Amelioration> choixAmeliorations;
+    bool enChoixAmelioration;
 
 public:
     Jeu();
@@ -34,10 +38,17 @@ public:
     void deplacerProjectilesAllies();
     void gererCollisionsProjectilesAllieSurLesEnnemis();
 
+    void genererChoixAmeliorations();
+    void appliquerAmeliorationChoisie(int index);
+    void lancerVagueSuivante();
+
     Joueur& getJoueur();
     const Joueur& getJoueur() const;
     const vector<Ennemi>& getEnnemis() const;
     const vector<Projectile>& getProjectilesAllies() const;
+    const vector<Amelioration>& getChoixAmeliorations() const;
+
+    bool estEnChoixAmelioration() const;
 
     int getNiveauActuel() const;
     int getNumeroVague() const;
@@ -45,4 +56,4 @@ public:
     int getHauteurCarte() const;
 };
 
-#endif 
+#endif
