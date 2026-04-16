@@ -8,6 +8,7 @@ using namespace std;
 Jeu::Jeu() {
     largeurCarte = 1920;
     hauteurCarte = 1080;
+    enChoixAmelioration = false;
 }
 
 void Jeu::initialiser() {
@@ -17,7 +18,11 @@ void Jeu::initialiser() {
 }
 
 void Jeu::avancerTour() {
-    // Les projectiles avancent d'abord
+    if (enChoixAmelioration) {
+        return;
+    }
+
+    //on deplace les projectiles et gère leurs collisions
     deplacerProjectilesAllies();
     gererCollisionsProjectilesAllieSurLesEnnemis();
 
@@ -29,10 +34,8 @@ void Jeu::avancerTour() {
 
     gererCollisionsProjectilesAllieSurLesEnnemis();
 
-    //passer a la vague suivante si y'a plus d'ennemis
     if (ennemis.empty()) {
-    vague.passerSuivante();
-    genererVagueActuelle();
+        genererChoixAmeliorations();
     }
 }
 
@@ -61,7 +64,6 @@ void Jeu::genererEnnemis(int nombre, const string& type, bool attaqueDistance, i
             float dy = centreY - posJoueur.y;
             float distance = sqrt(dx * dx + dy * dy);
 
-            //Pour ne pas faire spawn l'ennemi trop près du joueur
             if (distance >= distanceMinJoueur) {
                 positionValide = true;
             }
@@ -73,12 +75,20 @@ void Jeu::genererEnnemis(int nombre, const string& type, bool attaqueDistance, i
 }
 
 void Jeu::deplacerJoueur(char direction) {
+    if (enChoixAmelioration) {
+        return;
+    }
+
     if (direction == 'z' || direction == 'q' || direction == 's' || direction == 'd') {
         joueur.deplacerAvecDirection(direction, largeurCarte, hauteurCarte, ennemis);
     }
 }
 
 void Jeu::tirer(float angleDegres) {
+    if (enChoixAmelioration) {
+        return;
+    }
+
     const Arme& arme = joueur.getArme();
 
     float angleRadians = angleDegres * 3.14159265 / 180;
@@ -160,6 +170,78 @@ void Jeu::gererCollisionsProjectilesAllieSurLesEnnemis() {
     ennemis = nouveauxEnnemis;
 }
 
+void Jeu::genererChoixAmeliorations() {
+    // on vide les anciens choix (au cas ou)
+    choixAmeliorations.clear();
+
+    // liste des améliorations possibles pour l'instant
+    vector<string> nomsPossibles;
+    nomsPossibles.push_back("degats");
+    nomsPossibles.push_back("cadence");
+    nomsPossibles.push_back("taille");
+
+    // on veut exactement 3 choix différents
+    while (choixAmeliorations.size() < 3) {
+
+        // on choisit un type au hasard
+        int indexAleatoire = rand() % nomsPossibles.size();
+        string nomChoisi = nomsPossibles[indexAleatoire];
+
+        // on vérifie qu'on ne l'a pas déjà pris (pour éviter les doublons)
+        bool dejaPresent = false;
+        for (unsigned int i = 0; i < choixAmeliorations.size(); i++) {
+            if (choixAmeliorations[i].nom == nomChoisi) {
+                dejaPresent = true;
+                break;
+            }
+        }
+
+        // si pas encore présent, on l'ajoute
+        if (!dejaPresent) {
+            Amelioration a;
+            a.nom = nomChoisi;
+            choixAmeliorations.push_back(a);
+        }
+    }
+
+    // on passe en mode "choix d'amélioration"
+    enChoixAmelioration = true;
+}
+
+void Jeu::appliquerAmeliorationChoisie(int index) {
+    // on récupère l'arme du joueur (pour la modifier directement)
+    Arme& arme = joueur.getArme();
+
+    // on récupère le type d'amélioration choisi
+    string nom = choixAmeliorations[index].nom;
+
+    // en fonction du type, on applique l'effet
+    if (nom == "degats") {
+        // on augmente les dégâts des projectiles
+        arme.augmenterDegats(5);
+    }
+    else if (nom == "cadence") {
+        // on augmente la vitesse de tir
+        arme.augmenterCadence(1);
+    }
+    else if (nom == "taille") {
+        // on agrandit les projectiles (plus facile de toucher)
+        arme.augmenterLargeurProjectile(2);
+        arme.augmenterHauteurProjectile(2);
+    }
+
+    // une fois le choix fait, on sort du mode amélioration
+    enChoixAmelioration = false;
+
+    // on nettoie la liste
+    choixAmeliorations.clear();
+}
+
+void Jeu::lancerVagueSuivante() {
+    vague.passerSuivante();
+    genererVagueActuelle();
+}
+
 Joueur& Jeu::getJoueur() {
     return joueur;
 }
@@ -176,6 +258,14 @@ const vector<Projectile>& Jeu::getProjectilesAllies() const {
     return projectilesAllies;
 }
 
+const vector<Amelioration>& Jeu::getChoixAmeliorations() const {
+    return choixAmeliorations;
+}
+
+bool Jeu::estEnChoixAmelioration() const {
+    return enChoixAmelioration;
+}
+
 int Jeu::getNiveauActuel() const {
     return vague.getNiveau();
 }
@@ -190,4 +280,4 @@ int Jeu::getLargeurCarte() const {
 
 int Jeu::getHauteurCarte() const {
     return hauteurCarte;
-} 
+}
