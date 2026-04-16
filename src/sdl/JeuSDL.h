@@ -2,6 +2,7 @@
 #define JEUSDL_H
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include "../Jeu.h"
 
 using namespace std;
@@ -18,6 +19,7 @@ public:
     JeuSDL();
 
     void afficher() const;
+    void afficherChoixAmeliorations() const;
     void boucle();
 };
 

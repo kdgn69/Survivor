@@ -33,7 +33,7 @@ Vague.o: src/Vague.cpp
 # VERSION SDL
 
 sdl: mainsdl.o JeuSDL.o Jeu.o Joueur.o Ennemi.o Projectile.o Rectangle.o Arme.o Vague.o
-	g++ -Wall mainsdl.o JeuSDL.o Jeu.o Joueur.o Ennemi.o Projectile.o Rectangle.o Arme.o Vague.o -o bin/sdl.exe -lSDL2
+	g++ -Wall mainsdl.o JeuSDL.o Jeu.o Joueur.o Ennemi.o Projectile.o Rectangle.o Arme.o Vague.o -o bin/sdl.exe -lSDL2 -lSDL2_ttf
 
 mainsdl.o: src/sdl/mainsdl.cpp
 	g++ -Wall -c src/sdl/mainsdl.cpp

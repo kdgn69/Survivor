@@ -25,6 +25,11 @@ float JeuSDL::calculerAngleJoueurVersSouris(int sourisX, int sourisY) const {
 void JeuSDL::afficher() const {
     if (rendu == nullptr) return;
 
+    if (jeu.estEnChoixAmelioration()) {
+    afficherChoixAmeliorations();
+    return;
+    }
+
     SDL_SetRenderDrawColor(rendu, 30, 30, 30, 255);
     SDL_RenderClear(rendu);
 
@@ -80,6 +85,65 @@ void JeuSDL::afficher() const {
     }
 }
 
+void JeuSDL::afficherChoixAmeliorations() const {
+    const vector<Amelioration>& choix = jeu.getChoixAmeliorations();
+
+    int largeurCarte = 250;
+    int hauteurCarte = 350;
+    int espace = 50;
+
+    int totalLargeur = 3 * largeurCarte + 2 * espace;
+    int startX = (jeu.getLargeurCarte() - totalLargeur) / 2;
+    int y = (jeu.getHauteurCarte() - hauteurCarte) / 2;
+
+    for (int i = 0; i < 3; i++) {
+        int x = startX + i * (largeurCarte + espace);
+
+        SDL_FRect rect;
+        rect.x = x;
+        rect.y = y;
+        rect.w = largeurCarte;
+        rect.h = hauteurCarte;
+
+        // fond carte
+        SDL_SetRenderDrawColor(rendu, 60, 60, 60, 255);
+        SDL_RenderFillRectF(rendu, &rect);
+
+        // bordure
+        SDL_SetRenderDrawColor(rendu, 200, 200, 200, 255);
+        SDL_RenderDrawRectF(rendu, &rect);
+
+        // image
+        SDL_FRect imageRect;
+        imageRect.x = x + 50;
+        imageRect.y = y + 40;
+        imageRect.w = 150;
+        imageRect.h = 100;
+
+        SDL_SetRenderDrawColor(rendu, 100, 150, 250, 255);
+        SDL_RenderFillRectF(rendu, &imageRect);
+
+        // texte (couleur différente selon type)
+        string nom = choix[i].nom;
+
+        if (nom == "degats") {
+            SDL_SetRenderDrawColor(rendu, 255, 80, 80, 255);
+        } else if (nom == "cadence") {
+            SDL_SetRenderDrawColor(rendu, 80, 255, 80, 255);
+        } else {
+            SDL_SetRenderDrawColor(rendu, 80, 80, 255, 255);
+        }
+
+        SDL_FRect titre;
+        titre.x = x + 20;
+        titre.y = y + 10;
+        titre.w = 210;
+        titre.h = 20;
+
+        SDL_RenderFillRectF(rendu, &titre);
+    }
+}
+
 void JeuSDL::boucle() {
     SDL_SetMainReady();
 
@@ -120,9 +184,37 @@ void JeuSDL::boucle() {
     Uint32 dernierTir = 0;
 
     while (!quitter) {
+
         while (SDL_PollEvent(&event)) {
+            // fermeture de la fenêtre
             if (event.type == SDL_QUIT) {
-                quitter = true;
+            quitter = true;
+            }
+
+            // si on est en train de choisir une amélioration
+            if (jeu.estEnChoixAmelioration()) {
+
+                // on détecte une touche du clavier
+                if (event.type == SDL_KEYDOWN) {
+
+                    // 1 = première carte
+                    if (event.key.keysym.sym == SDLK_1) {
+                        jeu.appliquerAmeliorationChoisie(0);
+                        jeu.lancerVagueSuivante();
+                    }
+
+                    // 2 = deuxième carte
+                    if (event.key.keysym.sym == SDLK_2) {
+                        jeu.appliquerAmeliorationChoisie(1);
+                        jeu.lancerVagueSuivante();
+                    }
+
+                    // 3 = troisième carte
+                    if (event.key.keysym.sym == SDLK_3) {
+                        jeu.appliquerAmeliorationChoisie(2);
+                        jeu.lancerVagueSuivante();
+                    }
+                }
             }
         }
 
