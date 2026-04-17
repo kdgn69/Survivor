@@ -12,6 +12,7 @@ private:
     Jeu jeu;
     SDL_Window* fenetre;
     SDL_Renderer* rendu;
+    TTF_Font* police;
 
     float calculerAngleJoueurVersSouris(int sourisX, int sourisY) const;
 

@@ -1,5 +1,7 @@
 #define SDL_MAIN_HANDLED
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include <cmath>
 #include <iostream>
 #include <string>
@@ -22,13 +24,34 @@ float JeuSDL::calculerAngleJoueurVersSouris(int sourisX, int sourisY) const {
     return angleDegres;
 }
 
+void afficherTexte(SDL_Renderer* rendu, TTF_Font* police, const string& texte, int x, int y) {
+    if (police == nullptr) return;
+
+    SDL_Color couleur = {255, 255, 255};
+
+    SDL_Surface* surface = TTF_RenderText_Blended(police, texte.c_str(), couleur);
+    if (surface == nullptr) return;
+
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, surface);
+    if (texture == nullptr) {
+        SDL_FreeSurface(surface);
+        return;
+    }
+
+    SDL_Rect rect;
+    rect.x = x;
+    rect.y = y;
+    rect.w = surface->w;
+    rect.h = surface->h;
+
+    SDL_RenderCopy(rendu, texture, nullptr, &rect);
+
+    SDL_FreeSurface(surface);
+    SDL_DestroyTexture(texture);
+}
+
 void JeuSDL::afficher() const {
     if (rendu == nullptr) return;
-
-    if (jeu.estEnChoixAmelioration()) {
-    afficherChoixAmeliorations();
-    return;
-    }
 
     SDL_SetRenderDrawColor(rendu, 30, 30, 30, 255);
     SDL_RenderClear(rendu);
@@ -83,22 +106,42 @@ void JeuSDL::afficher() const {
         SDL_SetRenderDrawColor(rendu, 255, 230, 80, 255);
         SDL_RenderFillRectF(rendu, &rectProjectile);
     }
+
+    // si on est en train de choisir une amélioration
+    if (jeu.estEnChoixAmelioration()) {
+        afficherChoixAmeliorations();
+    }
 }
 
 void JeuSDL::afficherChoixAmeliorations() const {
     const vector<Amelioration>& choix = jeu.getChoixAmeliorations();
 
+    // largeur et hauteur d'une carte d'amélioration
     int largeurCarte = 250;
     int hauteurCarte = 350;
+
+    // espace entre les cartes
     int espace = 50;
 
+    // largeur totale des 3 cartes + les espaces entre elles
     int totalLargeur = 3 * largeurCarte + 2 * espace;
+
+    // point de départ en X pour centrer tout le bloc au milieu de l'écran
+    // en gros on prend la largeur de l'écran et on enlève la largeur totale
     int startX = (jeu.getLargeurCarte() - totalLargeur) / 2;
+
+    // position verticale (on centre les cartes en hauteur)
     int y = (jeu.getHauteurCarte() - hauteurCarte) / 2;
 
+
+    // boucle pour afficher les 3 cartes
     for (int i = 0; i < 3; i++) {
+
+        // position X de chaque carte
+        // on décale à chaque fois de (largeurCarte + espace)
         int x = startX + i * (largeurCarte + espace);
 
+        // rectangle principal de la carte
         SDL_FRect rect;
         rect.x = x;
         rect.y = y;
@@ -113,34 +156,64 @@ void JeuSDL::afficherChoixAmeliorations() const {
         SDL_SetRenderDrawColor(rendu, 200, 200, 200, 255);
         SDL_RenderDrawRectF(rendu, &rect);
 
-        // image
+        string nom = choix[i].nom;
+
+        // on affiche le nom de l'amélioration en haut
+        afficherTexte(rendu, police, nom, x + 100, y + 10);
+
+        // IMAGE
         SDL_FRect imageRect;
         imageRect.x = x + 50;
         imageRect.y = y + 40;
         imageRect.w = 150;
         imageRect.h = 100;
 
-        SDL_SetRenderDrawColor(rendu, 100, 150, 250, 255);
-        SDL_RenderFillRectF(rendu, &imageRect);
+        string chemin;
 
-        // texte (couleur différente selon type)
-        string nom = choix[i].nom;
+        if (nom == "degats") chemin = "data/degats.png";
+        else if (nom == "cadence") chemin = "data/cadence.png";
+        else if (nom == "taille") chemin = "data/taille.png";
 
-        if (nom == "degats") {
-            SDL_SetRenderDrawColor(rendu, 255, 80, 80, 255);
-        } else if (nom == "cadence") {
-            SDL_SetRenderDrawColor(rendu, 80, 255, 80, 255);
+        SDL_Surface* surface = IMG_Load(chemin.c_str());
+
+        if (surface == nullptr) {
+            cout << "Erreur chargement image : " << chemin << " | " << IMG_GetError() << endl;
+
+            // si l'image ne charge pas, on remet un rectangle bleu pour voir la zone
+            SDL_SetRenderDrawColor(rendu, 100, 150, 250, 255);
+            SDL_RenderFillRectF(rendu, &imageRect);
         } else {
-            SDL_SetRenderDrawColor(rendu, 80, 80, 255, 255);
+            SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, surface);
+
+            if (texture != nullptr) {
+                SDL_Rect imageRectInt;
+                imageRectInt.x = (int) imageRect.x;
+                imageRectInt.y = (int) imageRect.y;
+                imageRectInt.w = (int) imageRect.w;
+                imageRectInt.h = (int) imageRect.h;
+
+                SDL_RenderCopy(rendu, texture, nullptr, &imageRectInt);
+                SDL_DestroyTexture(texture);
+            }
+
+            SDL_FreeSurface(surface);
         }
 
-        SDL_FRect titre;
-        titre.x = x + 20;
-        titre.y = y + 10;
-        titre.w = 210;
-        titre.h = 20;
+        // petite description en fonction du type
+        string description;
 
-        SDL_RenderFillRectF(rendu, &titre);
+        if (nom == "degats") {
+            description = "Augmente les degats";
+        }
+        else if (nom == "cadence") {
+            description = "Augmente la cadence";
+        }
+        else if (nom == "taille") {
+            description = "Projectiles plus gros";
+        }
+
+        // on affiche la description sous l'image
+        afficherTexte(rendu, police, description, x + 20, y + 200);
     }
 }
 
@@ -150,6 +223,19 @@ void JeuSDL::boucle() {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         cerr << "Erreur SDL : " << SDL_GetError() << endl;
         return;
+    }
+
+    IMG_Init(IMG_INIT_PNG);
+
+    if (TTF_Init() == -1) {
+        cerr << "Erreur TTF : " << TTF_GetError() << endl;
+        SDL_Quit();
+        return;
+    }
+
+    police = TTF_OpenFont("data/arial.ttf", 16);
+    if (!police) {
+        cerr << "Erreur chargement police : " << TTF_GetError() << endl;
     }
 
     fenetre = SDL_CreateWindow(
@@ -163,6 +249,8 @@ void JeuSDL::boucle() {
 
     if (fenetre == nullptr) {
         cerr << "Erreur creation fenetre : " << SDL_GetError() << endl;
+        TTF_Quit();
+        IMG_Quit();
         SDL_Quit();
         return;
     }
@@ -173,6 +261,8 @@ void JeuSDL::boucle() {
         cerr << "Erreur creation renderer : " << SDL_GetError() << endl;
         SDL_DestroyWindow(fenetre);
         fenetre = nullptr;
+        TTF_Quit();
+        IMG_Quit();
         SDL_Quit();
         return;
     }
@@ -188,7 +278,7 @@ void JeuSDL::boucle() {
         while (SDL_PollEvent(&event)) {
             // fermeture de la fenêtre
             if (event.type == SDL_QUIT) {
-            quitter = true;
+                quitter = true;
             }
 
             // si on est en train de choisir une amélioration
@@ -250,11 +340,18 @@ void JeuSDL::boucle() {
         SDL_Delay(16);
     }
 
+    if (police != nullptr) {
+        TTF_CloseFont(police);
+        police = nullptr;
+    }
+
     SDL_DestroyRenderer(rendu);
     rendu = nullptr;
 
     SDL_DestroyWindow(fenetre);
     fenetre = nullptr;
 
+    TTF_Quit();
+    IMG_Quit();
     SDL_Quit();
 }
