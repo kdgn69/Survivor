@@ -15,12 +15,15 @@ private:
     TTF_Font* police;
 
     float calculerAngleJoueurVersSouris(int sourisX, int sourisY) const;
+    void afficherTexte(const string& texte, int x, int y) const;
+    SDL_FRect convertirRect(const Rectangle& r) const;
 
 public:
     JeuSDL();
 
     void afficher() const;
     void afficherChoixAmeliorations() const;
+    
     void boucle();
 };
 

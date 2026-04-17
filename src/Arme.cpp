@@ -44,6 +44,10 @@ void Arme::augmenterHauteurProjectile(float bonus) {
     hauteurProjectile += bonus;
 }
 
+void Arme::augmenterVitesseProjectile(float bonus) {
+    vitesseProjectile += bonus;
+}
+
 unsigned int Arme::getIntervalleTirMs() const {
     if (cadence <= 0) {
         return 1000;

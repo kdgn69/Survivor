@@ -24,27 +24,31 @@ float JeuSDL::calculerAngleJoueurVersSouris(int sourisX, int sourisY) const {
     return angleDegres;
 }
 
-void afficherTexte(SDL_Renderer* rendu, TTF_Font* police, const string& texte, int x, int y) {
-    if (police == nullptr) return;
+//conversion d'un rectangle en sdl pour alléger le code
+SDL_FRect JeuSDL::convertirRect(const Rectangle& r) const {
+    SDL_FRect sdl;
+    sdl.x = r.x;
+    sdl.y = r.y;
+    sdl.w = r.largeur;
+    sdl.h = r.hauteur;
+    return sdl;
+}
+
+void JeuSDL::afficherTexte(const string& texte, int x, int y) const {
+    if (!police) return;
 
     SDL_Color couleur = {255, 255, 255};
 
     SDL_Surface* surface = TTF_RenderText_Blended(police, texte.c_str(), couleur);
-    if (surface == nullptr) return;
-
     SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, surface);
-    if (texture == nullptr) {
-        SDL_FreeSurface(surface);
-        return;
-    }
 
-    SDL_Rect rect;
+    SDL_FRect rect;
     rect.x = x;
     rect.y = y;
     rect.w = surface->w;
     rect.h = surface->h;
 
-    SDL_RenderCopy(rendu, texture, nullptr, &rect);
+    SDL_RenderCopyF(rendu, texture, nullptr, &rect);
 
     SDL_FreeSurface(surface);
     SDL_DestroyTexture(texture);
@@ -68,26 +72,14 @@ void JeuSDL::afficher() const {
     SDL_SetRenderDrawColor(rendu, 220, 40, 40, 255);
     SDL_RenderDrawRectF(rendu, &fondCarte);
 
-    Rectangle rectJoueurLogique = jeu.getJoueur().getRectangle();
-
-    SDL_FRect rectJoueur;
-    rectJoueur.x = rectJoueurLogique.x;
-    rectJoueur.y = rectJoueurLogique.y;
-    rectJoueur.w = rectJoueurLogique.largeur;
-    rectJoueur.h = rectJoueurLogique.hauteur;
+    SDL_FRect rectJoueur = convertirRect(jeu.getJoueur().getRectangle());
 
     SDL_SetRenderDrawColor(rendu, 50, 100, 255, 255);
     SDL_RenderFillRectF(rendu, &rectJoueur);
 
     const vector<Ennemi>& ennemis = jeu.getEnnemis();
     for (unsigned int i = 0; i < ennemis.size(); i++) {
-        Rectangle rectEnnemiLogique = ennemis[i].getRectangle();
-
-        SDL_FRect rectEnnemi;
-        rectEnnemi.x = rectEnnemiLogique.x;
-        rectEnnemi.y = rectEnnemiLogique.y;
-        rectEnnemi.w = rectEnnemiLogique.largeur;
-        rectEnnemi.h = rectEnnemiLogique.hauteur;
+        SDL_FRect rectEnnemi = convertirRect(ennemis[i].getRectangle());
 
         SDL_SetRenderDrawColor(rendu, 120, 50, 50, 255);
         SDL_RenderFillRectF(rendu, &rectEnnemi);
@@ -95,13 +87,7 @@ void JeuSDL::afficher() const {
 
     const vector<Projectile>& projectiles = jeu.getProjectilesAllies();
     for (unsigned int i = 0; i < projectiles.size(); i++) {
-        Rectangle rectProjectileLogique = projectiles[i].getRectangle();
-
-        SDL_FRect rectProjectile;
-        rectProjectile.x = rectProjectileLogique.x;
-        rectProjectile.y = rectProjectileLogique.y;
-        rectProjectile.w = rectProjectileLogique.largeur;
-        rectProjectile.h = rectProjectileLogique.hauteur;
+        SDL_FRect rectProjectile = convertirRect(projectiles[i].getRectangle());
 
         SDL_SetRenderDrawColor(rendu, 255, 230, 80, 255);
         SDL_RenderFillRectF(rendu, &rectProjectile);
@@ -120,10 +106,10 @@ void JeuSDL::afficherChoixAmeliorations() const {
     int largeurCarte = 250;
     int hauteurCarte = 350;
 
-    // espace entre les cartes
+    // espace entre les 3 améliorations
     int espace = 50;
 
-    // largeur totale des 3 cartes + les espaces entre elles
+    // largeur totale des 3 améliorations + les espaces entre elles
     int totalLargeur = 3 * largeurCarte + 2 * espace;
 
     // point de départ en X pour centrer tout le bloc au milieu de l'écran
@@ -134,7 +120,7 @@ void JeuSDL::afficherChoixAmeliorations() const {
     int y = (jeu.getHauteurCarte() - hauteurCarte) / 2;
 
 
-    // boucle pour afficher les 3 cartes
+    // boucle pour afficher les améliorations
     for (int i = 0; i < 3; i++) {
 
         // position X de chaque carte
@@ -159,7 +145,7 @@ void JeuSDL::afficherChoixAmeliorations() const {
         string nom = choix[i].nom;
 
         // on affiche le nom de l'amélioration en haut
-        afficherTexte(rendu, police, nom, x + 100, y + 10);
+        afficherTexte(nom, x + 100, y + 10);
 
         // IMAGE
         SDL_FRect imageRect;
@@ -173,26 +159,18 @@ void JeuSDL::afficherChoixAmeliorations() const {
         if (nom == "degats") chemin = "data/degats.png";
         else if (nom == "cadence") chemin = "data/cadence.png";
         else if (nom == "taille") chemin = "data/taille.png";
+        else if (nom == "vitesseJoueur") chemin = "data/vitesseJoueur.png";
+        else if (nom == "vitesseProjectile") chemin = "data/vitesseProjectile.png";
 
         SDL_Surface* surface = IMG_Load(chemin.c_str());
 
         if (surface == nullptr) {
             cout << "Erreur chargement image : " << chemin << " | " << IMG_GetError() << endl;
-
-            // si l'image ne charge pas, on remet un rectangle bleu pour voir la zone
-            SDL_SetRenderDrawColor(rendu, 100, 150, 250, 255);
-            SDL_RenderFillRectF(rendu, &imageRect);
         } else {
             SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, surface);
 
             if (texture != nullptr) {
-                SDL_Rect imageRectInt;
-                imageRectInt.x = (int) imageRect.x;
-                imageRectInt.y = (int) imageRect.y;
-                imageRectInt.w = (int) imageRect.w;
-                imageRectInt.h = (int) imageRect.h;
-
-                SDL_RenderCopy(rendu, texture, nullptr, &imageRectInt);
+                SDL_RenderCopyF(rendu, texture, nullptr, &imageRect);
                 SDL_DestroyTexture(texture);
             }
 
@@ -211,9 +189,15 @@ void JeuSDL::afficherChoixAmeliorations() const {
         else if (nom == "taille") {
             description = "Projectiles plus gros";
         }
+        else if (nom == "vitesseProjectile") {
+        description = "Projectiles plus rapides";
+        }
+        else if (nom == "vitesseJoueur") {
+            description = "Deplacement plus rapide";
+        }
 
         // on affiche la description sous l'image
-        afficherTexte(rendu, police, description, x + 20, y + 200);
+        afficherTexte(description, x + 20, y + 200);
     }
 }
 

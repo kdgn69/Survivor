@@ -32,8 +32,6 @@ void Jeu::avancerTour() {
         ennemis[i].seDeplacerVersJoueur(posJoueur, joueur.getLargeur(), joueur.getHauteur());
     }
 
-    gererCollisionsProjectilesAllieSurLesEnnemis();
-
     if (ennemis.empty()) {
         genererChoixAmeliorations();
     }
@@ -179,6 +177,8 @@ void Jeu::genererChoixAmeliorations() {
     nomsPossibles.push_back("degats");
     nomsPossibles.push_back("cadence");
     nomsPossibles.push_back("taille");
+    nomsPossibles.push_back("vitesseProjectile");
+    nomsPossibles.push_back("vitesseJoueur");
 
     // on veut exactement 3 choix différents
     while (choixAmeliorations.size() < 3) {
@@ -217,17 +217,20 @@ void Jeu::appliquerAmeliorationChoisie(int index) {
 
     // en fonction du type, on applique l'effet
     if (nom == "degats") {
-        // on augmente les dégâts des projectiles
         arme.augmenterDegats(5);
     }
     else if (nom == "cadence") {
-        // on augmente la vitesse de tir
         arme.augmenterCadence(1);
     }
     else if (nom == "taille") {
-        // on agrandit les projectiles (plus facile de toucher)
         arme.augmenterLargeurProjectile(2);
-        arme.augmenterHauteurProjectile(2);
+        arme.augmenterHauteurProjectile(3);
+    }
+    else if (nom == "vitesseProjectile") {
+    arme.augmenterVitesseProjectile(1);
+    }
+    else if (nom == "vitesseJoueur") {
+        joueur.augmenterVitesse(0.5);
     }
 
     // une fois le choix fait, on sort du mode amélioration

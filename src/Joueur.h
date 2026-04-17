@@ -25,6 +25,8 @@ public:
     void setPosition(float x, float y);
     void deplacerAvecDirection(char direction, int largeurCarte, int hauteurCarte, const vector<Ennemi>& ennemis);
 
+    void augmenterVitesse(float bonus);
+
     Position getPosition() const;
     int getVie() const;
     int getLargeur() const;

@@ -62,6 +62,10 @@ void Joueur::deplacerAvecDirection(char direction, int largeurCarte, int hauteur
     }
 }
 
+void Joueur::augmenterVitesse(float bonus) {
+    vitesse += bonus;
+}
+
 Position Joueur::getPosition() const {
     return pos;
 }

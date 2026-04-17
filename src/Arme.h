@@ -22,6 +22,7 @@ public:
     void augmenterCadence(float bonus);
     void augmenterLargeurProjectile(float bonus);
     void augmenterHauteurProjectile(float bonus);
+    void augmenterVitesseProjectile(float bonus);
 
     unsigned int getIntervalleTirMs() const;
 };
