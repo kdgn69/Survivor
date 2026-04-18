@@ -161,6 +161,7 @@ void JeuSDL::afficherChoixAmeliorations() const {
         else if (nom == "taille") chemin = "data/taille.png";
         else if (nom == "vitesseJoueur") chemin = "data/vitesseJoueur.png";
         else if (nom == "vitesseProjectile") chemin = "data/vitesseProjectile.png";
+        else if (nom == "multitir") chemin = "data/multitir.png";
 
         SDL_Surface* surface = IMG_Load(chemin.c_str());
 
@@ -194,6 +195,9 @@ void JeuSDL::afficherChoixAmeliorations() const {
         }
         else if (nom == "vitesseJoueur") {
             description = "Deplacement plus rapide";
+        }
+        else if (nom == "multitir") {
+            description = "Encore plus de tirs !";
         }
 
         // on affiche la description sous l'image

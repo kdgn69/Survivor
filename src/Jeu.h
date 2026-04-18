@@ -24,6 +24,9 @@ private:
     vector<Amelioration> choixAmeliorations;
     bool enChoixAmelioration;
 
+    //compteur pour l'amelioration multi-tir
+    int niveauMultitir;
+
 public:
     Jeu();
 

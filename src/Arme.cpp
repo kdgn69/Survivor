@@ -55,9 +55,5 @@ unsigned int Arme::getIntervalleTirMs() const {
 
     unsigned int intervalle = (unsigned int)(1000 / cadence);
 
-    if (intervalle < 1) {
-        intervalle = 1;
-    }
-
     return intervalle;
 }

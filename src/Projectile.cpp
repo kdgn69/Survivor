@@ -27,7 +27,7 @@ Projectile::Projectile(float x, float y, float dx, float dy, int deg, float larg
 }
 
 void Projectile::avancer() {
-    // le projectile avance d'une case dans sa direction
+    // le projectile avance selon sa direction
     if (actif) {
         pos.x += direction.dx;
         pos.y += direction.dy;

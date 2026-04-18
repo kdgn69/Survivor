@@ -9,6 +9,7 @@ Jeu::Jeu() {
     largeurCarte = 1920;
     hauteurCarte = 1080;
     enChoixAmelioration = false;
+    niveauMultitir = 0;
 }
 
 void Jeu::initialiser() {
@@ -89,21 +90,48 @@ void Jeu::tirer(float angleDegres) {
 
     const Arme& arme = joueur.getArme();
 
-    float angleRadians = angleDegres * 3.14159265 / 180;
-
-    float vitesseProjectile = arme.getVitesseProjectile();
-    float dx = cos(angleRadians) * vitesseProjectile;
-    float dy = -sin(angleRadians) * vitesseProjectile;
-
     Position posJoueur = joueur.getPosition();
 
     float largeur = arme.getLargeurProjectile();
     float hauteur = arme.getHauteurProjectile();
-
+    float vitesseProjectile = arme.getVitesseProjectile();
     int degats = arme.getDegats();
 
-    Projectile p(posJoueur.x, posJoueur.y, dx, dy, degats, largeur, hauteur);
-    projectilesAllies.push_back(p);
+    vector<float> angles;
+
+    // niveau 0 : tir normal
+    if (niveauMultitir == 0) {
+        angles.push_back(angleDegres);
+    }
+    // niveau 1 : 3 tirs
+    else if (niveauMultitir == 1) {
+        angles.push_back(angleDegres - 20);
+        angles.push_back(angleDegres);
+        angles.push_back(angleDegres + 20);
+    }
+    // niveau 2 : 5 tirs
+    else if (niveauMultitir >= 2) {
+        angles.push_back(angleDegres - 40);
+        angles.push_back(angleDegres - 20);
+        angles.push_back(angleDegres);
+        angles.push_back(angleDegres + 20);
+        angles.push_back(angleDegres + 40);
+    }
+
+    // on crée un projectile pour chaque angle (multitir)
+    for (unsigned int i = 0; i < angles.size(); i++) {
+
+        // conversion de l'angle en radians
+        float angleRad = angles[i] * 3.14159265 / 180;
+
+        // calcul de la direction du projectile
+        // cos = déplacement horizontal et sin = déplacement vertical
+        float dx = cos(angleRad) * vitesseProjectile;
+        float dy = -sin(angleRad) * vitesseProjectile;
+
+        Projectile p(posJoueur.x, posJoueur.y, dx, dy, degats, largeur, hauteur);
+        projectilesAllies.push_back(p);
+    }
 }
 
 void Jeu::deplacerProjectilesAllies() {
@@ -179,6 +207,7 @@ void Jeu::genererChoixAmeliorations() {
     nomsPossibles.push_back("taille");
     nomsPossibles.push_back("vitesseProjectile");
     nomsPossibles.push_back("vitesseJoueur");
+    nomsPossibles.push_back("multitir");
 
     // on veut exactement 3 choix différents
     while (choixAmeliorations.size() < 3) {
@@ -198,6 +227,10 @@ void Jeu::genererChoixAmeliorations() {
 
         // si pas encore présent, on l'ajoute
         if (!dejaPresent) {
+            // on empêche d'afficher multitir si on l'a déjà pris 2 fois (limite max)
+            if (nomChoisi == "multitir" && niveauMultitir >= 2) {
+                continue;
+            }
             Amelioration a;
             a.nom = nomChoisi;
             choixAmeliorations.push_back(a);
@@ -232,6 +265,9 @@ void Jeu::appliquerAmeliorationChoisie(int index) {
     else if (nom == "vitesseJoueur") {
         joueur.augmenterVitesse(0.5);
     }
+    else if (nom == "multitir") {
+    niveauMultitir++;
+}
 
     // une fois le choix fait, on sort du mode amélioration
     enChoixAmelioration = false;
