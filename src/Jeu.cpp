@@ -10,6 +10,7 @@ Jeu::Jeu() {
     hauteurCarte = 1080;
     enChoixAmelioration = false;
     niveauMultitir = 0;
+    niveauAura = 0;
 }
 
 void Jeu::initialiser() {
@@ -32,6 +33,9 @@ void Jeu::avancerTour() {
     for (unsigned int i = 0; i < ennemis.size(); i++) {
         ennemis[i].seDeplacerVersJoueur(posJoueur, joueur.getLargeur(), joueur.getHauteur());
     }
+
+    mettreAJourAuras(0.01);
+    appliquerDegatsAuras();
 
     if (ennemis.empty()) {
         genererChoixAmeliorations();
@@ -56,8 +60,8 @@ void Jeu::genererEnnemis(int nombre, const string& type, bool attaqueDistance, i
         float centreY = 0;
 
         while (!positionValide) {
-            centreX = demiLargeur + rand() % int(largeurCarte - largeur);
-            centreY = demiHauteur + rand() % int(hauteurCarte - hauteur);
+            centreX = demiLargeur + rand() % largeurCarte - largeur;
+            centreY = demiHauteur + rand() % hauteurCarte - hauteur;
 
             float dx = centreX - posJoueur.x;
             float dy = centreY - posJoueur.y;
@@ -187,7 +191,35 @@ void Jeu::gererCollisionsProjectilesAllieSurLesEnnemis() {
     }
     // on garde seulement les ennemis encore en vie
     for (unsigned int j = 0; j < ennemis.size(); j++) {
-        if (!ennemis[j].estMort()) {
+        // si l'ennemi est mort
+        if (ennemis[j].estMort()) {
+            // ET si aura active
+            if (niveauAura > 0) {
+                Position pos = ennemis[j].getPosition();
+
+                float rayon = 40;
+                int degats = 5;
+                float duree = 3;
+                float intervalle = 0.30;
+
+                if (niveauAura == 2) {
+                    rayon = 50;
+                    degats = 8;
+                    duree = 4;
+                    intervalle = 0.25;
+                }
+                else if (niveauAura >= 3) {
+                    rayon = 60;
+                    degats = 12;
+                    duree = 5;
+                    intervalle = 0.20;
+                }
+
+                Aura a(pos.x, pos.y, rayon, degats, duree, intervalle);
+                auras.push_back(a);
+            }
+        }
+        else {
             nouveauxEnnemis.push_back(ennemis[j]);
         }
     }
@@ -208,6 +240,7 @@ void Jeu::genererChoixAmeliorations() {
     nomsPossibles.push_back("vitesseProjectile");
     nomsPossibles.push_back("vitesseJoueur");
     nomsPossibles.push_back("multitir");
+    nomsPossibles.push_back("auraMort");
 
     // on veut exactement 3 choix différents
     while (choixAmeliorations.size() < 3) {
@@ -229,6 +262,9 @@ void Jeu::genererChoixAmeliorations() {
         if (!dejaPresent) {
             // on empêche d'afficher multitir si on l'a déjà pris 2 fois (limite max)
             if (nomChoisi == "multitir" && niveauMultitir >= 2) {
+                continue;
+            }
+            if (nomChoisi == "auraMort" && niveauAura >= 3) {
                 continue;
             }
             Amelioration a;
@@ -267,7 +303,10 @@ void Jeu::appliquerAmeliorationChoisie(int index) {
     }
     else if (nom == "multitir") {
     niveauMultitir++;
-}
+    }
+    else if (nom == "auraMort") {
+    niveauAura++;
+    }
 
     // une fois le choix fait, on sort du mode amélioration
     enChoixAmelioration = false;
@@ -279,6 +318,48 @@ void Jeu::appliquerAmeliorationChoisie(int index) {
 void Jeu::lancerVagueSuivante() {
     vague.passerSuivante();
     genererVagueActuelle();
+}
+
+void Jeu::mettreAJourAuras(float deltaTemps) {
+
+    vector<Aura> nouvellesAuras;
+
+    for (unsigned int i = 0; i < auras.size(); i++) {
+
+        auras[i].mettreAJour(deltaTemps);
+
+        // on garde seulement les auras encore actives
+        if (!auras[i].estExpiree()) {
+            nouvellesAuras.push_back(auras[i]);
+        }
+    }
+
+    auras = nouvellesAuras;
+}
+
+void Jeu::appliquerDegatsAuras() {
+
+    for (unsigned int i = 0; i < auras.size(); i++) {
+
+        if (auras[i].peutInfligerDegats()) {
+
+            Position posAura = auras[i].getPosition();
+            float rayon = auras[i].getRayon();
+
+            for (unsigned int j = 0; j < ennemis.size(); j++) {
+
+                Position posEnnemi = ennemis[j].getPosition();
+
+                float dx = posEnnemi.x - posAura.x;
+                float dy = posEnnemi.y - posAura.y;
+                float distance = sqrt(dx * dx + dy * dy);
+
+                if (distance <= rayon) {
+                    ennemis[j].prendreDegats(auras[i].getDegats());
+                }
+            }
+        }
+    }
 }
 
 Joueur& Jeu::getJoueur() {
@@ -299,6 +380,10 @@ const vector<Projectile>& Jeu::getProjectilesAllies() const {
 
 const vector<Amelioration>& Jeu::getChoixAmeliorations() const {
     return choixAmeliorations;
+}
+
+const vector<Aura>& Jeu::getAuras() const {
+    return auras;
 }
 
 bool Jeu::estEnChoixAmelioration() const {

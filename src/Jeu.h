@@ -8,6 +8,7 @@
 #include "Ennemi.h"
 #include "Vague.h"
 #include "Amelioration.h"
+#include "Aura.h"
 
 using namespace std;
 
@@ -20,12 +21,14 @@ private:
     Joueur joueur;
     vector<Ennemi> ennemis;
     vector<Projectile> projectilesAllies;
-
     vector<Amelioration> choixAmeliorations;
+    vector<Aura> auras;
+
     bool enChoixAmelioration;
 
     //compteur pour l'amelioration multi-tir
     int niveauMultitir;
+    int niveauAura;
 
 public:
     Jeu();
@@ -45,11 +48,15 @@ public:
     void appliquerAmeliorationChoisie(int index);
     void lancerVagueSuivante();
 
+    void mettreAJourAuras(float deltaTemps);
+    void appliquerDegatsAuras();
+
     Joueur& getJoueur();
     const Joueur& getJoueur() const;
     const vector<Ennemi>& getEnnemis() const;
     const vector<Projectile>& getProjectilesAllies() const;
     const vector<Amelioration>& getChoixAmeliorations() const;
+    const vector<Aura>& getAuras() const;
 
     bool estEnChoixAmelioration() const;
 
