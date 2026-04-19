@@ -34,7 +34,7 @@ void Jeu::avancerTour() {
         ennemis[i].seDeplacerVersJoueur(posJoueur, joueur.getLargeur(), joueur.getHauteur());
     }
 
-    mettreAJourAuras(0.01);
+    mettreAJourAuras(0.016);
     appliquerDegatsAuras();
 
     if (ennemis.empty()) {

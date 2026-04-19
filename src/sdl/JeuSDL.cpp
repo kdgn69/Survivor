@@ -9,7 +9,7 @@
 
 using namespace std;
 
-JeuSDL::JeuSDL() : jeu(), fenetre(nullptr), rendu(nullptr) {
+JeuSDL::JeuSDL() : jeu(), fenetre(nullptr), rendu(nullptr), police(nullptr), textureAura(nullptr) {
 }
 
 float JeuSDL::calculerAngleJoueurVersSouris(int sourisX, int sourisY) const {
@@ -71,6 +71,24 @@ void JeuSDL::afficher() const {
 
     SDL_SetRenderDrawColor(rendu, 220, 40, 40, 255);
     SDL_RenderDrawRectF(rendu, &fondCarte);
+
+    // affichage des auras
+    const vector<Aura>& auras = jeu.getAuras();
+
+    for (unsigned int i = 0; i < auras.size(); i++) {
+        Position pos = auras[i].getPosition();
+        float rayon = auras[i].getRayon();
+
+        SDL_FRect rectAura;
+        rectAura.x = pos.x - rayon;
+        rectAura.y = pos.y - rayon;
+        rectAura.w = rayon * 2;
+        rectAura.h = rayon * 2;
+
+        if (textureAura != nullptr) {
+            SDL_RenderCopyF(rendu, textureAura, nullptr, &rectAura);
+        }
+    }
 
     SDL_FRect rectJoueur = convertirRect(jeu.getJoueur().getRectangle());
 
@@ -145,7 +163,7 @@ void JeuSDL::afficherChoixAmeliorations() const {
         string nom = choix[i].nom;
 
         // on affiche le nom de l'amélioration en haut
-        afficherTexte(nom, x + 100, y + 10);
+        afficherTexte(nom, x + 50, y + 10);
 
         // IMAGE
         SDL_FRect imageRect;
@@ -162,6 +180,7 @@ void JeuSDL::afficherChoixAmeliorations() const {
         else if (nom == "vitesseJoueur") chemin = "data/vitesseJoueur.png";
         else if (nom == "vitesseProjectile") chemin = "data/vitesseProjectile.png";
         else if (nom == "multitir") chemin = "data/multitir.png";
+        else if (nom == "auraMort") chemin = "data/auraMort.png";
 
         SDL_Surface* surface = IMG_Load(chemin.c_str());
 
@@ -199,6 +218,9 @@ void JeuSDL::afficherChoixAmeliorations() const {
         else if (nom == "multitir") {
             description = "Encore plus de tirs !";
         }
+        else if (nom == "auraMort") {
+        description = "La mort apres la mort";
+        }
 
         // on affiche la description sous l'image
         afficherTexte(description, x + 20, y + 200);
@@ -207,6 +229,7 @@ void JeuSDL::afficherChoixAmeliorations() const {
 
 void JeuSDL::boucle() {
     SDL_SetMainReady();
+    SDL_SetWindowTitle(fenetre, "Survivor");
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         cerr << "Erreur SDL : " << SDL_GetError() << endl;
@@ -253,6 +276,15 @@ void JeuSDL::boucle() {
         IMG_Quit();
         SDL_Quit();
         return;
+    }
+
+    SDL_Surface* surfaceAura = IMG_Load("data/auraZone.png");
+    if (surfaceAura == nullptr) {
+        cout << "Erreur chargement image : data/auraZone.png | " << IMG_GetError() << endl;
+    }
+    else {
+        textureAura = SDL_CreateTextureFromSurface(rendu, surfaceAura);
+        SDL_FreeSurface(surfaceAura);
     }
 
     jeu.initialiser();
@@ -316,21 +348,21 @@ void JeuSDL::boucle() {
             dernierTir = tempsActuel;
         }
 
+
         jeu.avancerTour();
-
-        string titre = "Survivor - Niveau " + to_string(jeu.getNiveauActuel()) +
-                       " - Vague " + to_string(jeu.getNumeroVague());
-        SDL_SetWindowTitle(fenetre, titre.c_str());
-
         afficher();
         SDL_RenderPresent(rendu);
-
         SDL_Delay(16);
     }
 
     if (police != nullptr) {
         TTF_CloseFont(police);
         police = nullptr;
+    }
+
+    if (textureAura != nullptr) {
+        SDL_DestroyTexture(textureAura);
+        textureAura = nullptr;
     }
 
     SDL_DestroyRenderer(rendu);

@@ -13,6 +13,7 @@ private:
     SDL_Window* fenetre;
     SDL_Renderer* rendu;
     TTF_Font* police;
+    SDL_Texture* textureAura;
 
     float calculerAngleJoueurVersSouris(int sourisX, int sourisY) const;
     void afficherTexte(const string& texte, int x, int y) const;
