@@ -33,10 +33,13 @@ Vague.o: src/Vague.cpp
 Aura.o: src/Aura.cpp
 	g++ -Wall -c src/Aura.cpp
 
+Image.o: src/sdl/Image.cpp
+	g++ -Wall -c src/sdl/Image.cpp 
+
 # VERSION SDL
 
-sdl: mainsdl.o JeuSDL.o Jeu.o Joueur.o Ennemi.o Projectile.o Rectangle.o Arme.o Vague.o Aura.o
-	g++ -Wall mainsdl.o JeuSDL.o Jeu.o Joueur.o Ennemi.o Projectile.o Rectangle.o Arme.o Vague.o Aura.o -o bin/sdl.exe -lSDL2 -lSDL2_ttf -lSDL2_image
+sdl: mainsdl.o JeuSDL.o Jeu.o Joueur.o Ennemi.o Projectile.o Rectangle.o Arme.o Vague.o Aura.o Image.o
+	g++ -Wall mainsdl.o JeuSDL.o Jeu.o Joueur.o Ennemi.o Projectile.o Rectangle.o Arme.o Vague.o Aura.o Image.o -o bin/sdl.exe -lSDL2 -lSDL2_ttf -lSDL2_image
 
 mainsdl.o: src/sdl/mainsdl.cpp
 	g++ -Wall -c src/sdl/mainsdl.cpp

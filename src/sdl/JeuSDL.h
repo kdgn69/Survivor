@@ -4,28 +4,35 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include "../Jeu.h"
+#include "Image.h"
 
 using namespace std;
 
 class JeuSDL {
 private:
     Jeu jeu;
+
     SDL_Window* fenetre;
     SDL_Renderer* rendu;
     TTF_Font* police;
-    SDL_Texture* textureAura;
 
-    float calculerAngleJoueurVersSouris(int sourisX, int sourisY) const;
-    void afficherTexte(const string& texte, int x, int y) const;
-    SDL_FRect convertirRect(const Rectangle& r) const;
+    Image im_auraZone;
+    Image im_joueur;
+    Image im_degats;
+    Image im_cadence;
+    Image im_taille;
+    Image im_vitesseProjectile;
+    Image im_vitesseJoueur;
+    Image im_multitir;
+    Image im_auraMort;
 
 public:
     JeuSDL();
+    ~JeuSDL();
 
-    void afficher() const;
-    void afficherChoixAmeliorations() const;
-    
+    void afficher();
+    void afficherChoixAmeliorations();
     void boucle();
 };
 
-#endif
+#endif 
