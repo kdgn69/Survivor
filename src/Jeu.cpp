@@ -45,7 +45,7 @@ void Jeu::avancerTour() {
 void Jeu::genererVagueActuelle() {
     ennemis.clear();
     int nombre = vague.getNombreEnnemis();
-    genererEnnemis(nombre, "zombie", false, 5, 2, 20, 20, 100);
+    genererEnnemis(nombre, "zombie", false, 1, 2, 20, 20, 100);
 }
 
 void Jeu::genererEnnemis(int nombre, const string& type, bool attaqueDistance, int pv, float vitesse, int largeur, int hauteur, float distanceMinJoueur) {

@@ -156,19 +156,11 @@ void JeuSDL::afficher() {
     SDL_SetRenderDrawColor(rendu, 30, 30, 30, 255);
     SDL_RenderClear(rendu);
 
-    // fond de carte
-    SDL_FRect fondCarte;
-    fondCarte.x = 0;
-    fondCarte.y = 0;
-    fondCarte.w = jeu.getLargeurCarte();
-    fondCarte.h = jeu.getHauteurCarte();
+    // CAMERA
+    float centreX = jeu.getLargeurCarte() / 2;
+    float centreY = jeu.getHauteurCarte() / 2;
 
-    SDL_SetRenderDrawColor(rendu, 70, 120, 70, 255);
-    SDL_RenderFillRectF(rendu, &fondCarte);
-
-    // bordure rouge pour voir les limites de la carte
-    SDL_SetRenderDrawColor(rendu, 220, 40, 40, 255);
-    SDL_RenderDrawRectF(rendu, &fondCarte);
+    Position posJoueur = jeu.getJoueur().getPosition();
 
     //AURAS
     const vector<Aura>& auras = jeu.getAuras();
@@ -177,12 +169,19 @@ void JeuSDL::afficher() {
         Position pos = auras[i].getPosition();
         float rayon = auras[i].getRayon();
 
-        im_auraZone.draw(rendu, pos.x - rayon, pos.y - rayon, rayon * 2, rayon * 2);
+        float x = centreX + (pos.x - posJoueur.x) - rayon;
+        float y = centreY + (pos.y - posJoueur.y) - rayon;
+
+        im_auraZone.draw(rendu, x, y, rayon * 2, rayon * 2);
     }
 
     //JOUEUR
     Rectangle rectJoueur = jeu.getJoueur().getRectangle();
-    im_joueur.draw(rendu, rectJoueur.x, rectJoueur.y, rectJoueur.largeur, rectJoueur.hauteur);
+
+    float xJ = centreX - rectJoueur.largeur / 2;
+    float yJ = centreY - rectJoueur.hauteur / 2;
+
+    im_joueur.draw(rendu, xJ, yJ, rectJoueur.largeur, rectJoueur.hauteur);
 
     //ENNEMIS
     const vector<Ennemi>& ennemis = jeu.getEnnemis();
@@ -190,8 +189,8 @@ void JeuSDL::afficher() {
         Rectangle rectEnnemi = ennemis[i].getRectangle();
 
         SDL_FRect rect;
-        rect.x = rectEnnemi.x;
-        rect.y = rectEnnemi.y;
+        rect.x = centreX + (rectEnnemi.x - posJoueur.x);
+        rect.y = centreY + (rectEnnemi.y - posJoueur.y);
         rect.w = rectEnnemi.largeur;
         rect.h = rectEnnemi.hauteur;
 
@@ -205,8 +204,8 @@ void JeuSDL::afficher() {
         Rectangle rectProjectile = projectiles[i].getRectangle();
 
         SDL_FRect rect;
-        rect.x = rectProjectile.x;
-        rect.y = rectProjectile.y;
+        rect.x = centreX + (rectProjectile.x - posJoueur.x);
+        rect.y = centreY + (rectProjectile.y - posJoueur.y);
         rect.w = rectProjectile.largeur;
         rect.h = rectProjectile.hauteur;
 
@@ -218,7 +217,16 @@ void JeuSDL::afficher() {
     if (jeu.estEnChoixAmelioration()) {
         afficherChoixAmeliorations();
     }
-}
+
+    // affichage niveau / vague / PV
+    string texteNiveau = "Niveau : " + to_string(jeu.getNiveauActuel());
+    string texteVague = "Vague : " + to_string(jeu.getNumeroVague());
+    string textePV = "PV : " + to_string(jeu.getJoueur().getVie());
+
+    afficherTexte(rendu, police, texteNiveau, 20, 20);
+    afficherTexte(rendu, police, texteVague, 20, 50);
+    afficherTexte(rendu, police, textePV, 20, 80);
+} 
 
 void JeuSDL::afficherChoixAmeliorations() {
     const vector<Amelioration>& choix = jeu.getChoixAmeliorations();

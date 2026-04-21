@@ -7,8 +7,8 @@ using namespace std;
 Joueur::Joueur() {
     vie = 100;
     vitesse = 3;
-    largeur = 20;
-    hauteur = 20;
+    largeur = 50;
+    hauteur = 50;
 
     pos.x = 0;
     pos.y = 0;
