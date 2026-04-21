@@ -43,16 +43,24 @@ void afficherTexte(SDL_Renderer* rendu, TTF_Font* police, const string& texte, i
 }
 
 float calculerAngleJoueurVersSouris(const Jeu& jeu, int sourisX, int sourisY) {
+
+    float centreX = jeu.getLargeurCarte() / 2;
+    float centreY = jeu.getHauteurCarte() / 2;
+
     Position posJoueur = jeu.getJoueur().getPosition();
 
-    float dx = sourisX - posJoueur.x;
-    float dy = posJoueur.y - sourisY;
+    // souris écran vers monde
+    float sourisMondeX = posJoueur.x + (sourisX - centreX);
+    float sourisMondeY = posJoueur.y + (sourisY - centreY);
+
+    float dx = sourisMondeX - posJoueur.x;
+    float dy = posJoueur.y - sourisMondeY;
 
     float angleRadians = atan2(dy, dx);
     float angleDegres = angleRadians * 180 / 3.14159265;
 
     return angleDegres;
-}
+} 
 
 JeuSDL::JeuSDL() : jeu(), fenetre(nullptr), rendu(nullptr), police(nullptr) {
     cout << "Init SDL..." << endl;
