@@ -25,6 +25,7 @@ private:
     Image im_vitesseJoueur;
     Image im_multitir;
     Image im_auraMort;
+    Image im_tirPerforant;
 
 public:
     JeuSDL();

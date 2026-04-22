@@ -129,6 +129,7 @@ JeuSDL::JeuSDL() : jeu(), fenetre(nullptr), rendu(nullptr), police(nullptr) {
     im_vitesseJoueur.loadFromFile("data/vitesseJoueur.png", rendu);
     im_multitir.loadFromFile("data/multitir.png", rendu);
     im_auraMort.loadFromFile("data/auraMort.png", rendu);
+    im_tirPerforant.loadFromFile("data/tirPerforant.png", rendu);
 
     jeu.initialiser();
 
@@ -282,6 +283,8 @@ void JeuSDL::afficherChoixAmeliorations() {
         else if (nom == "vitesseJoueur") im_vitesseJoueur.draw(rendu, imgX, imgY, imgW, imgH);
         else if (nom == "multitir") im_multitir.draw(rendu, imgX, imgY, imgW, imgH);
         else if (nom == "auraMort") im_auraMort.draw(rendu, imgX, imgY, imgW, imgH);
+        else if (nom == "auraMort") im_auraMort.draw(rendu, imgX, imgY, imgW, imgH);
+        else if (nom == "perforant") im_tirPerforant.draw(rendu, imgX, imgY, imgW, imgH);
 
         // description
         string description;
@@ -306,6 +309,9 @@ void JeuSDL::afficherChoixAmeliorations() {
         }
         else if (nom == "auraMort") {
             description = "La mort apres la mort";
+        }
+        else if (nom == "perforant") {
+            description = "Les projectiles traversent les ennemis";
         }
 
         afficherTexte(rendu, police, description, x + 20, y + 200);

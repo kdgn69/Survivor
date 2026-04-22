@@ -10,6 +10,7 @@ Projectile::Projectile() {
     direction.dx = 0;
     direction.dy = 0;
     actif = false;
+    perforant = false;
     degats = 0;
     largeur = 6;
     hauteur = 6;
@@ -21,6 +22,7 @@ Projectile::Projectile(float x, float y, float dx, float dy, int deg, float larg
     direction.dx = dx;
     direction.dy = dy;
     actif = true;
+    perforant = false;
     degats = deg;
     largeur = larg;
     hauteur = taille;
@@ -51,6 +53,10 @@ bool Projectile::estActif() const {
     return actif;
 }
 
+bool Projectile::estPerforant() const {
+    return perforant;
+}
+
 int Projectile::getDegats() const {
     return degats;
 }
@@ -61,6 +67,10 @@ float Projectile::getLargeur() const {
 
 float Projectile::getHauteur() const {
     return hauteur;
+}
+
+void Projectile::setPerforant(bool val) {
+    perforant = val;
 }
 
 void Projectile::desactiver() {

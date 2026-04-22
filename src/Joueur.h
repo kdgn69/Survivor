@@ -18,6 +18,7 @@ private:
     int largeur;
     int hauteur;
     Arme arme;
+    bool tirPerforant;
 
 public:
     Joueur();
@@ -37,6 +38,9 @@ public:
 
     Rectangle getRectangle() const;
     Rectangle getRectangleAvecPosition(float x, float y) const;
+
+    bool aTirPerforant() const;
+    void activerTirPerforant();
 };
 
 #endif

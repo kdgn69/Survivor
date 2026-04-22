@@ -9,6 +9,7 @@ Joueur::Joueur() {
     vitesse = 3;
     largeur = 50;
     hauteur = 50;
+    tirPerforant = false;
 
     pos.x = 0;
     pos.y = 0;
@@ -89,4 +90,12 @@ Rectangle Joueur::getRectangleAvecPosition(float centreX, float centreY) const {
     r.largeur = largeur;
     r.hauteur = hauteur;
     return r;
+}
+
+bool Joueur::aTirPerforant() const {
+    return tirPerforant;
+}
+
+void Joueur::activerTirPerforant() {
+    tirPerforant = true;
 }

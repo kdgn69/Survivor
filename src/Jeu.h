@@ -29,6 +29,7 @@ private:
     //compteur pour l'amelioration multi-tir
     int niveauMultitir;
     int niveauAura;
+    bool tirPerforantActif;
 
 public:
     Jeu();

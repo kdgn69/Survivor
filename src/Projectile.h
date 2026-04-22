@@ -12,6 +12,7 @@ private:
     Position pos;
     Direction direction;
     bool actif;
+    bool perforant;
     int degats;
     float largeur;
     float hauteur;
@@ -25,9 +26,12 @@ public:
     Position getPosition() const;
     Rectangle getRectangle() const;
     bool estActif() const;
+    bool estPerforant() const;
     int getDegats() const;
     float getLargeur() const;
     float getHauteur() const;
+
+    void setPerforant(bool val);
 
     void desactiver();
 };

@@ -11,6 +11,7 @@ Jeu::Jeu() {
     enChoixAmelioration = false;
     niveauMultitir = 0;
     niveauAura = 0;
+    tirPerforantActif = false;
 }
 
 void Jeu::initialiser() {
@@ -58,7 +59,7 @@ void Jeu::genererEnnemis(int nombre, const string& type, bool attaqueDistance, i
 
         while (!positionValide) {
             centreX = posJoueur.x + (rand() % 4000 - 2000);
-            centreY = posJoueur.y + (rand() % 800 - 400);
+            centreY = posJoueur.y + (rand() % 4000 - 2000);
 
             float dx = centreX - posJoueur.x;
             float dy = centreY - posJoueur.y;
@@ -131,6 +132,9 @@ void Jeu::tirer(float angleDegres) {
         float dy = -sin(angleRad) * vitesseProjectile;
 
         Projectile p(posJoueur.x, posJoueur.y, dx, dy, degats, largeur, hauteur);
+        if (joueur.aTirPerforant()) {
+            p.setPerforant(true);
+        }
         projectilesAllies.push_back(p);
     }
 }
@@ -169,8 +173,10 @@ void Jeu::gererCollisionsProjectilesAllieSurLesEnnemis() {
                 // on enlève des PV à l'ennemi
                 ennemis[j].prendreDegats(projectilesAllies[i].getDegats());
 
-                projectileATouche = true;
-                break; // un projectile ne touche qu'un ennemi
+                if (!projectilesAllies[i].estPerforant()) {
+                    projectileATouche = true;
+                    break;
+                }
             }
         }
         // si le projectile n'a rien touché, on le garde
@@ -230,6 +236,7 @@ void Jeu::genererChoixAmeliorations() {
     nomsPossibles.push_back("vitesseJoueur");
     nomsPossibles.push_back("multitir");
     nomsPossibles.push_back("auraMort");
+    nomsPossibles.push_back("perforant");
 
     // on veut exactement 3 choix différents
     while (choixAmeliorations.size() < 3) {
@@ -249,11 +256,14 @@ void Jeu::genererChoixAmeliorations() {
 
         // si pas encore présent, on l'ajoute
         if (!dejaPresent) {
-            // on empêche d'afficher multitir si on l'a déjà pris 2 fois (limite max)
+            // on empêche d'afficher les ameliorations si elles ont été prises le nombre max de fois possible
             if (nomChoisi == "multitir" && niveauMultitir >= 2) {
                 continue;
             }
             if (nomChoisi == "auraMort" && niveauAura >= 3) {
+                continue;
+            }
+            if (nomChoisi == "perforant" && tirPerforantActif) {
                 continue;
             }
             Amelioration a;
@@ -285,16 +295,20 @@ void Jeu::appliquerAmeliorationChoisie(int index) {
         arme.augmenterHauteurProjectile(3);
     }
     else if (nom == "vitesseProjectile") {
-    arme.augmenterVitesseProjectile(1);
+        arme.augmenterVitesseProjectile(1);
     }
     else if (nom == "vitesseJoueur") {
         joueur.augmenterVitesse(0.5);
     }
     else if (nom == "multitir") {
-    niveauMultitir++;
+        niveauMultitir++;
     }
     else if (nom == "auraMort") {
-    niveauAura++;
+        niveauAura++;
+    }
+    else if (nom == "perforant") {
+        joueur.activerTirPerforant();
+        tirPerforantActif = true;
     }
 
     // une fois le choix fait, on sort du mode amélioration
