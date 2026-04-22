@@ -51,17 +51,14 @@ void Jeu::genererVagueActuelle() {
 void Jeu::genererEnnemis(int nombre, const string& type, bool attaqueDistance, int pv, float vitesse, int largeur, int hauteur, float distanceMinJoueur) {
     Position posJoueur = joueur.getPosition();
 
-    float demiLargeur = largeur / 2;
-    float demiHauteur = hauteur / 2;
-
     for (int i = 0; i < nombre; i++) {
         bool positionValide = false;
         float centreX = 0;
         float centreY = 0;
 
         while (!positionValide) {
-            centreX = demiLargeur + rand() % largeurCarte - largeur;
-            centreY = demiHauteur + rand() % hauteurCarte - hauteur;
+            centreX = posJoueur.x + (rand() % 4000 - 2000);
+            centreY = posJoueur.y + (rand() % 800 - 400);
 
             float dx = centreX - posJoueur.x;
             float dy = centreY - posJoueur.y;
@@ -83,7 +80,7 @@ void Jeu::deplacerJoueur(char direction) {
     }
 
     if (direction == 'z' || direction == 'q' || direction == 's' || direction == 'd') {
-        joueur.deplacerAvecDirection(direction, largeurCarte, hauteurCarte, ennemis);
+        joueur.deplacerAvecDirection(direction, ennemis);
     }
 }
 
@@ -142,13 +139,6 @@ void Jeu::deplacerProjectilesAllies() {
     for (unsigned int i = 0; i < projectilesAllies.size(); i++) {
         if (projectilesAllies[i].estActif()) {
             projectilesAllies[i].avancer();
-
-            Position pos = projectilesAllies[i].getPosition();
-
-            // Si le projectile sort de la carte, on le désactive
-            if (pos.x < 0 || pos.x >= largeurCarte || pos.y < 0 || pos.y >= hauteurCarte) {
-                projectilesAllies[i].desactiver();
-            }
         }
     }
 
@@ -159,7 +149,6 @@ void Jeu::deplacerProjectilesAllies() {
             nouveauxProjectiles.push_back(projectilesAllies[i]);
         }
     }
-
     projectilesAllies = nouveauxProjectiles;
 }
 

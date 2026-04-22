@@ -19,7 +19,7 @@ void Joueur::setPosition(float x, float y) {
     pos.y = y;
 }
 
-void Joueur::deplacerAvecDirection(char direction, int largeurCarte, int hauteurCarte, const vector<Ennemi>& ennemis) {
+void Joueur::deplacerAvecDirection(char direction, const vector<Ennemi>& ennemis) {
     float nouveauX = pos.x;
     float nouveauY = pos.y;
 
@@ -27,23 +27,6 @@ void Joueur::deplacerAvecDirection(char direction, int largeurCarte, int hauteur
     if (direction == 's') nouveauY += vitesse;
     if (direction == 'q') nouveauX -= vitesse;
     if (direction == 'd') nouveauX += vitesse;
-
-    // On empêche le joueur de sortir de la carte
-    float demiLargeur = largeur / 2.;
-    float demiHauteur = hauteur / 2.;
-
-    if (nouveauX - demiLargeur < 0) {
-        nouveauX = demiLargeur;
-    }
-    if (nouveauY - demiHauteur < 0) {
-        nouveauY = demiHauteur;
-    }
-    if (nouveauX + demiLargeur > largeurCarte) {
-        nouveauX = largeurCarte - demiLargeur;
-    }
-    if (nouveauY + demiHauteur > hauteurCarte) {
-        nouveauY = hauteurCarte - demiHauteur;
-    }
 
     Rectangle futurRect = getRectangleAvecPosition(nouveauX, nouveauY);
     bool collision = false;
