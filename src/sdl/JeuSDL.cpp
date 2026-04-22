@@ -120,6 +120,7 @@ JeuSDL::JeuSDL() : jeu(), fenetre(nullptr), rendu(nullptr), police(nullptr) {
     // images du jeu
     im_auraZone.loadFromFile("data/auraZone.png", rendu);
     im_joueur.loadFromFile("data/joueur.png", rendu);
+    im_auraJoueur.loadFromFile("data/auraJoueur.png", rendu);
 
     // images des améliorations
     im_degats.loadFromFile("data/degats.png", rendu);
@@ -170,6 +171,20 @@ void JeuSDL::afficher() {
     float centreY = jeu.getHauteurCarte() / 2;
 
     Position posJoueur = jeu.getJoueur().getPosition();
+
+    // AURA JOUEUR (visuel)
+    if (jeu.getNiveauAuraJoueur() > 0) {
+
+        float rayon = 125;
+
+        if (jeu.getNiveauAuraJoueur() == 2) rayon = 200;
+        else if (jeu.getNiveauAuraJoueur() >= 3) rayon = 250;
+
+        float x = centreX - rayon;
+        float y = centreY - rayon;
+
+        im_auraJoueur.draw(rendu, x, y, rayon * 2, rayon * 2);
+    }
 
     //AURAS
     const vector<Aura>& auras = jeu.getAuras();
@@ -231,10 +246,12 @@ void JeuSDL::afficher() {
     string texteNiveau = "Niveau : " + to_string(jeu.getNiveauActuel());
     string texteVague = "Vague : " + to_string(jeu.getNumeroVague());
     string textePV = "PV : " + to_string(jeu.getJoueur().getVie());
+    string texteEnnemis = "Il reste : " + to_string(jeu.getNombreEnnemisRestants()) + " ennemis";
 
     afficherTexte(rendu, police, texteNiveau, 20, 20);
     afficherTexte(rendu, police, texteVague, 20, 50);
     afficherTexte(rendu, police, textePV, 20, 80);
+    afficherTexte(rendu, police, texteEnnemis, 20, 110);
 } 
 
 void JeuSDL::afficherChoixAmeliorations() {
@@ -283,8 +300,8 @@ void JeuSDL::afficherChoixAmeliorations() {
         else if (nom == "vitesseJoueur") im_vitesseJoueur.draw(rendu, imgX, imgY, imgW, imgH);
         else if (nom == "multitir") im_multitir.draw(rendu, imgX, imgY, imgW, imgH);
         else if (nom == "auraMort") im_auraMort.draw(rendu, imgX, imgY, imgW, imgH);
-        else if (nom == "auraMort") im_auraMort.draw(rendu, imgX, imgY, imgW, imgH);
         else if (nom == "perforant") im_tirPerforant.draw(rendu, imgX, imgY, imgW, imgH);
+        else if (nom == "auraJoueur") im_auraJoueur.draw(rendu, imgX, imgY, imgW, imgH);
 
         // description
         string description;
@@ -311,7 +328,10 @@ void JeuSDL::afficherChoixAmeliorations() {
             description = "La mort apres la mort";
         }
         else if (nom == "perforant") {
-            description = "Les projectiles traversent les ennemis";
+            description = "Des projectiles perforants";
+        }
+        else if (nom == "auraJoueur") {
+            description = "Aura autour du joueur";
         }
 
         afficherTexte(rendu, police, description, x + 20, y + 200);

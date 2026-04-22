@@ -29,6 +29,7 @@ private:
     //compteur pour l'amelioration multi-tir
     int niveauMultitir;
     int niveauAura;
+    int niveauAuraJoueur;
     bool tirPerforantActif;
 
 public:
@@ -51,6 +52,7 @@ public:
 
     void mettreAJourAuras(float deltaTemps);
     void appliquerDegatsAuras();
+    void appliquerAuraJoueur(float deltaTemps);
 
     Joueur& getJoueur();
     const Joueur& getJoueur() const;
@@ -65,6 +67,8 @@ public:
     int getNumeroVague() const;
     int getLargeurCarte() const;
     int getHauteurCarte() const;
+    int getNiveauAuraJoueur() const;
+    int getNombreEnnemisRestants() const;
 };
 
 #endif

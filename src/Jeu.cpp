@@ -11,6 +11,7 @@ Jeu::Jeu() {
     enChoixAmelioration = false;
     niveauMultitir = 0;
     niveauAura = 0;
+    niveauAuraJoueur = 0;
     tirPerforantActif = false;
 }
 
@@ -37,6 +38,7 @@ void Jeu::avancerTour() {
 
     mettreAJourAuras(0.016);
     appliquerDegatsAuras();
+    appliquerAuraJoueur(0.016);
 
     if (ennemis.empty()) {
         genererChoixAmeliorations();
@@ -46,7 +48,7 @@ void Jeu::avancerTour() {
 void Jeu::genererVagueActuelle() {
     ennemis.clear();
     int nombre = vague.getNombreEnnemis();
-    genererEnnemis(nombre, "zombie", false, 1, 2, 20, 20, 100);
+    genererEnnemis(nombre, "zombie", false, 1, 2, 20, 20, 500);
 }
 
 void Jeu::genererEnnemis(int nombre, const string& type, bool attaqueDistance, int pv, float vitesse, int largeur, int hauteur, float distanceMinJoueur) {
@@ -58,8 +60,8 @@ void Jeu::genererEnnemis(int nombre, const string& type, bool attaqueDistance, i
         float centreY = 0;
 
         while (!positionValide) {
-            centreX = posJoueur.x + (rand() % 4000 - 2000);
-            centreY = posJoueur.y + (rand() % 4000 - 2000);
+            centreX = posJoueur.x + (rand() % 2500 - 1250);
+            centreY = posJoueur.y + (rand() % 2500 - 1250);
 
             float dx = centreX - posJoueur.x;
             float dy = centreY - posJoueur.y;
@@ -237,6 +239,7 @@ void Jeu::genererChoixAmeliorations() {
     nomsPossibles.push_back("multitir");
     nomsPossibles.push_back("auraMort");
     nomsPossibles.push_back("perforant");
+    nomsPossibles.push_back("auraJoueur");
 
     // on veut exactement 3 choix différents
     while (choixAmeliorations.size() < 3) {
@@ -264,6 +267,9 @@ void Jeu::genererChoixAmeliorations() {
                 continue;
             }
             if (nomChoisi == "perforant" && tirPerforantActif) {
+                continue;
+            }
+            if (nomChoisi == "auraJoueur" && niveauAuraJoueur >= 3) {
                 continue;
             }
             Amelioration a;
@@ -309,6 +315,9 @@ void Jeu::appliquerAmeliorationChoisie(int index) {
     else if (nom == "perforant") {
         joueur.activerTirPerforant();
         tirPerforantActif = true;
+    }
+    else if (nom == "auraJoueur") {
+        niveauAuraJoueur++;
     }
 
     // une fois le choix fait, on sort du mode amélioration
@@ -365,6 +374,51 @@ void Jeu::appliquerDegatsAuras() {
     }
 }
 
+void Jeu::appliquerAuraJoueur(float deltaTemps) {
+
+    if (niveauAuraJoueur == 0) {
+        return;
+    }
+
+    static float tempsDepuisDernierDegat = 0;
+    tempsDepuisDernierDegat += deltaTemps;
+
+    float intervalle = 0.5;
+    float rayon = 60;
+    int degats = 3;
+
+    if (niveauAuraJoueur == 2) {
+        rayon = 80;
+        degats = 6;
+    }
+    else if (niveauAuraJoueur >= 3) {
+        rayon = 100;
+        degats = 10;
+        intervalle = 0.25;
+    }
+
+    if (tempsDepuisDernierDegat < intervalle) {
+        return;
+    }
+
+    tempsDepuisDernierDegat = 0;
+
+    Position posJoueur = joueur.getPosition();
+
+    for (unsigned int i = 0; i < ennemis.size(); i++) {
+
+        Position posEnnemi = ennemis[i].getPosition();
+
+        float dx = posEnnemi.x - posJoueur.x;
+        float dy = posEnnemi.y - posJoueur.y;
+        float distance = sqrt(dx * dx + dy * dy);
+
+        if (distance <= rayon) {
+            ennemis[i].prendreDegats(degats);
+        }
+    }
+}
+
 Joueur& Jeu::getJoueur() {
     return joueur;
 }
@@ -407,4 +461,12 @@ int Jeu::getLargeurCarte() const {
 
 int Jeu::getHauteurCarte() const {
     return hauteurCarte;
+}
+
+int Jeu::getNiveauAuraJoueur() const {
+    return niveauAuraJoueur;
+}
+
+int Jeu::getNombreEnnemisRestants() const {
+    return ennemis.size();
 }
