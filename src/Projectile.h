@@ -18,8 +18,6 @@ private:
     float hauteur;
 
 public:
-    Projectile();
-
     Projectile(float x, float y, float dx, float dy, int deg, float larg, float taille);
     void avancer();
 

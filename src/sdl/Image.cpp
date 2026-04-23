@@ -76,7 +76,3 @@ void Image::draw(SDL_Renderer* renderer, float x, float y, float w, float h) con
 
     SDL_RenderCopyF(renderer, m_texture, nullptr, &rect);
 }
-
-SDL_Texture* Image::getTexture() const {
-    return m_texture;
-} 

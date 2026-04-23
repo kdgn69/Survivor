@@ -10,8 +10,9 @@ Jeu::Jeu() {
     hauteurCarte = 1080;
     enChoixAmelioration = false;
     niveauMultitir = 0;
-    niveauAura = 0;
+    niveauAuraMorts = 0;
     niveauAuraJoueur = 0;
+    niveauFoudre = 0;
     tirPerforantActif = false;
 }
 
@@ -36,9 +37,9 @@ void Jeu::avancerTour() {
         ennemis[i].seDeplacerVersJoueur(posJoueur, joueur.getLargeur(), joueur.getHauteur());
     }
 
-    mettreAJourAuras(0.016);
+    mettreAJourAurasMorts(0.016);
+    mettreAJourAuraJoueur();
     appliquerDegatsAuras();
-    appliquerAuraJoueur(0.016);
 
     if (ennemis.empty()) {
         genererChoixAmeliorations();
@@ -48,7 +49,7 @@ void Jeu::avancerTour() {
 void Jeu::genererVagueActuelle() {
     ennemis.clear();
     int nombre = vague.getNombreEnnemis();
-    genererEnnemis(nombre, "zombie", false, 1, 2, 20, 20, 500);
+    genererEnnemis(nombre, "zombie", false, 1, 5, 20, 20, 500);
 }
 
 void Jeu::genererEnnemis(int nombre, const string& type, bool attaqueDistance, int pv, float vitesse, int largeur, int hauteur, float distanceMinJoueur) {
@@ -78,13 +79,9 @@ void Jeu::genererEnnemis(int nombre, const string& type, bool attaqueDistance, i
 }
 
 void Jeu::deplacerJoueur(char direction) {
-    if (enChoixAmelioration) {
-        return;
-    }
-
-    if (direction == 'z' || direction == 'q' || direction == 's' || direction == 'd') {
-        joueur.deplacerAvecDirection(direction, ennemis);
-    }
+    if (enChoixAmelioration) return;
+    
+    joueur.deplacerAvecDirection(direction, ennemis);
 }
 
 void Jeu::tirer(float angleDegres) {
@@ -115,11 +112,11 @@ void Jeu::tirer(float angleDegres) {
     }
     // niveau 2 : 5 tirs
     else if (niveauMultitir >= 2) {
-        angles.push_back(angleDegres - 40);
+        angles.push_back(angleDegres - 30);
         angles.push_back(angleDegres - 20);
         angles.push_back(angleDegres);
         angles.push_back(angleDegres + 20);
-        angles.push_back(angleDegres + 40);
+        angles.push_back(angleDegres + 30);
     }
 
     // on crée un projectile pour chaque angle (multitir)
@@ -191,7 +188,7 @@ void Jeu::gererCollisionsProjectilesAllieSurLesEnnemis() {
         // si l'ennemi est mort
         if (ennemis[j].estMort()) {
             // ET si aura active
-            if (niveauAura > 0) {
+            if (niveauAuraMorts > 0) {
                 Position pos = ennemis[j].getPosition();
 
                 float rayon = 40;
@@ -199,20 +196,20 @@ void Jeu::gererCollisionsProjectilesAllieSurLesEnnemis() {
                 float duree = 3;
                 float intervalle = 0.30;
 
-                if (niveauAura == 2) {
+                if (niveauAuraMorts == 2) {
                     rayon = 50;
                     degats = 8;
                     duree = 4;
                     intervalle = 0.25;
                 }
-                else if (niveauAura >= 3) {
+                else if (niveauAuraMorts >= 3) {
                     rayon = 60;
                     degats = 12;
                     duree = 5;
                     intervalle = 0.20;
                 }
 
-                Aura a(pos.x, pos.y, rayon, degats, duree, intervalle);
+                Aura a(pos.x, pos.y, rayon, degats, duree, intervalle, AURA_MORT);
                 auras.push_back(a);
             }
         }
@@ -240,6 +237,7 @@ void Jeu::genererChoixAmeliorations() {
     nomsPossibles.push_back("auraMort");
     nomsPossibles.push_back("perforant");
     nomsPossibles.push_back("auraJoueur");
+    nomsPossibles.push_back("foudre");
 
     // on veut exactement 3 choix différents
     while (choixAmeliorations.size() < 3) {
@@ -263,13 +261,16 @@ void Jeu::genererChoixAmeliorations() {
             if (nomChoisi == "multitir" && niveauMultitir >= 2) {
                 continue;
             }
-            if (nomChoisi == "auraMort" && niveauAura >= 3) {
+            if (nomChoisi == "auraMort" && niveauAuraMorts >= 3) {
                 continue;
             }
             if (nomChoisi == "perforant" && tirPerforantActif) {
                 continue;
             }
             if (nomChoisi == "auraJoueur" && niveauAuraJoueur >= 3) {
+                continue;
+            }
+            if (nomChoisi == "foudre" && niveauFoudre >= 3) {
                 continue;
             }
             Amelioration a;
@@ -310,7 +311,7 @@ void Jeu::appliquerAmeliorationChoisie(int index) {
         niveauMultitir++;
     }
     else if (nom == "auraMort") {
-        niveauAura++;
+        niveauAuraMorts++;
     }
     else if (nom == "perforant") {
         joueur.activerTirPerforant();
@@ -318,6 +319,9 @@ void Jeu::appliquerAmeliorationChoisie(int index) {
     }
     else if (nom == "auraJoueur") {
         niveauAuraJoueur++;
+    }
+    else if (nom == "foudre") {
+        niveauFoudre++;
     }
 
     // une fois le choix fait, on sort du mode amélioration
@@ -332,7 +336,7 @@ void Jeu::lancerVagueSuivante() {
     genererVagueActuelle();
 }
 
-void Jeu::mettreAJourAuras(float deltaTemps) {
+void Jeu::mettreAJourAurasMorts(float deltaTemps) {
 
     vector<Aura> nouvellesAuras;
 
@@ -347,6 +351,51 @@ void Jeu::mettreAJourAuras(float deltaTemps) {
     }
 
     auras = nouvellesAuras;
+}
+
+void Jeu::mettreAJourAuraJoueur() {
+
+    if (niveauAuraJoueur == 0) return;
+
+    Position pos = joueur.getPosition();
+
+    // stats selon le niveau
+    float rayon = 150;
+    int degats = 3;
+    float intervalle = 0.5;
+
+    if (niveauAuraJoueur == 2) {
+        rayon = 200;
+        degats = 6;
+    }
+    else if (niveauAuraJoueur >= 3) {
+        rayon = 250;
+        degats = 10;
+        intervalle = 0.25;
+    }
+
+    bool trouve = false;
+
+    // on cherche si l'aura joueur existe déjà
+    for (unsigned int i = 0; i < auras.size(); i++) {
+        if (auras[i].getType() == AURA_JOUEUR) {
+
+            // mise à jour position + stats
+            auras[i].setPosition(pos.x, pos.y);
+            auras[i].setRayon(rayon);
+            auras[i].setDegats(degats);
+            auras[i].setIntervalle(intervalle);
+
+            trouve = true;
+            break;
+        }
+    }
+
+    // si aucune aura joueur n'existe encore, on la crée
+    if (!trouve) {
+        Aura auraJoueur(pos.x, pos.y, rayon, degats, 9999, intervalle, AURA_JOUEUR);
+        auras.push_back(auraJoueur);
+    }
 }
 
 void Jeu::appliquerDegatsAuras() {
@@ -370,51 +419,6 @@ void Jeu::appliquerDegatsAuras() {
                     ennemis[j].prendreDegats(auras[i].getDegats());
                 }
             }
-        }
-    }
-}
-
-void Jeu::appliquerAuraJoueur(float deltaTemps) {
-
-    if (niveauAuraJoueur == 0) {
-        return;
-    }
-
-    static float tempsDepuisDernierDegat = 0;
-    tempsDepuisDernierDegat += deltaTemps;
-
-    float intervalle = 0.5;
-    float rayon = 60;
-    int degats = 3;
-
-    if (niveauAuraJoueur == 2) {
-        rayon = 80;
-        degats = 6;
-    }
-    else if (niveauAuraJoueur >= 3) {
-        rayon = 100;
-        degats = 10;
-        intervalle = 0.25;
-    }
-
-    if (tempsDepuisDernierDegat < intervalle) {
-        return;
-    }
-
-    tempsDepuisDernierDegat = 0;
-
-    Position posJoueur = joueur.getPosition();
-
-    for (unsigned int i = 0; i < ennemis.size(); i++) {
-
-        Position posEnnemi = ennemis[i].getPosition();
-
-        float dx = posEnnemi.x - posJoueur.x;
-        float dy = posEnnemi.y - posJoueur.y;
-        float distance = sqrt(dx * dx + dy * dy);
-
-        if (distance <= rayon) {
-            ennemis[i].prendreDegats(degats);
         }
     }
 }

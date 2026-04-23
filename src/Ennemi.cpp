@@ -1,6 +1,5 @@
 #include <cmath>
 #include "Ennemi.h"
-#include <iostream>
 
 using namespace std;
 
@@ -61,10 +60,6 @@ bool Ennemi::estMort() const {
 
 Position Ennemi::getPosition() const {
     return pos;
-}
-
-int Ennemi::getVie() const {
-    return vie;
 }
 
 int Ennemi::getLargeur() const {

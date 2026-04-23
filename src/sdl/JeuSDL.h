@@ -16,7 +16,7 @@ private:
     SDL_Renderer* rendu;
     TTF_Font* police;
 
-    Image im_auraZone;
+    Image im_auraMorts;
     Image im_joueur;
     Image im_degats;
     Image im_cadence;
@@ -27,6 +27,7 @@ private:
     Image im_auraMort;
     Image im_tirPerforant;
     Image im_auraJoueur;
+    Image im_foudre;
 
 public:
     JeuSDL();

@@ -26,10 +26,11 @@ private:
 
     bool enChoixAmelioration;
 
-    //compteur pour l'amelioration multi-tir
+    //compteur pour les ameliorations
     int niveauMultitir;
-    int niveauAura;
+    int niveauAuraMorts;
     int niveauAuraJoueur;
+    int niveauFoudre;
     bool tirPerforantActif;
 
 public:
@@ -50,9 +51,9 @@ public:
     void appliquerAmeliorationChoisie(int index);
     void lancerVagueSuivante();
 
-    void mettreAJourAuras(float deltaTemps);
+    void mettreAJourAurasMorts(float deltaTemps);
+    void mettreAJourAuraJoueur();
     void appliquerDegatsAuras();
-    void appliquerAuraJoueur(float deltaTemps);
 
     Joueur& getJoueur();
     const Joueur& getJoueur() const;

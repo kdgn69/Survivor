@@ -21,8 +21,6 @@ public:
     bool loadFromFile(const string& filename, SDL_Renderer* renderer);
 
     void draw(SDL_Renderer* renderer, float x, float y, float w, float h) const;
-
-    SDL_Texture* getTexture() const;
 };
 
 #endif 

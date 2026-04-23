@@ -26,7 +26,6 @@ public:
     bool estMort() const;
 
     Position getPosition() const;
-    int getVie() const;
     int getLargeur() const;
     int getHauteur() const;
 

@@ -1,20 +1,7 @@
 #include "Projectile.h"
 #include "Rectangle.h"
-#include <iostream>
 
 using namespace std;
-
-Projectile::Projectile() {
-    pos.x = 0;
-    pos.y = 0;
-    direction.dx = 0;
-    direction.dy = 0;
-    actif = false;
-    perforant = false;
-    degats = 0;
-    largeur = 6;
-    hauteur = 6;
-}
 
 Projectile::Projectile(float x, float y, float dx, float dy, int deg, float larg, float taille) {
     pos.x = x;

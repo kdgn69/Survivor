@@ -1,5 +1,4 @@
 #include "Rectangle.h"
-#include <iostream>
 
 bool collisionRectangles(const Rectangle& a, const Rectangle& b) {
     // si un rectangle est complètement à gauche de l'autre, il n'y a pas collision

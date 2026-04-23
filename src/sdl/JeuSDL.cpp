@@ -118,7 +118,7 @@ JeuSDL::JeuSDL() : jeu(), fenetre(nullptr), rendu(nullptr), police(nullptr) {
     }
 
     // images du jeu
-    im_auraZone.loadFromFile("data/auraZone.png", rendu);
+    im_auraMorts.loadFromFile("data/auraMorts.png", rendu);
     im_joueur.loadFromFile("data/joueur.png", rendu);
     im_auraJoueur.loadFromFile("data/auraJoueur.png", rendu);
 
@@ -131,6 +131,7 @@ JeuSDL::JeuSDL() : jeu(), fenetre(nullptr), rendu(nullptr), police(nullptr) {
     im_multitir.loadFromFile("data/multitir.png", rendu);
     im_auraMort.loadFromFile("data/auraMort.png", rendu);
     im_tirPerforant.loadFromFile("data/tirPerforant.png", rendu);
+    im_foudre.loadFromFile("data/foudre.png", rendu);
 
     jeu.initialiser();
 
@@ -172,31 +173,34 @@ void JeuSDL::afficher() {
 
     Position posJoueur = jeu.getJoueur().getPosition();
 
-    // AURA JOUEUR (visuel)
-    if (jeu.getNiveauAuraJoueur() > 0) {
-
-        float rayon = 125;
-
-        if (jeu.getNiveauAuraJoueur() == 2) rayon = 200;
-        else if (jeu.getNiveauAuraJoueur() >= 3) rayon = 250;
-
-        float x = centreX - rayon;
-        float y = centreY - rayon;
-
-        im_auraJoueur.draw(rendu, x, y, rayon * 2, rayon * 2);
-    }
-
-    //AURAS
     const vector<Aura>& auras = jeu.getAuras();
 
+    // on parcourt toutes les auras du jeu (joueur + ennemis morts)
     for (unsigned int i = 0; i < auras.size(); i++) {
-        Position pos = auras[i].getPosition();
+
         float rayon = auras[i].getRayon();
 
-        float x = centreX + (pos.x - posJoueur.x) - rayon;
-        float y = centreY + (pos.y - posJoueur.y) - rayon;
+        // AURA DU JOUEUR
+        if (auras[i].getType() == AURA_JOUEUR) {
 
-        im_auraZone.draw(rendu, x, y, rayon * 2, rayon * 2);
+            // le joueur est toujours affiché au centre de l'écran
+            float x = centreX - rayon;
+            float y = centreY - rayon;
+
+            im_auraJoueur.draw(rendu, x, y, rayon * 2, rayon * 2);
+        }
+
+        // AURAS DES ENNEMIS MORTS
+        else if (auras[i].getType() == AURA_MORT) {
+
+            Position pos = auras[i].getPosition();
+
+            // conversion monde vers écran (avec la caméra centrée sur le joueur)
+            float x = centreX + (pos.x - posJoueur.x) - rayon;
+            float y = centreY + (pos.y - posJoueur.y) - rayon;
+
+            im_auraMorts.draw(rendu, x, y, rayon * 2, rayon * 2);
+        }
     }
 
     //JOUEUR
