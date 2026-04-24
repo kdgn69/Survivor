@@ -25,5 +25,5 @@ int Vague::getNiveau() const {
 }
 
 int Vague::getNombreEnnemis() const {
-    return 1;
+    return 5;
 }

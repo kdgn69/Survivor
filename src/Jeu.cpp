@@ -34,6 +34,8 @@ void Jeu::avancerTour() {
     mettreAJourAuras();
     mettreAJourEtatAuraJoueur();
     appliquerDegatsDesAuras();
+    deplacerProjectilesEnnemis();
+    gererCollisionsProjectilesEnnemisSurJoueur();
 
     if (ennemis.empty()) {
         genererChoixAmeliorations();
@@ -43,7 +45,7 @@ void Jeu::avancerTour() {
 void Jeu::genererVagueActuelle() {
     ennemis.clear();
     int nombre = vague.getNombreEnnemis();
-    genererEnnemis(nombre, ZOMBIE, 100, 2.5, 20, 20, 500);
+    genererEnnemis(nombre, ARCHER, 100, 2.5, 20, 20, 500);
 }
 
 void Jeu::genererEnnemis(int nombre, TypeEnnemi type, int pv, float vitesse, int largeur, int hauteur, float distanceMinJoueur) {
@@ -66,7 +68,6 @@ void Jeu::genererEnnemis(int nombre, TypeEnnemi type, int pv, float vitesse, int
                 positionValide = true;
             }
         }
-
         Ennemi e(centreX, centreY, type, pv, vitesse, largeur, hauteur);
         ennemis.push_back(e);
     }
@@ -79,7 +80,6 @@ void Jeu::deplacerJoueur(char direction) {
 }
 
 void Jeu::deplacerEnnemisVersJoueur() {
-
     Position posJoueur = joueur.getPosition();
 
     for (unsigned int i = 0; i < ennemis.size(); i++) {
@@ -124,7 +124,6 @@ void Jeu::tirer(float angleDegres) {
 
     // on crée un projectile pour chaque angle (multitir)
     for (unsigned int i = 0; i < angles.size(); i++) {
-
         // conversion de l'angle en radians
         float angleRad = angles[i] * 3.14159265 / 180;
 
@@ -141,13 +140,36 @@ void Jeu::tirer(float angleDegres) {
     }
 }
 
+void Jeu::faireTirerEnnemis() {
+    Position posJoueur = joueur.getPosition();
+
+    for (unsigned int i = 0; i < ennemis.size(); i++) {
+        if (ennemis[i].getType() != ARCHER) continue;
+
+        Position pos = ennemis[i].getPosition();
+
+        float dx = posJoueur.x - pos.x;
+        float dy = posJoueur.y - pos.y;
+
+        float distance = sqrt(dx * dx + dy * dy);
+        if (distance == 0) continue;
+
+        dx /= distance;
+        dy /= distance;
+
+        float vitesse = 4;
+
+        Projectile p(pos.x, pos.y, dx * vitesse, dy * vitesse, 10, 6, 6);
+        projectilesEnnemis.push_back(p);
+    }
+}
+
 void Jeu::deplacerProjectilesAllies() {
     for (unsigned int i = 0; i < projectilesAllies.size(); i++) {
         if (projectilesAllies[i].estActif()) {
             projectilesAllies[i].avancer();
         }
     }
-
     vector<Projectile> nouveauxProjectiles;
 
     for (unsigned int i = 0; i < projectilesAllies.size(); i++) {
@@ -158,23 +180,35 @@ void Jeu::deplacerProjectilesAllies() {
     projectilesAllies = nouveauxProjectiles;
 }
 
-void Jeu::gererCollisionsProjectilesAllieSurLesEnnemis() {
+void Jeu::deplacerProjectilesEnnemis() {
+    for (unsigned int i = 0; i < projectilesEnnemis.size(); i++) {
+        if (projectilesEnnemis[i].estActif()) {
+            projectilesEnnemis[i].avancer();
+        }
+    }
+    vector<Projectile> nouveaux;
 
+    for (unsigned int i = 0; i < projectilesEnnemis.size(); i++) {
+        if (projectilesEnnemis[i].estActif()) {
+            nouveaux.push_back(projectilesEnnemis[i]);
+        }
+    }
+    projectilesEnnemis = nouveaux;
+}
+
+void Jeu::gererCollisionsProjectilesAllieSurLesEnnemis() {
     vector<Projectile> nouveauxProjectiles;
 
     // On parcourt tous les projectiles
     for (unsigned int i = 0; i < projectilesAllies.size(); i++) {
-
         bool projectileATouche = false;
         Rectangle rectProjectile = projectilesAllies[i].getRectangle();
 
         // test collision avec ennemis
         for (unsigned int j = 0; j < ennemis.size(); j++) {
-
             Rectangle rectEnnemi = ennemis[j].getRectangle();
 
             if (collisionRectangles(rectProjectile, rectEnnemi)) {
-
                 ennemis[j].prendreDegats(projectilesAllies[i].getDegats());
 
                 if (!projectilesAllies[i].estPerforant()) {
@@ -190,6 +224,23 @@ void Jeu::gererCollisionsProjectilesAllieSurLesEnnemis() {
     }
     // mise à jour des projectiles
     projectilesAllies = nouveauxProjectiles;
+}
+
+void Jeu::gererCollisionsProjectilesEnnemisSurJoueur() {
+    Rectangle rectJoueur = joueur.getRectangle();
+    vector<Projectile> nouveaux;
+
+    for (unsigned int i = 0; i < projectilesEnnemis.size(); i++) {
+        Rectangle rectP = projectilesEnnemis[i].getRectangle();
+
+        if (collisionRectangles(rectP, rectJoueur)) {
+            // dégâts joueur
+            // joueur.prendreDegats(...)
+        } else {
+            nouveaux.push_back(projectilesEnnemis[i]);
+        }
+    }
+    projectilesEnnemis = nouveaux;
 }
 
 void Jeu::genererChoixAmeliorations() {
@@ -211,7 +262,6 @@ void Jeu::genererChoixAmeliorations() {
 
     // on veut exactement 3 choix différents
     while (choixAmeliorations.size() < 3) {
-
         // on choisit un type au hasard
         int indexAleatoire = rand() % nomsPossibles.size();
         string nomChoisi = nomsPossibles[indexAleatoire];
@@ -224,7 +274,6 @@ void Jeu::genererChoixAmeliorations() {
                 break;
             }
         }
-
         // si pas encore présent, on l'ajoute
         if (!dejaPresent) {
             // on empêche d'afficher les ameliorations si elles ont été prises le nombre max de fois possible
@@ -248,7 +297,6 @@ void Jeu::genererChoixAmeliorations() {
             choixAmeliorations.push_back(a);
         }
     }
-
     // on passe en mode "choix d'amélioration"
     enChoixAmelioration = true;
 }
@@ -275,7 +323,7 @@ void Jeu::appliquerAmeliorationChoisie(int index) {
         arme.augmenterVitesseProjectile(1);
     }
     else if (nom == "vitesseJoueur") {
-        joueur.augmenterVitesse(0.5);
+        joueur.augmenterVitesse(0.01);
     }
     else if (nom == "multitir") {
         niveauMultitir++;
@@ -307,15 +355,11 @@ void Jeu::lancerVagueSuivante() {
 }
 
 void Jeu::gererMortsEnnemis() {
-
     vector<Ennemi> nouveauxEnnemis;
 
     for (unsigned int i = 0; i < ennemis.size(); i++) {
-
         if (ennemis[i].estMort()) {
-
             if (niveauAuraMorts > 0) {
-
                 Position pos = ennemis[i].getPosition();
 
                 float rayon = 40;
@@ -335,7 +379,6 @@ void Jeu::gererMortsEnnemis() {
                     duree = 500;
                     intervalle = 20;
                 }
-
                 Aura a(pos.x, pos.y, rayon, degats, duree, intervalle, AURA_MORT);
                 auras.push_back(a);
             }
@@ -344,7 +387,6 @@ void Jeu::gererMortsEnnemis() {
             nouveauxEnnemis.push_back(ennemis[i]);
         }
     }
-
     ennemis = nouveauxEnnemis;
 }
 

@@ -45,9 +45,12 @@ public:
     void deplacerJoueur(char direction);
     void deplacerEnnemisVersJoueur();
     void tirer(float angleDegres);
+    void faireTirerEnnemis();
 
     void deplacerProjectilesAllies();
+    void deplacerProjectilesEnnemis();
     void gererCollisionsProjectilesAllieSurLesEnnemis();
+    void gererCollisionsProjectilesEnnemisSurJoueur();
 
     void genererChoixAmeliorations();
     void appliquerAmeliorationChoisie(int index);

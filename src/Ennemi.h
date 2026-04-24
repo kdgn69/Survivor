@@ -23,6 +23,7 @@ private:
     int largeur;
     int hauteur;
     TypeEnnemi type;
+    float dernierTir;
 
 public:
     Ennemi(float x, float y, TypeEnnemi t, int pv, float vit, int larg, int haut);
@@ -35,9 +36,11 @@ public:
     int getLargeur() const;
     int getHauteur() const;
     TypeEnnemi getType() const;
-
+    float getDernierTir() const;
     Rectangle getRectangle() const;
     Rectangle getRectangleAvecPosition(float x, float y) const;
+
+    void setDernierTir(float t);
 };
 
 #endif

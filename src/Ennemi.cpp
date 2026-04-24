@@ -11,6 +11,7 @@ Ennemi::Ennemi(float x, float y, TypeEnnemi t, int pv, float vit, int larg, int 
     vitesse = vit;
     largeur = larg;
     hauteur = haut;
+    dernierTir = 0;
 }
 
 void Ennemi::seDeplacerVersJoueur(const Position& posJoueur, int largeurJoueur, int hauteurJoueur) {
@@ -62,6 +63,10 @@ TypeEnnemi Ennemi::getType() const {
     return type;
 }
 
+float Ennemi::getDernierTir() const {
+    return dernierTir;
+}
+
 Rectangle Ennemi::getRectangle() const {
     Rectangle r;
     r.x = pos.x - largeur / 2;
@@ -78,4 +83,8 @@ Rectangle Ennemi::getRectangleAvecPosition(float centreX, float centreY) const {
     r.largeur = largeur;
     r.hauteur = hauteur;
     return r;
+}
+
+void Ennemi::setDernierTir(float t) {
+    dernierTir = t;
 }

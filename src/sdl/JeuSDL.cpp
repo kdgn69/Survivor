@@ -205,10 +205,8 @@ void JeuSDL::afficher() {
 
     //JOUEUR
     Rectangle rectJoueur = jeu.getJoueur().getRectangle();
-
     float xJ = centreX - rectJoueur.largeur / 2;
     float yJ = centreY - rectJoueur.hauteur / 2;
-
     im_joueur.draw(rendu, xJ, yJ, rectJoueur.largeur, rectJoueur.hauteur);
 
     //ENNEMIS
@@ -226,7 +224,7 @@ void JeuSDL::afficher() {
         SDL_RenderFillRectF(rendu, &rect);
     }
 
-    //PROJECTILES
+    //PROJECTILES ALLIES
     const vector<Projectile>& projectiles = jeu.getProjectilesAllies();
     for (unsigned int i = 0; i < projectiles.size(); i++) {
         Rectangle rectProjectile = projectiles[i].getRectangle();
@@ -238,6 +236,21 @@ void JeuSDL::afficher() {
         rect.h = rectProjectile.hauteur;
 
         SDL_SetRenderDrawColor(rendu, 255, 230, 80, 255);
+        SDL_RenderFillRectF(rendu, &rect);
+    }
+
+    //PROJECTILES ENNEMIS
+    const vector<Projectile>& projE = jeu.getProjectilesEnnemis();
+    for (unsigned int i = 0; i < projE.size(); i++) {
+        Rectangle r = projE[i].getRectangle();
+
+        SDL_FRect rect;
+        rect.x = centreX + (r.x - posJoueur.x);
+        rect.y = centreY + (r.y - posJoueur.y);
+        rect.w = r.largeur;
+        rect.h = r.hauteur;
+
+        SDL_SetRenderDrawColor(rendu, 255, 50, 50, 255);
         SDL_RenderFillRectF(rendu, &rect);
     }
 
@@ -351,6 +364,7 @@ void JeuSDL::boucle() {
     SDL_Event event;
 
     float dernierTir = temps();
+    float dernierTirEnnemis = temps();
 
     while (!quitter) {
         while (SDL_PollEvent(&event)) {
@@ -392,10 +406,15 @@ void JeuSDL::boucle() {
 
             float maintenant = temps();
             float intervalle = jeu.getJoueur().getArme().getIntervalleTirMs() / 1000.0;
+            float intervalleTirEnnemis = 0.2;
 
             if (maintenant - dernierTir >= intervalle) {
                 jeu.tirer(angle);
                 dernierTir = maintenant;
+            }
+            if (maintenant - dernierTirEnnemis >= intervalleTirEnnemis) {
+                jeu.faireTirerEnnemis();
+                dernierTirEnnemis = maintenant;
             }
         }
 
