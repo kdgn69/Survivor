@@ -21,6 +21,7 @@ private:
     Joueur joueur;
     vector<Ennemi> ennemis;
     vector<Projectile> projectilesAllies;
+    vector<Projectile> projectilesEnnemis;
     vector<Amelioration> choixAmeliorations;
     vector<Aura> auras;
 
@@ -39,7 +40,7 @@ public:
     void initialiser();
     void avancerTour();
     void genererVagueActuelle();
-    void genererEnnemis(int nombre, const string& type, bool attaqueDistance, int pv, float vitesse, int largeur, int hauteur, float distanceMinJoueur);
+    void genererEnnemis(int nombre, TypeEnnemi type, int pv, float vitesse, int largeur, int hauteur, float distanceMinJoueur);
 
     void deplacerJoueur(char direction);
     void deplacerEnnemisVersJoueur();
@@ -61,6 +62,7 @@ public:
     const Joueur& getJoueur() const;
     const vector<Ennemi>& getEnnemis() const;
     const vector<Projectile>& getProjectilesAllies() const;
+    const vector<Projectile>& getProjectilesEnnemis() const;
     const vector<Amelioration>& getChoixAmeliorations() const;
     const vector<Aura>& getAuras() const;
 

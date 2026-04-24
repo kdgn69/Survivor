@@ -3,22 +3,10 @@
 
 using namespace std;
 
-Ennemi::Ennemi() {
-    pos.x = 0;
-    pos.y = 0;
-    vie = 100;
-    vitesse = 1;
-    largeur = 1;
-    hauteur = 1;
-    typeEnnemi = "zombie";
-    distance = false;
-}
-
-Ennemi::Ennemi(float x, float y, string type, bool attaqueDistance, int pv, float vit, int larg, int haut) {
+Ennemi::Ennemi(float x, float y, TypeEnnemi t, int pv, float vit, int larg, int haut) {
     pos.x = x;
     pos.y = y;
-    typeEnnemi = type;
-    distance = attaqueDistance;
+    type = t;
     vie = pv;
     vitesse = vit;
     largeur = larg;
@@ -68,6 +56,10 @@ int Ennemi::getLargeur() const {
 
 int Ennemi::getHauteur() const {
     return hauteur;
+}
+
+TypeEnnemi Ennemi::getType() const {
+    return type;
 }
 
 Rectangle Ennemi::getRectangle() const {

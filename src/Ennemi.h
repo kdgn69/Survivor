@@ -7,6 +7,14 @@
 
 using namespace std;
 
+enum TypeEnnemi {
+    ZOMBIE,
+    ARCHER,
+    HEALER,
+    SORCIERE,
+    SLIME
+};
+
 class Ennemi {
 private:
     Position pos;
@@ -14,12 +22,10 @@ private:
     float vitesse;
     int largeur;
     int hauteur;
-    string typeEnnemi;
-    bool distance;
+    TypeEnnemi type;
 
 public:
-    Ennemi();
-    Ennemi(float x, float y, string type, bool attaqueDistance, int pv, float vit, int larg, int haut);
+    Ennemi(float x, float y, TypeEnnemi t, int pv, float vit, int larg, int haut);
     
     void seDeplacerVersJoueur(const Position& posJoueur, int largeurJoueur, int hauteurJoueur);
     void prendreDegats(int degats);
@@ -28,6 +34,7 @@ public:
     Position getPosition() const;
     int getLargeur() const;
     int getHauteur() const;
+    TypeEnnemi getType() const;
 
     Rectangle getRectangle() const;
     Rectangle getRectangleAvecPosition(float x, float y) const;

@@ -43,10 +43,10 @@ void Jeu::avancerTour() {
 void Jeu::genererVagueActuelle() {
     ennemis.clear();
     int nombre = vague.getNombreEnnemis();
-    genererEnnemis(nombre, "zombie", false, 100, 2.5, 20, 20, 500);
+    genererEnnemis(nombre, ZOMBIE, 100, 2.5, 20, 20, 500);
 }
 
-void Jeu::genererEnnemis(int nombre, const string& type, bool attaqueDistance, int pv, float vitesse, int largeur, int hauteur, float distanceMinJoueur) {
+void Jeu::genererEnnemis(int nombre, TypeEnnemi type, int pv, float vitesse, int largeur, int hauteur, float distanceMinJoueur) {
     Position posJoueur = joueur.getPosition();
 
     for (int i = 0; i < nombre; i++) {
@@ -67,7 +67,7 @@ void Jeu::genererEnnemis(int nombre, const string& type, bool attaqueDistance, i
             }
         }
 
-        Ennemi e(centreX, centreY, type, attaqueDistance, pv, vitesse, largeur, hauteur);
+        Ennemi e(centreX, centreY, type, pv, vitesse, largeur, hauteur);
         ennemis.push_back(e);
     }
 }
@@ -446,6 +446,10 @@ const vector<Ennemi>& Jeu::getEnnemis() const {
 
 const vector<Projectile>& Jeu::getProjectilesAllies() const {
     return projectilesAllies;
+}
+
+const vector<Projectile>& Jeu::getProjectilesEnnemis() const {
+    return projectilesEnnemis;
 }
 
 const vector<Amelioration>& Jeu::getChoixAmeliorations() const {
