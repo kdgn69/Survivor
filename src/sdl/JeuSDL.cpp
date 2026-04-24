@@ -399,10 +399,23 @@ void JeuSDL::boucle() {
             }
         }
 
-        jeu.avancerTour();
+        static float dernierTemps = temps();
+        static float accumulateur = 0;
+
+        float maintenant = temps();
+        float delta = maintenant - dernierTemps;
+        dernierTemps = maintenant;
+
+        accumulateur += delta;
+
+        float intervalleTick = 0.01; // 100 boucles/sec
+
+        while (accumulateur >= intervalleTick) {
+            jeu.avancerTour();
+            accumulateur -= intervalleTick;
+        }
 
         afficher();
         SDL_RenderPresent(rendu);
-        SDL_Delay(16);
     }
 } 

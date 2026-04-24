@@ -42,6 +42,7 @@ public:
     void genererEnnemis(int nombre, const string& type, bool attaqueDistance, int pv, float vitesse, int largeur, int hauteur, float distanceMinJoueur);
 
     void deplacerJoueur(char direction);
+    void deplacerEnnemisVersJoueur();
     void tirer(float angleDegres);
 
     void deplacerProjectilesAllies();
@@ -51,9 +52,10 @@ public:
     void appliquerAmeliorationChoisie(int index);
     void lancerVagueSuivante();
 
-    void mettreAJourAurasMorts(float deltaTemps);
-    void mettreAJourAuraJoueur();
-    void appliquerDegatsAuras();
+    void gererMortsEnnemis();
+    void mettreAJourAuras();
+    void mettreAJourEtatAuraJoueur();
+    void appliquerDegatsDesAuras();
 
     Joueur& getJoueur();
     const Joueur& getJoueur() const;

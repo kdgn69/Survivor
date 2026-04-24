@@ -1,11 +1,11 @@
 #include "Arme.h"
 
 Arme::Arme() {
-    degats = 10;
-    cadence = 2;
+    degats = 50;
+    cadence = 5;
     largeurProjectile = 5;
     hauteurProjectile = 5;
-    vitesseProjectile = 3;
+    vitesseProjectile = 5;
 }
 
 int Arme::getDegats() const {

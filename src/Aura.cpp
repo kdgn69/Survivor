@@ -13,12 +13,11 @@ Aura::Aura(float x, float y, float r, int d, float dur, float inter, TypeAura t)
     tempsDepuisDernierDegat = 0;
 }
 
-//deltaTemps = temps écoulé depuis la dernière frame
-void Aura::mettreAJour(float deltaTemps) {
+void Aura::mettreAJour() {
     // on augmente le temps total depuis la création de l’aura
-    tempsDepuisCreation += deltaTemps;
+    tempsDepuisCreation++;
     // on augmente le temps depuis les derniers dégâts
-    tempsDepuisDernierDegat += deltaTemps;
+    tempsDepuisDernierDegat++;
 }
 
 bool Aura::estExpiree() const {

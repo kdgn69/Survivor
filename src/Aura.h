@@ -22,7 +22,7 @@ private:
 public:
     Aura(float x, float y, float r, int d, float dur, float inter, TypeAura t);
 
-    void mettreAJour(float deltaTemps);
+    void mettreAJour();
 
     bool estExpiree() const;
     bool peutInfligerDegats();

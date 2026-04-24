@@ -27,19 +27,13 @@ void Jeu::avancerTour() {
         return;
     }
 
-    //on deplace les projectiles et gère leurs collisions
     deplacerProjectilesAllies();
     gererCollisionsProjectilesAllieSurLesEnnemis();
-
-    // Puis les ennemis jouent leur tour
-    Position posJoueur = joueur.getPosition();
-    for (unsigned int i = 0; i < ennemis.size(); i++) {
-        ennemis[i].seDeplacerVersJoueur(posJoueur, joueur.getLargeur(), joueur.getHauteur());
-    }
-
-    mettreAJourAurasMorts(0.016);
-    mettreAJourAuraJoueur();
-    appliquerDegatsAuras();
+    gererMortsEnnemis();
+    deplacerEnnemisVersJoueur();
+    mettreAJourAuras();
+    mettreAJourEtatAuraJoueur();
+    appliquerDegatsDesAuras();
 
     if (ennemis.empty()) {
         genererChoixAmeliorations();
@@ -49,7 +43,7 @@ void Jeu::avancerTour() {
 void Jeu::genererVagueActuelle() {
     ennemis.clear();
     int nombre = vague.getNombreEnnemis();
-    genererEnnemis(nombre, "zombie", false, 1, 5, 20, 20, 500);
+    genererEnnemis(nombre, "zombie", false, 100, 2.5, 20, 20, 500);
 }
 
 void Jeu::genererEnnemis(int nombre, const string& type, bool attaqueDistance, int pv, float vitesse, int largeur, int hauteur, float distanceMinJoueur) {
@@ -82,6 +76,15 @@ void Jeu::deplacerJoueur(char direction) {
     if (enChoixAmelioration) return;
     
     joueur.deplacerAvecDirection(direction, ennemis);
+}
+
+void Jeu::deplacerEnnemisVersJoueur() {
+
+    Position posJoueur = joueur.getPosition();
+
+    for (unsigned int i = 0; i < ennemis.size(); i++) {
+        ennemis[i].seDeplacerVersJoueur(posJoueur, joueur.getLargeur(), joueur.getHauteur());
+    }
 }
 
 void Jeu::tirer(float angleDegres) {
@@ -156,20 +159,22 @@ void Jeu::deplacerProjectilesAllies() {
 }
 
 void Jeu::gererCollisionsProjectilesAllieSurLesEnnemis() {
+
     vector<Projectile> nouveauxProjectiles;
-    vector<Ennemi> nouveauxEnnemis;
 
     // On parcourt tous les projectiles
     for (unsigned int i = 0; i < projectilesAllies.size(); i++) {
+
         bool projectileATouche = false;
         Rectangle rectProjectile = projectilesAllies[i].getRectangle();
 
-        // On teste collision avec chaque ennemi
+        // test collision avec ennemis
         for (unsigned int j = 0; j < ennemis.size(); j++) {
+
             Rectangle rectEnnemi = ennemis[j].getRectangle();
 
             if (collisionRectangles(rectProjectile, rectEnnemi)) {
-                // on enlève des PV à l'ennemi
+
                 ennemis[j].prendreDegats(projectilesAllies[i].getDegats());
 
                 if (!projectilesAllies[i].estPerforant()) {
@@ -178,48 +183,13 @@ void Jeu::gererCollisionsProjectilesAllieSurLesEnnemis() {
                 }
             }
         }
-        // si le projectile n'a rien touché, on le garde
+        // si le projectile n’a pas touché, on le garde
         if (!projectileATouche) {
             nouveauxProjectiles.push_back(projectilesAllies[i]);
         }
     }
-    // on garde seulement les ennemis encore en vie
-    for (unsigned int j = 0; j < ennemis.size(); j++) {
-        // si l'ennemi est mort
-        if (ennemis[j].estMort()) {
-            // ET si aura active
-            if (niveauAuraMorts > 0) {
-                Position pos = ennemis[j].getPosition();
-
-                float rayon = 40;
-                int degats = 5;
-                float duree = 3;
-                float intervalle = 0.30;
-
-                if (niveauAuraMorts == 2) {
-                    rayon = 50;
-                    degats = 8;
-                    duree = 4;
-                    intervalle = 0.25;
-                }
-                else if (niveauAuraMorts >= 3) {
-                    rayon = 60;
-                    degats = 12;
-                    duree = 5;
-                    intervalle = 0.20;
-                }
-
-                Aura a(pos.x, pos.y, rayon, degats, duree, intervalle, AURA_MORT);
-                auras.push_back(a);
-            }
-        }
-        else {
-            nouveauxEnnemis.push_back(ennemis[j]);
-        }
-    }
-    // mise à jour des listes
+    // mise à jour des projectiles
     projectilesAllies = nouveauxProjectiles;
-    ennemis = nouveauxEnnemis;
 }
 
 void Jeu::genererChoixAmeliorations() {
@@ -336,24 +306,63 @@ void Jeu::lancerVagueSuivante() {
     genererVagueActuelle();
 }
 
-void Jeu::mettreAJourAurasMorts(float deltaTemps) {
+void Jeu::gererMortsEnnemis() {
 
+    vector<Ennemi> nouveauxEnnemis;
+
+    for (unsigned int i = 0; i < ennemis.size(); i++) {
+
+        if (ennemis[i].estMort()) {
+
+            if (niveauAuraMorts > 0) {
+
+                Position pos = ennemis[i].getPosition();
+
+                float rayon = 40;
+                int degats = 5;
+                float duree = 300;
+                float intervalle = 30;
+
+                if (niveauAuraMorts == 2) {
+                    rayon = 50;
+                    degats = 8;
+                    duree = 400;
+                    intervalle = 25;
+                }
+                else if (niveauAuraMorts >= 3) {
+                    rayon = 60;
+                    degats = 12;
+                    duree = 500;
+                    intervalle = 20;
+                }
+
+                Aura a(pos.x, pos.y, rayon, degats, duree, intervalle, AURA_MORT);
+                auras.push_back(a);
+            }
+        }
+        else {
+            nouveauxEnnemis.push_back(ennemis[i]);
+        }
+    }
+
+    ennemis = nouveauxEnnemis;
+}
+
+//supp les auras qui sont expirées
+void Jeu::mettreAJourAuras() {
     vector<Aura> nouvellesAuras;
 
     for (unsigned int i = 0; i < auras.size(); i++) {
-
-        auras[i].mettreAJour(deltaTemps);
-
+        auras[i].mettreAJour();
         // on garde seulement les auras encore actives
         if (!auras[i].estExpiree()) {
             nouvellesAuras.push_back(auras[i]);
         }
     }
-
     auras = nouvellesAuras;
 }
 
-void Jeu::mettreAJourAuraJoueur() {
+void Jeu::mettreAJourEtatAuraJoueur() {
 
     if (niveauAuraJoueur == 0) return;
 
@@ -362,7 +371,7 @@ void Jeu::mettreAJourAuraJoueur() {
     // stats selon le niveau
     float rayon = 150;
     int degats = 3;
-    float intervalle = 0.5;
+    float intervalle = 50;
 
     if (niveauAuraJoueur == 2) {
         rayon = 200;
@@ -371,12 +380,12 @@ void Jeu::mettreAJourAuraJoueur() {
     else if (niveauAuraJoueur >= 3) {
         rayon = 250;
         degats = 10;
-        intervalle = 0.25;
+        intervalle = 25;
     }
 
     bool trouve = false;
 
-    // on cherche si l'aura joueur existe déjà
+    // on cherche l'aura du joueur
     for (unsigned int i = 0; i < auras.size(); i++) {
         if (auras[i].getType() == AURA_JOUEUR) {
 
@@ -398,7 +407,7 @@ void Jeu::mettreAJourAuraJoueur() {
     }
 }
 
-void Jeu::appliquerDegatsAuras() {
+void Jeu::appliquerDegatsDesAuras() {
 
     for (unsigned int i = 0; i < auras.size(); i++) {
 
