@@ -364,7 +364,6 @@ void JeuSDL::boucle() {
     SDL_Event event;
 
     float dernierTir = temps();
-    float dernierTirEnnemis = temps();
 
     while (!quitter) {
         while (SDL_PollEvent(&event)) {
@@ -405,17 +404,14 @@ void JeuSDL::boucle() {
             float angle = calculerAngleJoueurVersSouris(jeu, sourisX, sourisY);
 
             float maintenant = temps();
-            float intervalle = jeu.getJoueur().getArme().getIntervalleTirMs() / 1000.0;
-            float intervalleTirEnnemis = 0.2;
+            float intervalle = jeu.getJoueur().getArme().getIntervalleTirMs() / 1000;
 
             if (maintenant - dernierTir >= intervalle) {
                 jeu.tirer(angle);
                 dernierTir = maintenant;
             }
-            if (maintenant - dernierTirEnnemis >= intervalleTirEnnemis) {
-                jeu.faireTirerEnnemis();
-                dernierTirEnnemis = maintenant;
-            }
+
+            jeu.faireTirerEnnemis(maintenant);
         }
 
         static float dernierTemps = temps();
@@ -437,4 +433,4 @@ void JeuSDL::boucle() {
         afficher();
         SDL_RenderPresent(rendu);
     }
-} 
+}

@@ -50,6 +50,11 @@ void Joueur::augmenterVitesse(float bonus) {
     vitesse += bonus;
 }
 
+void Joueur::prendreDegats(int degats) {
+    vie -= degats;
+    if (vie < 0) vie = 0;
+}
+
 Position Joueur::getPosition() const {
     return pos;
 }

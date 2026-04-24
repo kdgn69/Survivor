@@ -24,9 +24,10 @@ public:
     Joueur();
 
     void setPosition(float x, float y);
-    void deplacerAvecDirection(char direction, const vector<Ennemi>& ennemis);
 
+    void deplacerAvecDirection(char direction, const vector<Ennemi>& ennemis);
     void augmenterVitesse(float bonus);
+    void prendreDegats(int degats);
 
     Position getPosition() const;
     int getVie() const;

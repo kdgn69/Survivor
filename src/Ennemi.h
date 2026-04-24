@@ -3,6 +3,7 @@
 
 #include "Position.h"
 #include "Rectangle.h"
+#include "Arme.h"
 #include <string>
 
 using namespace std;
@@ -24,6 +25,7 @@ private:
     int hauteur;
     TypeEnnemi type;
     float dernierTir;
+    Arme arme;
 
 public:
     Ennemi(float x, float y, TypeEnnemi t, int pv, float vit, int larg, int haut);
@@ -39,6 +41,9 @@ public:
     float getDernierTir() const;
     Rectangle getRectangle() const;
     Rectangle getRectangleAvecPosition(float x, float y) const;
+
+    Arme& getArme();
+    const Arme& getArme() const;
 
     void setDernierTir(float t);
 };

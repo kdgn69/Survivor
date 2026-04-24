@@ -140,28 +140,43 @@ void Jeu::tirer(float angleDegres) {
     }
 }
 
-void Jeu::faireTirerEnnemis() {
+void Jeu::faireTirerEnnemis(float maintenant) {
     Position posJoueur = joueur.getPosition();
 
     for (unsigned int i = 0; i < ennemis.size(); i++) {
+
         if (ennemis[i].getType() != ARCHER) continue;
 
-        Position pos = ennemis[i].getPosition();
+        float intervalle = ennemis[i].getArme().getIntervalleTirMs() / 1000;
+        if (maintenant - ennemis[i].getDernierTir() < intervalle) continue;
 
-        float dx = posJoueur.x - pos.x;
-        float dy = posJoueur.y - pos.y;
-
-        float distance = sqrt(dx * dx + dy * dy);
-        if (distance == 0) continue;
-
-        dx /= distance;
-        dy /= distance;
-
-        float vitesse = 4;
-
-        Projectile p(pos.x, pos.y, dx * vitesse, dy * vitesse, 10, 6, 6);
+        Projectile p = creerProjectileDepuisEnnemi(ennemis[i], posJoueur);
         projectilesEnnemis.push_back(p);
+
+        ennemis[i].setDernierTir(maintenant);
     }
+}
+
+Projectile Jeu::creerProjectileDepuisEnnemi(const Ennemi& ennemi, const Position& cible) const {
+    Position pos = ennemi.getPosition();
+
+    float dx = cible.x - pos.x;
+    float dy = cible.y - pos.y;
+
+    float distance = sqrt(dx * dx + dy * dy);
+    if (distance == 0) distance = 1;
+
+    dx /= distance;
+    dy /= distance;
+
+    const Arme& arme = ennemi.getArme();
+
+    float vitesse = arme.getVitesseProjectile();
+    int degats = arme.getDegats();
+    float largeur = arme.getLargeurProjectile();
+    float hauteur = arme.getHauteurProjectile();
+
+    return Projectile(pos.x, pos.y, dx * vitesse, dy * vitesse, degats, largeur, hauteur);
 }
 
 void Jeu::deplacerProjectilesAllies() {

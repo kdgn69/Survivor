@@ -12,6 +12,14 @@ Ennemi::Ennemi(float x, float y, TypeEnnemi t, int pv, float vit, int larg, int 
     largeur = larg;
     hauteur = haut;
     dernierTir = 0;
+
+    if (type == ARCHER) {
+        arme.augmenterDegats(0);
+        arme.augmenterCadence(-3);
+        arme.augmenterVitesseProjectile(3);
+        arme.augmenterLargeurProjectile(1);
+        arme.augmenterHauteurProjectile(1);
+    }
 }
 
 void Ennemi::seDeplacerVersJoueur(const Position& posJoueur, int largeurJoueur, int hauteurJoueur) {
@@ -65,6 +73,14 @@ TypeEnnemi Ennemi::getType() const {
 
 float Ennemi::getDernierTir() const {
     return dernierTir;
+}
+
+Arme& Ennemi::getArme() {
+    return arme;
+}
+
+const Arme& Ennemi::getArme() const {
+    return arme;
 }
 
 Rectangle Ennemi::getRectangle() const {
