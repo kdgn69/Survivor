@@ -81,6 +81,10 @@ float Ennemi::getRayonEffet() const {
     return rayonEffet;
 }
 
+bool Ennemi::getPeutSeDiviser() const {
+    return peutSeDiviser;
+}
+
 Arme& Ennemi::getArme() {
     return arme;
 }
@@ -109,4 +113,8 @@ Rectangle Ennemi::getRectangleAvecPosition(float centreX, float centreY) const {
 
 void Ennemi::setDernierTir(float t) {
     dernierTir = t;
+}
+
+void Ennemi::setPeutSeDiviser(bool val) {
+    peutSeDiviser = val;
 }

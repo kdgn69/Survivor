@@ -28,6 +28,7 @@ private:
     Arme arme;
     int degats;
     float rayonEffet;
+    bool peutSeDiviser;
 
 public:
     Ennemi(float x, float y, TypeEnnemi t, int pv, float vit, int larg, int haut, int deg);
@@ -45,11 +46,13 @@ public:
     Rectangle getRectangleAvecPosition(float x, float y) const;
     int getDegats() const;
     float getRayonEffet() const;
+    bool getPeutSeDiviser() const;
 
     Arme& getArme();
     const Arme& getArme() const;
 
     void setDernierTir(float t);
+    void setPeutSeDiviser(bool val);
 };
 
 #endif

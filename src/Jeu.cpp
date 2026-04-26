@@ -54,8 +54,11 @@ void Jeu::genererVagueActuelle() {
         else if (tirage < 80) {
             genererEnnemis(1, ARCHER, 80, 4, 25, 25, 400, 5);
         }
-        else {
+        else if (tirage < 90) {
             genererEnnemis(1, HEALER, 150, 3, 25, 25, 300, 5);
+        }
+        else {
+            genererEnnemis(1, SLIME, 100, 4, 40, 40, 100, 8);
         }
     }
 }
@@ -391,7 +394,7 @@ void Jeu::gererMortsEnnemis() {
     for (unsigned int i = 0; i < ennemis.size(); i++) {
         if (ennemis[i].estMort()) {
             //SLIME
-            if (ennemis[i].getType() == SLIME) {
+            if (ennemis[i].getType() == SLIME && ennemis[i].getPeutSeDiviser()) {
                 Position pos = ennemis[i].getPosition();
                 // spawn 3 petits slimes
                 for (int k = 0; k < 3; k++) {
@@ -399,6 +402,7 @@ void Jeu::gererMortsEnnemis() {
                     float decalageY = (rand() % 40) - 20;
 
                     Ennemi petitSlime(pos.x + decalageX, pos.y + decalageY, SLIME, 30, 6, 20, 20, 5);
+                    petitSlime.setPeutSeDiviser(false);
                     ennemisASpawn.push_back(petitSlime);
                 }
             }
