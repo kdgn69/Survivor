@@ -15,10 +15,6 @@ bool collisionRectangles(const Rectangle& a, const Rectangle& b) {
 
 bool rectanglesColles(const Rectangle& a, const Rectangle& b) {
     float epsilon = 0.1;
-
-    if (collisionRectangles(a, b)) {
-        return true;
-    }
     // côté gauche de A contre droite de B
     if (abs((a.x) - (b.x + b.largeur)) < epsilon) {
         if (!(a.y + a.hauteur <= b.y || b.y + b.hauteur <= a.y)) {

@@ -45,7 +45,19 @@ void Jeu::avancerTour() {
 void Jeu::genererVagueActuelle() {
     ennemis.clear();
     int nombre = vague.getNombreEnnemis();
-    genererEnnemis(nombre, ARCHER, 100, 6, 20, 20, 500, 10);
+    for (int i = 0; i < nombre; i++) {
+        int tirage = rand() % 100;
+
+        if (tirage < 50) {
+            genererEnnemis(1, ZOMBIE, 120, 5, 30, 30, 100, 10);
+        }
+        else {
+            genererEnnemis(1, ARCHER, 80, 4, 25, 25, 400, 5);
+        }
+        else {
+            genererEnnemis(1, HEALER, 60, 3, 25, 25, 300, 10);
+        }
+    }
 }
 
 void Jeu::genererEnnemis(int nombre, TypeEnnemi type, int pv, float vitesse, int largeur, int hauteur, float distanceMinJoueur, int degats) {
