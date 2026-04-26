@@ -360,6 +360,7 @@ void JeuSDL::boucle() {
     SDL_Event event;
 
     float dernierTirJoueur = 0;
+    float dernierTirEnnemis = 0;
 
     while (!quitter) {
 
@@ -400,18 +401,31 @@ void JeuSDL::boucle() {
 
             float angle = calculerAngleJoueurVersSouris(jeu, sourisX, sourisY);
 
-            float intervalle = jeu.getJoueur().getArme().getIntervalleTirMs();
+            float intervalleJoueur = jeu.getJoueur().getArme().getIntervalleTirMs();
 
-            if (tempsActuel - dernierTirJoueur >= intervalle) {
+            if (tempsActuel - dernierTirJoueur >= intervalleJoueur) {
                 jeu.tirer(angle);
                 dernierTirJoueur = tempsActuel;
             }
+            
+            float intervalleEnnemis = 800;
 
-            jeu.faireTirerEnnemis(tempsActuel);
+            if (tempsActuel - dernierTirEnnemis >= intervalleEnnemis) {
 
+                const vector<Ennemi>& ennemis = jeu.getEnnemis();
+                Position posJoueur = jeu.getJoueur().getPosition();
+
+                for (unsigned int i = 0; i < ennemis.size(); i++) {
+
+                    if (ennemis[i].getType() != ARCHER) continue;
+
+                    Projectile p = jeu.creerProjectileDepuisEnnemi(ennemis[i], posJoueur);
+                    jeu.ajouterProjectileEnnemi(p);
+                }
+                dernierTirEnnemis = tempsActuel;
+            }
             jeu.avancerTour();
         }
-
         afficher();
         SDL_RenderPresent(rendu);
 

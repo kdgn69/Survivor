@@ -258,6 +258,10 @@ void Jeu::gererCollisionsProjectilesEnnemisSurJoueur() {
     projectilesEnnemis = nouveaux;
 }
 
+void Jeu::ajouterProjectileEnnemi(const Projectile& p) {
+    projectilesEnnemis.push_back(p);
+}
+
 void Jeu::genererChoixAmeliorations() {
     // on vide les anciens choix (au cas ou)
     choixAmeliorations.clear();

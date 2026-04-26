@@ -52,6 +52,7 @@ public:
     void deplacerProjectilesEnnemis();
     void gererCollisionsProjectilesAllieSurLesEnnemis();
     void gererCollisionsProjectilesEnnemisSurJoueur();
+    void ajouterProjectileEnnemi(const Projectile& p);
 
     void genererChoixAmeliorations();
     void appliquerAmeliorationChoisie(int index);
