@@ -29,6 +29,7 @@ private:
     Image im_auraJoueur;
     Image im_foudre;
     Image im_fondNiv1;
+    Image im_zoneSoin;
 
 public:
     JeuSDL();

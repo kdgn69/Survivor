@@ -48,14 +48,14 @@ void Jeu::genererVagueActuelle() {
     for (int i = 0; i < nombre; i++) {
         int tirage = rand() % 100;
 
-        if (tirage < 50) {
+        if (tirage < 40) {
             genererEnnemis(1, ZOMBIE, 120, 5, 30, 30, 100, 10);
         }
-        else {
+        else if (tirage < 80) {
             genererEnnemis(1, ARCHER, 80, 4, 25, 25, 400, 5);
         }
         else {
-            genererEnnemis(1, HEALER, 60, 3, 25, 25, 300, 10);
+            genererEnnemis(1, HEALER, 150, 3, 25, 25, 300, 5);
         }
     }
 }
@@ -386,9 +386,23 @@ void Jeu::lancerVagueSuivante() {
 
 void Jeu::gererMortsEnnemis() {
     vector<Ennemi> nouveauxEnnemis;
+    vector<Ennemi> ennemisASpawn;
 
     for (unsigned int i = 0; i < ennemis.size(); i++) {
         if (ennemis[i].estMort()) {
+            //SLIME
+            if (ennemis[i].getType() == SLIME) {
+                Position pos = ennemis[i].getPosition();
+                // spawn 3 petits slimes
+                for (int k = 0; k < 3; k++) {
+                    float decalageX = (rand() % 40) - 20;
+                    float decalageY = (rand() % 40) - 20;
+
+                    Ennemi petitSlime(pos.x + decalageX, pos.y + decalageY, SLIME, 30, 6, 20, 20, 5);
+                    ennemisASpawn.push_back(petitSlime);
+                }
+            }
+            //AURA MORT
             if (niveauAuraMorts > 0) {
                 Position pos = ennemis[i].getPosition();
 
@@ -418,6 +432,10 @@ void Jeu::gererMortsEnnemis() {
         }
     }
     ennemis = nouveauxEnnemis;
+    // on ajoute les nouveaux slimes
+    for (unsigned int i = 0; i < ennemisASpawn.size(); i++) {
+        ennemis.push_back(ennemisASpawn[i]);
+    }
 }
 
 //supp les auras qui sont expirées
@@ -480,18 +498,13 @@ void Jeu::mettreAJourEtatAuraJoueur() {
 }
 
 void Jeu::appliquerDegatsDesAuras() {
-
     for (unsigned int i = 0; i < auras.size(); i++) {
-
         if (auras[i].peutInfligerDegats()) {
-
             Position posAura = auras[i].getPosition();
             float rayon = auras[i].getRayon();
 
             for (unsigned int j = 0; j < ennemis.size(); j++) {
-
                 Position posEnnemi = ennemis[j].getPosition();
-
                 float dx = posEnnemi.x - posAura.x;
                 float dy = posEnnemi.y - posAura.y;
                 float distance = sqrt(dx * dx + dy * dy);
@@ -499,6 +512,29 @@ void Jeu::appliquerDegatsDesAuras() {
                 if (distance <= rayon) {
                     ennemis[j].prendreDegats(auras[i].getDegats());
                 }
+            }
+        }
+    }
+}
+
+void Jeu::soignerEnnemis() {
+    for (unsigned int i = 0; i < ennemis.size(); i++) {
+        if (ennemis[i].getType() != HEALER) continue;
+
+        Position posHealer = ennemis[i].getPosition();
+        float rayon = ennemis[i].getRayonEffet();
+        int soin = 10;
+
+        for (unsigned int j = 0; j < ennemis.size(); j++) {
+            if (i == j) continue;
+            Position posE = ennemis[j].getPosition();
+
+            float dx = posE.x - posHealer.x;
+            float dy = posE.y - posHealer.y;
+            float distance = sqrt(dx * dx + dy * dy);
+
+            if (distance <= rayon) {
+                ennemis[j].prendreDegats(-soin); // heal
             }
         }
     }

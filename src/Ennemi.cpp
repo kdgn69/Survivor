@@ -13,6 +13,11 @@ Ennemi::Ennemi(float x, float y, TypeEnnemi t, int pv, float vit, int larg, int 
     hauteur = haut;
     dernierTir = 0;
     degats = deg;
+    if (t == HEALER) {
+        rayonEffet = 150;
+    } else {
+        rayonEffet = 0;
+    }
 }
 
 void Ennemi::seDeplacerVersJoueur(const Position& posJoueur, int largeurJoueur, int hauteurJoueur) {
@@ -70,6 +75,10 @@ float Ennemi::getDernierTir() const {
 
 int Ennemi::getDegats() const {
     return degats;
+}
+
+float Ennemi::getRayonEffet() const {
+    return rayonEffet;
 }
 
 Arme& Ennemi::getArme() {

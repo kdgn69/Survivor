@@ -129,6 +129,7 @@ JeuSDL::JeuSDL() : jeu(), fenetre(nullptr), rendu(nullptr), police(nullptr) {
     im_tirPerforant.loadFromFile("data/tirPerforant.png", rendu);
     im_foudre.loadFromFile("data/foudre.png", rendu);
     im_fondNiv1.loadFromFile("data/fondNiv1.png", rendu);
+    im_zoneSoin.loadFromFile("data/zoneSoin.png", rendu);
 
     jeu.initialiser();
 
@@ -236,6 +237,13 @@ void JeuSDL::afficher() {
         rect.w = rectEnnemi.largeur;
         rect.h = rectEnnemi.hauteur;
 
+        //AFFICHAGE ZONE HEALER
+        if (ennemis[i].getType() == HEALER) {
+            float rayon = ennemis[i].getRayonEffet();
+            float centreHealerX = rect.x + rect.w / 2;
+            float centreHealerY = rect.y + rect.h / 2;
+            im_zoneSoin.draw(rendu, centreHealerX - rayon, centreHealerY-rayon, rayon*2, rayon*2);
+        }
         SDL_SetRenderDrawColor(rendu, 120, 50, 50, 255);
         SDL_RenderFillRectF(rendu, &rect);
     }
@@ -335,6 +343,7 @@ void JeuSDL::afficherChoixAmeliorations() {
         else if (nom == "auraMort") im_auraMort.draw(rendu, imgX, imgY, imgW, imgH);
         else if (nom == "perforant") im_tirPerforant.draw(rendu, imgX, imgY, imgW, imgH);
         else if (nom == "auraJoueur") im_auraJoueur.draw(rendu, imgX, imgY, imgW, imgH);
+        
 
         // description
         string description;
@@ -382,6 +391,7 @@ void JeuSDL::boucle() {
     float dernierTirJoueur = 0;
     float dernierTirEnnemis = 0;
     float dernierDegatsEnnemis = 0;
+    float dernierSoinHealer = 0;
 
     while (!quitter) {
 
@@ -425,6 +435,7 @@ void JeuSDL::boucle() {
             float intervalleTirJoueur = jeu.getJoueur().getArme().getIntervalleTirMs();
             float intervalleTirEnnemis = 800;
             float intervalleDegatsEnnemis = 1000;
+            float intervalleSoinHealer = 1000;
 
             if (tempsActuel - dernierTirJoueur >= intervalleTirJoueur) {
                 jeu.tirer(angle);
@@ -453,6 +464,10 @@ void JeuSDL::boucle() {
                     }
                 }
                 dernierDegatsEnnemis = tempsActuel;
+            }
+            if (tempsActuel - dernierSoinHealer >= intervalleSoinHealer) {
+                jeu.soignerEnnemis();
+                dernierSoinHealer = tempsActuel;
             }
             jeu.avancerTour();
         }

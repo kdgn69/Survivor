@@ -62,6 +62,7 @@ public:
     void mettreAJourAuras();
     void mettreAJourEtatAuraJoueur();
     void appliquerDegatsDesAuras();
+    void soignerEnnemis();
 
     Joueur& getJoueur();
     const Joueur& getJoueur() const;

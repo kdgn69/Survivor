@@ -27,6 +27,7 @@ private:
     float dernierTir;
     Arme arme;
     int degats;
+    float rayonEffet;
 
 public:
     Ennemi(float x, float y, TypeEnnemi t, int pv, float vit, int larg, int haut, int deg);
@@ -43,6 +44,7 @@ public:
     Rectangle getRectangle() const;
     Rectangle getRectangleAvecPosition(float x, float y) const;
     int getDegats() const;
+    float getRayonEffet() const;
 
     Arme& getArme();
     const Arme& getArme() const;
