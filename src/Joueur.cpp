@@ -6,10 +6,11 @@ using namespace std;
 
 Joueur::Joueur() {
     vie = 200;
-    vitesse = 0.05;
+    vitesse = 0.5;
     largeur = 50;
     hauteur = 50;
     tirPerforant = false;
+    dernierTir = 0;
 
     pos.x = 0;
     pos.y = 0;
@@ -103,4 +104,12 @@ bool Joueur::aTirPerforant() const {
 
 void Joueur::activerTirPerforant() {
     tirPerforant = true;
+}
+
+float Joueur::getDernierTir() const {
+    return dernierTir;
+}
+
+void Joueur::setDernierTir(float t) {
+    dernierTir = t;
 }

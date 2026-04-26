@@ -8,10 +8,6 @@
 
 using namespace std;
 
-float temps() {
-    return SDL_GetTicks() / 1000.0;
-}
-
 void afficherTexte(SDL_Renderer* rendu, TTF_Font* police, const string& texte, int x, int y) {
     if (rendu == nullptr || police == nullptr) {
         return;
@@ -363,9 +359,12 @@ void JeuSDL::boucle() {
     bool quitter = false;
     SDL_Event event;
 
-    float dernierTir = temps();
+    float dernierTirJoueur = 0;
 
     while (!quitter) {
+
+        float tempsActuel = SDL_GetTicks();
+
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
                 quitter = true;
@@ -387,8 +386,6 @@ void JeuSDL::boucle() {
                 }
             }
         }
-
-        // mouvements et tirs seulement si on n'est pas en choix d'amélioration
         if (!jeu.estEnChoixAmelioration()) {
             const Uint8* etat = SDL_GetKeyboardState(nullptr);
 
@@ -403,34 +400,21 @@ void JeuSDL::boucle() {
 
             float angle = calculerAngleJoueurVersSouris(jeu, sourisX, sourisY);
 
-            float maintenant = temps();
-            float intervalle = jeu.getJoueur().getArme().getIntervalleTirMs() / 1000;
+            float intervalle = jeu.getJoueur().getArme().getIntervalleTirMs();
 
-            if (maintenant - dernierTir >= intervalle) {
+            if (tempsActuel - dernierTirJoueur >= intervalle) {
                 jeu.tirer(angle);
-                dernierTir = maintenant;
+                dernierTirJoueur = tempsActuel;
             }
 
-            jeu.faireTirerEnnemis(maintenant);
-        }
+            jeu.faireTirerEnnemis(tempsActuel);
 
-        static float dernierTemps = temps();
-        static float accumulateur = 0;
-
-        float maintenant = temps();
-        float delta = maintenant - dernierTemps;
-        dernierTemps = maintenant;
-
-        accumulateur += delta;
-
-        float intervalleTick = 0.01; // 100 boucles/sec
-
-        while (accumulateur >= intervalleTick) {
             jeu.avancerTour();
-            accumulateur -= intervalleTick;
         }
 
         afficher();
         SDL_RenderPresent(rendu);
+
+        SDL_Delay(1);
     }
 }

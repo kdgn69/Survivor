@@ -19,6 +19,7 @@ private:
     int hauteur;
     Arme arme;
     bool tirPerforant;
+    float dernierTir;
 
 public:
     Joueur();
@@ -42,6 +43,9 @@ public:
 
     bool aTirPerforant() const;
     void activerTirPerforant();
+
+    float getDernierTir() const;
+    void setDernierTir(float t);
 };
 
 #endif
