@@ -5,7 +5,7 @@ Arme::Arme() {
     cadence = 2;
     largeurProjectile = 5;
     hauteurProjectile = 5;
-    vitesseProjectile = 0.5;
+    vitesseProjectile = 8;
 }
 
 int Arme::getDegats() const {

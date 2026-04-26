@@ -6,7 +6,7 @@ using namespace std;
 
 Joueur::Joueur() {
     vie = 200;
-    vitesse = 0.5;
+    vitesse = 8;
     largeur = 50;
     hauteur = 50;
     tirPerforant = false;

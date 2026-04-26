@@ -128,6 +128,7 @@ JeuSDL::JeuSDL() : jeu(), fenetre(nullptr), rendu(nullptr), police(nullptr) {
     im_auraMort.loadFromFile("data/auraMort.png", rendu);
     im_tirPerforant.loadFromFile("data/tirPerforant.png", rendu);
     im_foudre.loadFromFile("data/foudre.png", rendu);
+    im_fondNiv1.loadFromFile("data/fondNiv1.png", rendu);
 
     jeu.initialiser();
 
@@ -160,9 +161,28 @@ void JeuSDL::afficher() {
         return;
     }
 
-    SDL_SetRenderDrawColor(rendu, 30, 30, 30, 255);
-    SDL_RenderClear(rendu);
+    //fond
+    int tailleTile = 1024;
 
+    // centre écran
+    float centreX1 = jeu.getLargeurCarte() / 2;
+    float centreY1 = jeu.getHauteurCarte() / 2;
+
+    Position posJoueur1 = jeu.getJoueur().getPosition();
+
+    int offsetX = (int)posJoueur1.x % tailleTile;
+    int offsetY = (int)posJoueur1.y % tailleTile;
+
+    // on dessine une grille autour du joueur
+    for (int i = -3; i <= 3; i++) {
+        for (int j = -3; j <= 3; j++) {
+
+            float x = centreX1 - offsetX + i * tailleTile;
+            float y = centreY1 - offsetY + j * tailleTile;
+
+            im_fondNiv1.draw(rendu, x, y, tailleTile, tailleTile);
+        }
+    }
     // CAMERA
     float centreX = jeu.getLargeurCarte() / 2;
     float centreY = jeu.getHauteurCarte() / 2;
@@ -407,7 +427,7 @@ void JeuSDL::boucle() {
                 jeu.tirer(angle);
                 dernierTirJoueur = tempsActuel;
             }
-            
+
             float intervalleEnnemis = 800;
 
             if (tempsActuel - dernierTirEnnemis >= intervalleEnnemis) {
@@ -429,6 +449,6 @@ void JeuSDL::boucle() {
         afficher();
         SDL_RenderPresent(rendu);
 
-        SDL_Delay(1);
+        SDL_Delay(16);
     }
 }

@@ -45,7 +45,7 @@ void Jeu::avancerTour() {
 void Jeu::genererVagueActuelle() {
     ennemis.clear();
     int nombre = vague.getNombreEnnemis();
-    genererEnnemis(nombre, ARCHER, 100, 0.4, 20, 20, 500);
+    genererEnnemis(nombre, ARCHER, 100, 6, 20, 20, 500);
 }
 
 void Jeu::genererEnnemis(int nombre, TypeEnnemi type, int pv, float vitesse, int largeur, int hauteur, float distanceMinJoueur) {

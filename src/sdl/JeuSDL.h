@@ -28,6 +28,7 @@ private:
     Image im_tirPerforant;
     Image im_auraJoueur;
     Image im_foudre;
+    Image im_fondNiv1;
 
 public:
     JeuSDL();

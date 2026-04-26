@@ -12,14 +12,6 @@ Ennemi::Ennemi(float x, float y, TypeEnnemi t, int pv, float vit, int larg, int 
     largeur = larg;
     hauteur = haut;
     dernierTir = 0;
-
-    if (type == ARCHER) {
-        arme.augmenterDegats(0);
-        arme.augmenterCadence(-3);
-        arme.augmenterVitesseProjectile(0);
-        arme.augmenterLargeurProjectile(1);
-        arme.augmenterHauteurProjectile(1);
-    }
 }
 
 void Ennemi::seDeplacerVersJoueur(const Position& posJoueur, int largeurJoueur, int hauteurJoueur) {
