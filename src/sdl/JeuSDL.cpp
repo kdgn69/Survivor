@@ -381,6 +381,7 @@ void JeuSDL::boucle() {
 
     float dernierTirJoueur = 0;
     float dernierTirEnnemis = 0;
+    float dernierDegatsEnnemis = 0;
 
     while (!quitter) {
 
@@ -421,28 +422,37 @@ void JeuSDL::boucle() {
 
             float angle = calculerAngleJoueurVersSouris(jeu, sourisX, sourisY);
 
-            float intervalleJoueur = jeu.getJoueur().getArme().getIntervalleTirMs();
+            float intervalleTirJoueur = jeu.getJoueur().getArme().getIntervalleTirMs();
+            float intervalleTirEnnemis = 800;
+            float intervalleDegatsEnnemis = 1000;
 
-            if (tempsActuel - dernierTirJoueur >= intervalleJoueur) {
+            if (tempsActuel - dernierTirJoueur >= intervalleTirJoueur) {
                 jeu.tirer(angle);
                 dernierTirJoueur = tempsActuel;
             }
-
-            float intervalleEnnemis = 800;
-
-            if (tempsActuel - dernierTirEnnemis >= intervalleEnnemis) {
-
+            if (tempsActuel - dernierTirEnnemis >= intervalleTirEnnemis) {
                 const vector<Ennemi>& ennemis = jeu.getEnnemis();
                 Position posJoueur = jeu.getJoueur().getPosition();
 
                 for (unsigned int i = 0; i < ennemis.size(); i++) {
-
                     if (ennemis[i].getType() != ARCHER) continue;
-
                     Projectile p = jeu.creerProjectileDepuisEnnemi(ennemis[i], posJoueur);
                     jeu.ajouterProjectileEnnemi(p);
                 }
                 dernierTirEnnemis = tempsActuel;
+            }
+            if (tempsActuel - dernierDegatsEnnemis >= intervalleDegatsEnnemis) {
+                const vector<Ennemi>& ennemis = jeu.getEnnemis();
+                Rectangle rectJoueur = jeu.getJoueur().getRectangle();
+
+                for (unsigned int i = 0; i < ennemis.size(); i++) {
+                    Rectangle rectEnnemi = ennemis[i].getRectangle();
+
+                    if (rectanglesColles(rectJoueur, rectEnnemi)) {
+                        jeu.getJoueur().prendreDegats(ennemis[i].getDegats());
+                    }
+                }
+                dernierDegatsEnnemis = tempsActuel;
             }
             jeu.avancerTour();
         }

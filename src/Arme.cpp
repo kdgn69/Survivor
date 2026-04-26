@@ -1,7 +1,7 @@
 #include "Arme.h"
 
 Arme::Arme() {
-    degats = 50;
+    degats = 5;
     cadence = 2;
     largeurProjectile = 5;
     hauteurProjectile = 5;

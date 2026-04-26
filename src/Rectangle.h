@@ -8,5 +8,6 @@ struct Rectangle {
     float hauteur;
 };
 bool collisionRectangles(const Rectangle& a, const Rectangle& b);
+bool rectanglesColles(const Rectangle& a, const Rectangle& b);
 
 #endif

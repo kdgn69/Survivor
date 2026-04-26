@@ -45,10 +45,10 @@ void Jeu::avancerTour() {
 void Jeu::genererVagueActuelle() {
     ennemis.clear();
     int nombre = vague.getNombreEnnemis();
-    genererEnnemis(nombre, ARCHER, 100, 6, 20, 20, 500);
+    genererEnnemis(nombre, ARCHER, 100, 6, 20, 20, 500, 10);
 }
 
-void Jeu::genererEnnemis(int nombre, TypeEnnemi type, int pv, float vitesse, int largeur, int hauteur, float distanceMinJoueur) {
+void Jeu::genererEnnemis(int nombre, TypeEnnemi type, int pv, float vitesse, int largeur, int hauteur, float distanceMinJoueur, int degats) {
     Position posJoueur = joueur.getPosition();
 
     for (int i = 0; i < nombre; i++) {
@@ -68,7 +68,7 @@ void Jeu::genererEnnemis(int nombre, TypeEnnemi type, int pv, float vitesse, int
                 positionValide = true;
             }
         }
-        Ennemi e(centreX, centreY, type, pv, vitesse, largeur, hauteur);
+        Ennemi e(centreX, centreY, type, pv, vitesse, largeur, hauteur, degats);
         ennemis.push_back(e);
     }
 }
@@ -249,8 +249,7 @@ void Jeu::gererCollisionsProjectilesEnnemisSurJoueur() {
         Rectangle rectP = projectilesEnnemis[i].getRectangle();
 
         if (collisionRectangles(rectP, rectJoueur)) {
-            // dégâts joueur
-            // joueur.prendreDegats(...)
+            joueur.prendreDegats(projectilesEnnemis[i].getDegats());
         } else {
             nouveaux.push_back(projectilesEnnemis[i]);
         }

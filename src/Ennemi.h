@@ -26,9 +26,10 @@ private:
     TypeEnnemi type;
     float dernierTir;
     Arme arme;
+    int degats;
 
 public:
-    Ennemi(float x, float y, TypeEnnemi t, int pv, float vit, int larg, int haut);
+    Ennemi(float x, float y, TypeEnnemi t, int pv, float vit, int larg, int haut, int deg);
     
     void seDeplacerVersJoueur(const Position& posJoueur, int largeurJoueur, int hauteurJoueur);
     void prendreDegats(int degats);
@@ -41,6 +42,7 @@ public:
     float getDernierTir() const;
     Rectangle getRectangle() const;
     Rectangle getRectangleAvecPosition(float x, float y) const;
+    int getDegats() const;
 
     Arme& getArme();
     const Arme& getArme() const;

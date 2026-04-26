@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Ennemi::Ennemi(float x, float y, TypeEnnemi t, int pv, float vit, int larg, int haut) {
+Ennemi::Ennemi(float x, float y, TypeEnnemi t, int pv, float vit, int larg, int haut, int deg) {
     pos.x = x;
     pos.y = y;
     type = t;
@@ -12,6 +12,7 @@ Ennemi::Ennemi(float x, float y, TypeEnnemi t, int pv, float vit, int larg, int 
     largeur = larg;
     hauteur = haut;
     dernierTir = 0;
+    degats = deg;
 }
 
 void Ennemi::seDeplacerVersJoueur(const Position& posJoueur, int largeurJoueur, int hauteurJoueur) {
@@ -65,6 +66,10 @@ TypeEnnemi Ennemi::getType() const {
 
 float Ennemi::getDernierTir() const {
     return dernierTir;
+}
+
+int Ennemi::getDegats() const {
+    return degats;
 }
 
 Arme& Ennemi::getArme() {

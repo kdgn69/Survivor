@@ -40,7 +40,7 @@ public:
     void initialiser();
     void avancerTour();
     void genererVagueActuelle();
-    void genererEnnemis(int nombre, TypeEnnemi type, int pv, float vitesse, int largeur, int hauteur, float distanceMinJoueur);
+    void genererEnnemis(int nombre, TypeEnnemi type, int pv, float vitesse, int largeur, int hauteur, float distanceMinJoueur, int degats);
 
     void deplacerJoueur(char direction);
     void deplacerEnnemisVersJoueur();
