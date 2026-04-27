@@ -342,6 +342,7 @@ void JeuSDL::afficherChoixAmeliorations() {
         else if (nom == "multitir") im_multitir.draw(rendu, imgX, imgY, imgW, imgH);
         else if (nom == "auraMort") im_auraMort.draw(rendu, imgX, imgY, imgW, imgH);
         else if (nom == "perforant") im_tirPerforant.draw(rendu, imgX, imgY, imgW, imgH);
+        else if (nom == "foudre") im_foudre.draw(rendu, imgX, imgY, imgW, imgH);
         else if (nom == "auraJoueur") im_auraJoueur.draw(rendu, imgX, imgY, imgW, imgH);
         
 
@@ -371,6 +372,9 @@ void JeuSDL::afficherChoixAmeliorations() {
         }
         else if (nom == "perforant") {
             description = "Des projectiles perforants";
+        }
+        else if (nom == "foudre") {
+            description = "Degats de zone";
         }
         else if (nom == "auraJoueur") {
             description = "Aura autour du joueur";
