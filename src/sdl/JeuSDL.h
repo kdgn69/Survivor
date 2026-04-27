@@ -30,6 +30,11 @@ private:
     Image im_foudre;
     Image im_fondNiv1;
     Image im_zoneSoin;
+    Image im_zombie;
+    Image im_archer;
+    Image im_healer;
+    Image im_sorciere;
+    Image im_slime;
     Image im_boss;
 
 public:

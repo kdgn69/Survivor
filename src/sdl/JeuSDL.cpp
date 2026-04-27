@@ -130,6 +130,11 @@ JeuSDL::JeuSDL() : jeu(), fenetre(nullptr), rendu(nullptr), police(nullptr) {
     im_foudre.loadFromFile("data/foudre.png", rendu);
     im_fondNiv1.loadFromFile("data/fondNiv1.png", rendu);
     im_zoneSoin.loadFromFile("data/zoneSoin.png", rendu);
+    im_zombie.loadFromFile("data/zombie.png", rendu);
+    im_archer.loadFromFile("data/archer.png", rendu);
+    im_healer.loadFromFile("data/healer.png", rendu);
+    im_sorciere.loadFromFile("data/sorciere.png", rendu);
+    im_slime.loadFromFile("data/slime.png", rendu);
     im_boss.loadFromFile("data/boss.png", rendu);
 
     jeu.initialiser();
@@ -238,15 +243,35 @@ void JeuSDL::afficher() {
         rect.w = rectEnnemi.largeur;
         rect.h = rectEnnemi.hauteur;
 
-        //AFFICHAGE ZONE HEALER
-        if (ennemis[i].getType() == HEALER) {
+        TypeEnnemi type = ennemis[i].getType();
+
+        //AFFICHAGE ZONE HEALER (et boss aussi)
+        if (type == HEALER || type == BOSS) {
             float rayon = ennemis[i].getRayonEffet();
             float centreHealerX = rect.x + rect.w / 2;
             float centreHealerY = rect.y + rect.h / 2;
-            im_zoneSoin.draw(rendu, centreHealerX - rayon, centreHealerY-rayon, rayon*2, rayon*2);
+            im_zoneSoin.draw(rendu, centreHealerX - rayon, centreHealerY - rayon, rayon * 2, rayon * 2);
         }
-        SDL_SetRenderDrawColor(rendu, 120, 50, 50, 255);
-        SDL_RenderFillRectF(rendu, &rect);
+
+        //AFFICHAGE IMAGE SELON TYPE
+        if (type == ZOMBIE) {
+            im_zombie.draw(rendu, rect.x, rect.y, rect.w, rect.h);
+        }
+        else if (type == ARCHER) {
+            im_archer.draw(rendu, rect.x, rect.y, rect.w, rect.h);
+        }
+        else if (type == HEALER) {
+            im_healer.draw(rendu, rect.x, rect.y, rect.w, rect.h);
+        }
+        else if (type == SORCIERE) {
+            im_sorciere.draw(rendu, rect.x, rect.y, rect.w, rect.h);
+        }
+        else if (type == SLIME) {
+            im_slime.draw(rendu, rect.x, rect.y, rect.w, rect.h);
+        }
+        else if (type == BOSS) {
+            im_boss.draw(rendu, rect.x, rect.y, rect.w, rect.h);
+        }
     }
 
     //PROJECTILES ALLIES
@@ -403,7 +428,7 @@ void JeuSDL::boucle() {
     float dernierTirEnnemis = 0;
     float dernierDegatsEnnemis = 0;
     float dernierSoinHealer = 0;
-    float dernierSpawnSorciere = 0;
+    float dernierSpawnSorcier = 0;
     float dernierSpawnBoss = 0;
 
     while (!quitter) {
@@ -449,7 +474,7 @@ void JeuSDL::boucle() {
             float intervalleTirEnnemis = 800;
             float intervalleDegatsEnnemis = 1000;
             float intervalleSoinHealer = 1000;
-            float intervalleSpawnSorciere = 5000;
+            float intervalleSpawnSorcier = 5000;
             float intervalleSpawnBoss = 10000;
 
             //faire tirer le joueur
@@ -463,7 +488,7 @@ void JeuSDL::boucle() {
                 Position posJoueur = jeu.getJoueur().getPosition();
 
                 for (unsigned int i = 0; i < ennemis.size(); i++) {
-                    if (ennemis[i].getType() != ARCHER && ennemis[i].getType() != SORCIERE && ennemis[i].getType() != BOSS) continue;
+                    if (ennemis[i].getType() != ARCHER && ennemis[i].getType() != SORCIER && ennemis[i].getType() != BOSS) continue;
                     Projectile p = jeu.creerProjectileDepuisEnnemi(ennemis[i], posJoueur);
                     jeu.ajouterProjectileEnnemi(p);
                 }
@@ -488,18 +513,18 @@ void JeuSDL::boucle() {
                 jeu.soignerEnnemis();
                 dernierSoinHealer = tempsActuel;
             }
-            //sorcieres qui font spawn les ennemis
-            if (tempsActuel - dernierSpawnSorciere >= intervalleSpawnSorciere) {
+            //SORCIER qui font spawn les ennemis
+            if (tempsActuel - dernierSpawnSorcier >= intervalleSpawnSorcier) {
                 const vector<Ennemi>& ennemis = jeu.getEnnemis();
 
                 for (unsigned int i = 0; i < ennemis.size(); i++) {
-                    if (ennemis[i].getType() != SORCIERE) continue;
+                    if (ennemis[i].getType() != SORCIER) continue;
                     
                     for (int k = 0; k < 5; k++) {
                         jeu.genererEnnemis(1, ZOMBIE, 80, 4, 25, 25, 0, 5);
                     }
                 }
-                dernierSpawnSorciere = tempsActuel;
+                dernierSpawnSorcier = tempsActuel;
             }
             //boss qui font spawn des ennemis
             if (tempsActuel - dernierSpawnBoss >= intervalleSpawnBoss) {

@@ -65,7 +65,7 @@ void Jeu::genererVagueActuelle() {
             genererEnnemis(1, HEALER, 150, 3, 25, 25, 300, 5);
         }
         else if (tirage < 80) {
-            genererEnnemis(1, SORCIERE, 120, 3, 50, 50, 300, 8);
+            genererEnnemis(1, SORCIER, 120, 3, 50, 50, 300, 8);
         }
         else {
             genererEnnemis(1, SLIME, 100, 4, 40, 40, 100, 8);

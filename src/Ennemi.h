@@ -12,7 +12,7 @@ enum TypeEnnemi {
     ZOMBIE,
     ARCHER,
     HEALER,
-    SORCIERE,
+    SORCIER,
     SLIME,
     BOSS
 };
