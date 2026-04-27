@@ -130,6 +130,7 @@ JeuSDL::JeuSDL() : jeu(), fenetre(nullptr), rendu(nullptr), police(nullptr) {
     im_foudre.loadFromFile("data/foudre.png", rendu);
     im_fondNiv1.loadFromFile("data/fondNiv1.png", rendu);
     im_zoneSoin.loadFromFile("data/zoneSoin.png", rendu);
+    im_boss.loadFromFile("data/boss.png", rendu);
 
     jeu.initialiser();
 
@@ -285,7 +286,13 @@ void JeuSDL::afficher() {
 
     // affichage niveau / vague / PV
     string texteNiveau = "Niveau : " + to_string(jeu.getNiveauActuel());
-    string texteVague = "Vague : " + to_string(jeu.getNumeroVague());
+    string texteVague;
+    if (jeu.getNumeroVague() == 6) {
+        texteVague = "Vague : BOSS";
+    }
+    else {
+        texteVague = "Vague : " + to_string(jeu.getNumeroVague());
+    }
     string textePV = "PV : " + to_string(jeu.getJoueur().getVie());
     string texteEnnemis = "Il reste : " + to_string(jeu.getNombreEnnemisRestants()) + " ennemis";
 
@@ -397,6 +404,7 @@ void JeuSDL::boucle() {
     float dernierDegatsEnnemis = 0;
     float dernierSoinHealer = 0;
     float dernierSpawnSorciere = 0;
+    float dernierSpawnBoss = 0;
 
     while (!quitter) {
 
@@ -442,22 +450,26 @@ void JeuSDL::boucle() {
             float intervalleDegatsEnnemis = 1000;
             float intervalleSoinHealer = 1000;
             float intervalleSpawnSorciere = 5000;
+            float intervalleSpawnBoss = 10000;
 
+            //faire tirer le joueur
             if (tempsActuel - dernierTirJoueur >= intervalleTirJoueur) {
                 jeu.tirer(angle);
                 dernierTirJoueur = tempsActuel;
             }
+            //faire tirer les ennemis
             if (tempsActuel - dernierTirEnnemis >= intervalleTirEnnemis) {
                 const vector<Ennemi>& ennemis = jeu.getEnnemis();
                 Position posJoueur = jeu.getJoueur().getPosition();
 
                 for (unsigned int i = 0; i < ennemis.size(); i++) {
-                    if (ennemis[i].getType() != ARCHER && ennemis[i].getType() != SORCIERE) continue;
+                    if (ennemis[i].getType() != ARCHER && ennemis[i].getType() != SORCIERE && ennemis[i].getType() != BOSS) continue;
                     Projectile p = jeu.creerProjectileDepuisEnnemi(ennemis[i], posJoueur);
                     jeu.ajouterProjectileEnnemi(p);
                 }
                 dernierTirEnnemis = tempsActuel;
             }
+            //degats qu'infligent les ennemis au corps a corps
             if (tempsActuel - dernierDegatsEnnemis >= intervalleDegatsEnnemis) {
                 const vector<Ennemi>& ennemis = jeu.getEnnemis();
                 Rectangle rectJoueur = jeu.getJoueur().getRectangle();
@@ -471,10 +483,12 @@ void JeuSDL::boucle() {
                 }
                 dernierDegatsEnnemis = tempsActuel;
             }
+            //zone de soin healer
             if (tempsActuel - dernierSoinHealer >= intervalleSoinHealer) {
                 jeu.soignerEnnemis();
                 dernierSoinHealer = tempsActuel;
             }
+            //sorcieres qui font spawn les ennemis
             if (tempsActuel - dernierSpawnSorciere >= intervalleSpawnSorciere) {
                 const vector<Ennemi>& ennemis = jeu.getEnnemis();
 
@@ -486,6 +500,19 @@ void JeuSDL::boucle() {
                     }
                 }
                 dernierSpawnSorciere = tempsActuel;
+            }
+            //boss qui font spawn des ennemis
+            if (tempsActuel - dernierSpawnBoss >= intervalleSpawnBoss) {
+                const vector<Ennemi>& ennemis = jeu.getEnnemis();
+
+                for (unsigned int i = 0; i < ennemis.size(); i++) {
+                    if (ennemis[i].getType() != BOSS) continue;
+
+                    for (int k = 0; k < 20; k++) {
+                        jeu.genererEnnemis(1, ZOMBIE, 80, 4, 25, 25, 0, 5);
+                    }
+                }
+                dernierSpawnBoss = tempsActuel;
             }
             jeu.avancerTour();
         }

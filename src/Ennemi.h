@@ -13,7 +13,8 @@ enum TypeEnnemi {
     ARCHER,
     HEALER,
     SORCIERE,
-    SLIME
+    SLIME,
+    BOSS
 };
 
 class Ennemi {

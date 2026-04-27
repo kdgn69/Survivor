@@ -15,7 +15,11 @@ Ennemi::Ennemi(float x, float y, TypeEnnemi t, int pv, float vit, int larg, int 
     degats = deg;
     if (t == HEALER) {
         rayonEffet = 150;
-    } else {
+    }
+    else if (t == BOSS) {
+        rayonEffet = 300;
+    }
+    else {
         rayonEffet = 0;
     }
 }

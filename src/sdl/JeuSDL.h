@@ -30,6 +30,7 @@ private:
     Image im_foudre;
     Image im_fondNiv1;
     Image im_zoneSoin;
+    Image im_boss;
 
 public:
     JeuSDL();

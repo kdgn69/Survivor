@@ -44,6 +44,13 @@ void Jeu::avancerTour() {
 
 void Jeu::genererVagueActuelle() {
     ennemis.clear();
+
+    // VAGUE BOSS
+    if (vague.getNumero() == 6) {
+        genererEnnemis(1, BOSS, 2000, 2, 120, 120, 400, 20);
+        return;
+    }
+
     int nombre = vague.getNombreEnnemis();
     for (int i = 0; i < nombre; i++) {
         int tirage = rand() % 100;
@@ -526,7 +533,7 @@ void Jeu::appliquerDegatsDesAuras() {
 
 void Jeu::soignerEnnemis() {
     for (unsigned int i = 0; i < ennemis.size(); i++) {
-        if (ennemis[i].getType() != HEALER) continue;
+        if (ennemis[i].getType() != HEALER && ennemis[i].getType() != BOSS) continue;
 
         Position posHealer = ennemis[i].getPosition();
         float rayon = ennemis[i].getRayonEffet();

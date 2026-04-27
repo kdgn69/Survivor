@@ -10,7 +10,7 @@ Vague::Vague() {
 void Vague::passerSuivante() {
     numero++;
 
-    if (numero > 5) {
+    if (numero > 6) {
         numero = 1;
         niveau++;
     }
