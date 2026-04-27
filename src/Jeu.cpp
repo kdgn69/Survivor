@@ -42,14 +42,6 @@ void Jeu::avancerTour() {
     deplacerProjectilesEnnemis();
     gererCollisionsProjectilesEnnemisSurJoueur();
 
-    for (unsigned int i = 0; i < ennemis.size(); i++) {
-        Rectangle rectEnnemi = ennemis[i].getRectangle();
-        Rectangle rectJoueur = joueur.getRectangle();
-        if (rectanglesColles(rectJoueur, rectEnnemi)) {
-            joueur.prendreDegats(ennemis[i].getDegats());
-        }
-    }
-
     if (ennemis.empty()) {
         genererChoixAmeliorations();
     }
