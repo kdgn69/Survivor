@@ -566,7 +566,6 @@ void JeuSDL::boucle() {
 
                     if (rectanglesColles(rectJoueur, rectEnnemi)) {
                         jeu.getJoueur().prendreDegats(ennemis[i].getDegats());
-                        cout<<"je prends des degats"<<endl;
                     }
                 }
                 dernierDegatsEnnemis = tempsActuel;
