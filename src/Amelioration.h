@@ -1,12 +1,12 @@
-#ifndef AMELIORATION_H
-#define AMELIORATION_H
+/**
+ * @file Amelioration.h
+ * Représente une amélioration proposée au joueur.
+ */
 
-#include <string>
-
-using namespace std;
-
+/**
+ * @struct Amelioration
+ * Contient le nom de l’amélioration choisie.
+ */
 struct Amelioration {
-    string nom;
+    std::string nom; /**< Nom de l’amélioration */
 };
-
-#endif

@@ -1,20 +1,19 @@
-#ifndef JEUSDL_H
-#define JEUSDL_H
+/**
+ * @file JeuSDL.h
+ * Gère l’affichage et les interactions avec SDL.
+ */
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
-#include "../Jeu.h"
-#include "Image.h"
-
-using namespace std;
-
+/**
+ * @class JeuSDL
+ * Permet de faire le lien entre la logique du jeu et l’affichage graphique.
+ */
 class JeuSDL {
 private:
-    Jeu jeu;
+    Jeu jeu;                 /**< Instance du jeu */
 
-    SDL_Window* fenetre;
-    SDL_Renderer* rendu;
-    TTF_Font* police;
+    SDL_Window* fenetre;     /**< Fenêtre SDL */
+    SDL_Renderer* rendu;     /**< Renderer SDL */
+    TTF_Font* police;        /**< Police utilisée */
 
     Image im_auraMorts;
     Image im_joueur;
@@ -38,12 +37,28 @@ private:
     Image im_boss;
 
 public:
+    /**
+     * Initialise SDL et les ressources.
+     */
     JeuSDL();
+
+    /**
+     * Libère les ressources SDL.
+     */
     ~JeuSDL();
 
+    /**
+     * Affiche le jeu à l’écran.
+     */
     void afficher();
+
+    /**
+     * Affiche l’écran de choix des améliorations.
+     */
     void afficherChoixAmeliorations();
+
+    /**
+     * Boucle principale du jeu.
+     */
     void boucle();
 };
-
-#endif 

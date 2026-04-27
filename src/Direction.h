@@ -1,9 +1,13 @@
-#ifndef DIRECTION_H
-#define DIRECTION_H
+/**
+ * @file Direction.h
+ * Représente une direction de déplacement.
+ */
 
+/**
+ * @struct Direction
+ * Stocke un vecteur directionnel.
+ */
 struct Direction {
-    float dx;
-    float dy;
+    float dx; /**< Composante horizontale */
+    float dy; /**< Composante verticale */
 };
-
-#endif
