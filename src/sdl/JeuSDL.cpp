@@ -583,7 +583,7 @@ void JeuSDL::boucle() {
                     if (ennemis[i].getType() != SORCIER) continue;
                     
                     for (int k = 0; k < 5; k++) {
-                        jeu.genererEnnemis(1, ZOMBIE, 80, 4, 75, 75, 1000, 5);
+                        jeu.genererEnnemis(1, ZOMBIE, 20, 4, 75, 75, 1000, 10);
                     }
                 }
                 dernierSpawnSorcier = tempsActuel;
@@ -596,7 +596,7 @@ void JeuSDL::boucle() {
                     if (ennemis[i].getType() != BOSS) continue;
 
                     for (int k = 0; k < 20; k++) {
-                        jeu.genererEnnemis(1, ZOMBIE, 80, 4, 75, 75, 1000, 5);
+                        jeu.genererEnnemis(1, ZOMBIE, 20, 4, 75, 75, 1000, 10);
                     }
                 }
                 dernierSpawnBoss = tempsActuel;

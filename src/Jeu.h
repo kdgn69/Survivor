@@ -32,7 +32,6 @@ private:
     int niveauAuraMorts;
     int niveauAuraJoueur;
     int niveauFoudre;
-    bool tirPerforantActif;
 
     bool jeuTermine;
     bool victoire;

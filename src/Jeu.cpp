@@ -13,7 +13,6 @@ Jeu::Jeu() {
     niveauAuraMorts = 0;
     niveauAuraJoueur = 0;
     niveauFoudre = 0;
-    tirPerforantActif = false;
 
     jeuTermine = false;
     victoire = false;
@@ -43,6 +42,14 @@ void Jeu::avancerTour() {
     deplacerProjectilesEnnemis();
     gererCollisionsProjectilesEnnemisSurJoueur();
 
+    for (unsigned int i = 0; i < ennemis.size(); i++) {
+        Rectangle rectEnnemi = ennemis[i].getRectangle();
+        Rectangle rectJoueur = joueur.getRectangle();
+        if (rectanglesColles(rectJoueur, rectEnnemi)) {
+            joueur.prendreDegats(ennemis[i].getDegats());
+        }
+    }
+
     if (ennemis.empty()) {
         genererChoixAmeliorations();
     }
@@ -67,7 +74,7 @@ void Jeu::genererVagueActuelle() {
 
     //VAGUE BOSS
     if (numero == 6) {
-        genererEnnemis(1, BOSS, 200000, 2, 400, 400, 1000, 20);
+        genererEnnemis(1, BOSS, 1000, 2, 400, 400, 1000, 20);
         return;
     }
 
@@ -103,7 +110,7 @@ void Jeu::genererVagueActuelle() {
         }
 
         //STATS DE BASE
-        int pv = 100;
+        int pv = 20;
         float vitesse = 4;
         int largeur = 75;
         int hauteur = 75;
@@ -111,16 +118,16 @@ void Jeu::genererVagueActuelle() {
         int degats = 10;
 
         if (type == ARCHER) {
-            pv = 80; vitesse = 4; largeur = 65; hauteur = 65; distance = 1500; degats = 5;
+            pv = 15; vitesse = 4; largeur = 65; hauteur = 65; distance = 1500; degats = 5;
         }
         else if (type == HEALER) {
-            pv = 150; vitesse = 3; largeur = 100; hauteur = 100; distance = 1000; degats = 5;
+            pv = 35; vitesse = 3; largeur = 100; hauteur = 100; distance = 1000; degats = 5;
         }
         else if (type == SORCIER) {
-            pv = 120; vitesse = 3; largeur = 120; hauteur = 120; distance = 1500; degats = 8;
+            pv = 30; vitesse = 3; largeur = 120; hauteur = 120; distance = 1500; degats = 8;
         }
         else if (type == SLIME) {
-            pv = 100; vitesse = 4; largeur = 175; hauteur = 175; distance = 1000; degats = 8;
+            pv = 40; vitesse = 4; largeur = 175; hauteur = 175; distance = 1000; degats = 8;
         }
 
         //MINI BOSS (1%)
@@ -416,7 +423,7 @@ void Jeu::genererChoixAmeliorations() {
             if (nomChoisi == "auraMort" && niveauAuraMorts >= 3) {
                 continue;
             }
-            if (nomChoisi == "perforant" && tirPerforantActif) {
+            if (nomChoisi == "perforant" && joueur.aTirPerforant()) {
                 continue;
             }
             if (nomChoisi == "auraJoueur" && niveauAuraJoueur >= 3) {
@@ -443,7 +450,7 @@ void Jeu::appliquerAmeliorationChoisie(int index) {
 
     // en fonction du type, on applique l'effet
     if (nom == "degats") {
-        arme.augmenterDegats(5);
+        arme.augmenterDegats(3);
     }
     else if (nom == "cadence") {
         arme.augmenterCadence(1);
@@ -456,7 +463,7 @@ void Jeu::appliquerAmeliorationChoisie(int index) {
         arme.augmenterVitesseProjectile(1);
     }
     else if (nom == "vitesseJoueur") {
-        joueur.augmenterVitesse(0.01);
+        joueur.augmenterVitesse(1);
     }
     else if (nom == "multitir") {
         niveauMultitir++;
@@ -466,7 +473,6 @@ void Jeu::appliquerAmeliorationChoisie(int index) {
     }
     else if (nom == "perforant") {
         joueur.activerTirPerforant();
-        tirPerforantActif = true;
     }
     else if (nom == "auraJoueur") {
         niveauAuraJoueur++;
@@ -628,7 +634,7 @@ void Jeu::soignerEnnemis() {
 
         Position posHealer = ennemis[i].getPosition();
         float rayon = ennemis[i].getRayonEffet();
-        int soin = 10;
+        int soin = 20;
 
         for (unsigned int j = 0; j < ennemis.size(); j++) {
             if (i == j) continue;
