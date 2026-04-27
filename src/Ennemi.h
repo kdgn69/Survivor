@@ -1,3 +1,10 @@
+#ifndef ENNEMI_H
+#define ENNEMI_H
+
+#include "Position.h"
+#include "Rectangle.h"
+#include "Arme.h"
+
 /**
  * @file Ennemi.h
  * Gère les ennemis du jeu.
@@ -113,3 +120,5 @@ public:
      */
     void setPeutSeDiviser(bool val);
 };
+
+#endif

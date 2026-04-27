@@ -1,3 +1,17 @@
+#ifndef JEU_H
+#define JEU_H
+
+#include <vector>
+#include <string>
+#include "Joueur.h"
+#include "Projectile.h"
+#include "Ennemi.h"
+#include "Vague.h"
+#include "Amelioration.h"
+#include "Aura.h"
+
+using namespace std;
+
 /**
  * @file Jeu.h
  * Contient toute la logique principale du jeu.
@@ -12,7 +26,7 @@ class Jeu {
 private:
     Vague vague;                         /**< Gestion des vagues et niveaux */
     int largeurCarte;                    /**< Largeur de la carte */
-    int hauteurCarte;                   /**< Hauteur de la carte */
+    int hauteurCarte;                    /**< Hauteur de la carte */
 
     Joueur joueur;                      /**< Joueur */
     vector<Ennemi> ennemis;             /**< Liste des ennemis */
@@ -220,3 +234,5 @@ public:
      */
     bool estVictoire() const;
 };
+
+#endif

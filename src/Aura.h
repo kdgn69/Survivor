@@ -1,3 +1,8 @@
+#ifndef AURA_H
+#define AURA_H
+
+#include "Position.h"
+
 /**
  * @file Aura.h
  * Gère les zones d’effet infligeant des dégâts.
@@ -88,3 +93,5 @@ public:
      */
     void setIntervalle(float i);
 };
+
+#endif

@@ -1,3 +1,11 @@
+#ifndef JEUSDL_H
+#define JEUSDL_H
+
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
+#include "../Jeu.h"
+#include "Image.h"
+
 /**
  * @file JeuSDL.h
  * Gère l’affichage et les interactions avec SDL.
@@ -62,3 +70,5 @@ public:
      */
     void boucle();
 };
+
+#endif

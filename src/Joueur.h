@@ -1,3 +1,14 @@
+#ifndef JOUEUR_H
+#define JOUEUR_H
+
+#include <vector>
+#include "Position.h"
+#include "Rectangle.h"
+#include "Arme.h"
+#include "Ennemi.h"
+
+using namespace std;
+
 /**
  * @file Joueur.h
  * Gère le comportement et les caractéristiques du joueur.
@@ -105,3 +116,5 @@ public:
      */
     void setDernierTir(float t);
 };
+
+#endif

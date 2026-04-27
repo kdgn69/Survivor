@@ -1,3 +1,6 @@
+#ifndef RECTANGLE_H
+#define RECTANGLE_H
+
 /**
  * @file Rectangle.h
  * Définit une structure simple pour gérer les collisions.
@@ -23,3 +26,5 @@ bool collisionRectangles(const Rectangle& a, const Rectangle& b);
  * Vérifie si deux rectangles sont collés (contact sans chevauchement).
  */
 bool rectanglesColles(const Rectangle& a, const Rectangle& b);
+
+#endif

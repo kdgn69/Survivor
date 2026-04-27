@@ -1,3 +1,9 @@
+#ifndef IMAGE_H
+#define IMAGE_H
+
+#include <SDL2/SDL.h>
+#include <string>
+
 /**
  * @file Image.h
  * Gère le chargement et l’affichage des images avec SDL.
@@ -44,3 +50,5 @@ public:
      */
     void draw(SDL_Renderer* renderer, float x, float y, float w, float h) const;
 };
+
+#endif

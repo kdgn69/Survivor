@@ -1,3 +1,6 @@
+#ifndef ARME_H
+#define ARME_H
+
 /**
  * @file Arme.h
  * Gère les caractéristiques d’une arme.
@@ -56,3 +59,5 @@ public:
      */
     unsigned int getIntervalleTirMs() const;
 };
+
+#endif

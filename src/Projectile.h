@@ -1,3 +1,10 @@
+#ifndef PROJECTILE_H
+#define PROJECTILE_H
+
+#include "Position.h"
+#include "Direction.h"
+#include "Rectangle.h"
+
 /**
  * @file Projectile.h
  * Gère les projectiles tirés par le joueur ou les ennemis.
@@ -73,3 +80,5 @@ public:
      */
     void desactiver();
 };
+
+#endif
