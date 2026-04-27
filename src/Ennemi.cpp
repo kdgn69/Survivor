@@ -26,8 +26,8 @@ Ennemi::Ennemi(float x, float y, TypeEnnemi t, int pv, float vit, int larg, int 
 
     //PROJECTILES ENNEMIS
     if (t == ARCHER) {
-        arme.augmenterLargeurProjectile(-5);
-        arme.augmenterHauteurProjectile(-5);
+        arme.augmenterLargeurProjectile(-3);
+        arme.augmenterHauteurProjectile(-3);
     }
     /*else if (t == SORCIER) {
         arme.augmenterLargeurProjectile(6);

@@ -5,7 +5,7 @@
 using namespace std;
 
 Joueur::Joueur() {
-    vie = 200;
+    vie = 2000000000;
     vitesse = 8;
     largeur = 125;
     hauteur = 125;

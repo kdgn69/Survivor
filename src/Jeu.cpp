@@ -14,6 +14,9 @@ Jeu::Jeu() {
     niveauAuraJoueur = 0;
     niveauFoudre = 0;
     tirPerforantActif = false;
+
+    jeuTermine = false;
+    victoire = false;
 }
 
 void Jeu::initialiser() {
@@ -23,6 +26,9 @@ void Jeu::initialiser() {
 }
 
 void Jeu::avancerTour() {
+
+    if (jeuTermine) return;
+
     if (enChoixAmelioration) {
         return;
     }
@@ -39,6 +45,18 @@ void Jeu::avancerTour() {
 
     if (ennemis.empty()) {
         genererChoixAmeliorations();
+    }
+
+    // MORT DU JOUEUR
+    if (joueur.getVie() <= 0) {
+        jeuTermine = true;
+        victoire = false;
+    }
+
+    // VICTOIRE (niveau 5 boss tué)
+    if (ennemis.empty() && vague.getNiveau() > 5) {
+        jeuTermine = true;
+        victoire = true;
     }
 }
 
@@ -465,6 +483,7 @@ void Jeu::appliquerAmeliorationChoisie(int index) {
 }
 
 void Jeu::lancerVagueSuivante() {
+    if (jeuTermine) return;
     vague.passerSuivante();
     genererVagueActuelle();
 }
@@ -680,4 +699,12 @@ int Jeu::getNiveauAuraJoueur() const {
 
 int Jeu::getNombreEnnemisRestants() const {
     return ennemis.size();
+}
+
+bool Jeu::estTermine() const {
+    return jeuTermine;
+}
+
+bool Jeu::estVictoire() const {
+    return victoire;
 }

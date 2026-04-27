@@ -34,6 +34,9 @@ private:
     int niveauFoudre;
     bool tirPerforantActif;
 
+    bool jeuTermine;
+    bool victoire;
+
 public:
     Jeu();
 
@@ -80,6 +83,9 @@ public:
     int getHauteurCarte() const;
     int getNiveauAuraJoueur() const;
     int getNombreEnnemisRestants() const;
+
+    bool estTermine() const;
+    bool estVictoire() const;
 };
 
 #endif

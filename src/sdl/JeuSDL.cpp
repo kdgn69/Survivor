@@ -181,11 +181,11 @@ void JeuSDL::afficher() {
 
     Uint8 r = 0, g = 0, b = 0;
 
-    if (niveau == 1) { r = 30; g = 80; b = 30; }
-    else if (niveau == 2) { r = 180; g = 100; b = 30; }
-    else if (niveau == 3) { r = 30; g = 80; b = 180; }
-    else if (niveau == 4) { r = 120; g = 40; b = 160; }
-    else { r = 150; g = 30; b = 30; }
+    if (niveau == 1) { r = 30; g = 80; b = 30; }        
+    else if (niveau == 2) { r = 180; g = 180; b = 40; } 
+    else if (niveau == 3) { r = 30; g = 80; b = 180; }  
+    else if (niveau == 4) { r = 40; g = 180; b = 180; } 
+    else { r = 40; g = 120; b = 120; }                  
 
     int caseX = (int)(posJoueur.x / tailleCase);
     int caseY = (int)(posJoueur.y / tailleCase);
@@ -343,6 +343,30 @@ void JeuSDL::afficher() {
     afficherTexte(rendu, police, texteVague, 20, 50);
     afficherTexte(rendu, police, textePV, 20, 80);
     afficherTexte(rendu, police, texteEnnemis, 20, 110);
+
+    // FIN DE PARTIE
+    if (jeu.estTermine()) {
+        SDL_SetRenderDrawColor(rendu, 0, 0, 0, 200);
+        SDL_FRect rect;
+        rect.x = 0;
+        rect.y = 0;
+        rect.w = jeu.getLargeurCarte();
+        rect.h = jeu.getHauteurCarte();
+        SDL_RenderFillRectF(rendu, &rect);
+
+        string texte;
+
+        if (jeu.estVictoire()) {
+            texte = "Vous avez gagne";
+        } else {
+            texte = "Vous etes mort";
+        }
+        // centré écran
+        int x = jeu.getLargeurCarte() / 2 - 150;
+        int y = jeu.getHauteurCarte() / 2 - 20;
+
+        afficherTexte(rendu, police, texte, x, y);
+    }
 } 
 
 void JeuSDL::afficherChoixAmeliorations() {
@@ -475,7 +499,7 @@ void JeuSDL::boucle() {
                 }
             }
         }
-        if (!jeu.estEnChoixAmelioration()) {
+        if (!jeu.estEnChoixAmelioration() && !jeu.estTermine()) {
             const Uint8* etat = SDL_GetKeyboardState(nullptr);
 
             if (etat[SDL_SCANCODE_W]) jeu.deplacerJoueur('z');
