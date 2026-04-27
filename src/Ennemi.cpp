@@ -13,6 +13,7 @@ Ennemi::Ennemi(float x, float y, TypeEnnemi t, int pv, float vit, int larg, int 
     hauteur = haut;
     dernierTir = 0;
     degats = deg;
+
     if (t == HEALER) {
         rayonEffet = 150;
     }
@@ -22,6 +23,22 @@ Ennemi::Ennemi(float x, float y, TypeEnnemi t, int pv, float vit, int larg, int 
     else {
         rayonEffet = 0;
     }
+
+    //PROJECTILES ENNEMIS
+    if (t == ARCHER) {
+        arme.augmenterLargeurProjectile(-5);
+        arme.augmenterHauteurProjectile(-5);
+    }
+    /*else if (t == SORCIER) {
+        arme.augmenterLargeurProjectile(6);
+        arme.augmenterHauteurProjectile(6);
+    }*/ //on garde la taille de base mais je laisse au cas ou on veut changer
+    else if (t == BOSS) {
+        arme.augmenterLargeurProjectile(10);
+        arme.augmenterHauteurProjectile(10);
+    }
+    //SLIME
+    peutSeDiviser = false;
 }
 
 void Ennemi::seDeplacerVersJoueur(const Position& posJoueur, int largeurJoueur, int hauteurJoueur) {

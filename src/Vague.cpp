@@ -25,5 +25,13 @@ int Vague::getNiveau() const {
 }
 
 int Vague::getNombreEnnemis() const {
-    return 5;
+    // vague boss
+    if (numero == 6) {
+        return 1;
+    }
+    
+    int baseNiveau = (niveau - 1) * 50;
+    int progressionVague = numero * 10;
+
+    return baseNiveau + progressionVague;
 }

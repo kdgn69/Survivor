@@ -44,31 +44,82 @@ void Jeu::avancerTour() {
 
 void Jeu::genererVagueActuelle() {
     ennemis.clear();
+    int numero = vague.getNumero();
+    int nombre = vague.getNombreEnnemis();
 
-    // VAGUE BOSS
-    if (vague.getNumero() == 6) {
-        genererEnnemis(1, BOSS, 2000, 2, 120, 120, 400, 20);
+    //VAGUE BOSS
+    if (numero == 6) {
+        genererEnnemis(1, BOSS, 200000, 2, 400, 400, 1000, 20);
         return;
     }
 
-    int nombre = vague.getNombreEnnemis();
     for (int i = 0; i < nombre; i++) {
         int tirage = rand() % 100;
+        TypeEnnemi type;
 
-        if (tirage < 20) {
-            genererEnnemis(1, ZOMBIE, 120, 5, 30, 30, 100, 10);
+        //CHOIX SELON LA VAGUE
+        if (numero == 1) {
+            type = ZOMBIE;
         }
-        else if (tirage < 40) {
-            genererEnnemis(1, ARCHER, 80, 4, 25, 25, 400, 5);
+        else if (numero == 2) {
+            if (tirage < 50) type = ZOMBIE;
+            else type = ARCHER;
         }
-        else if (tirage < 60) {
-            genererEnnemis(1, HEALER, 150, 3, 25, 25, 300, 5);
+        else if (numero == 3) {
+            if (tirage < 40) type = ZOMBIE;
+            else if (tirage < 80) type = ARCHER;
+            else type = HEALER;
         }
-        else if (tirage < 80) {
-            genererEnnemis(1, SORCIER, 120, 3, 50, 50, 300, 8);
+        else if (numero == 4) {
+            if (tirage < 35) type = ZOMBIE;
+            else if (tirage < 70) type = ARCHER;
+            else if (tirage < 85) type = HEALER;
+            else type = SORCIER;
         }
-        else {
-            genererEnnemis(1, SLIME, 100, 4, 40, 40, 100, 8);
+        else { // vague 5
+            if (tirage < 35) type = ZOMBIE;
+            else if (tirage < 70) type = ARCHER;
+            else if (tirage < 80) type = HEALER;
+            else if (tirage < 90) type = SORCIER;
+            else type = SLIME;
+        }
+
+        //STATS DE BASE
+        int pv = 100;
+        float vitesse = 4;
+        int largeur = 75;
+        int hauteur = 75;
+        float distance = 1000;
+        int degats = 10;
+
+        if (type == ARCHER) {
+            pv = 80; vitesse = 4; largeur = 65; hauteur = 65; distance = 1500; degats = 5;
+        }
+        else if (type == HEALER) {
+            pv = 150; vitesse = 3; largeur = 100; hauteur = 100; distance = 1000; degats = 5;
+        }
+        else if (type == SORCIER) {
+            pv = 120; vitesse = 3; largeur = 120; hauteur = 120; distance = 1500; degats = 8;
+        }
+        else if (type == SLIME) {
+            pv = 100; vitesse = 4; largeur = 175; hauteur = 175; distance = 1000; degats = 8;
+        }
+
+        //MINI BOSS (1%)
+        bool miniBoss = (rand() % 100 < 1);
+        if (miniBoss) {
+            pv *= 5;
+            degats *= 2;
+            largeur *= 2;
+            hauteur *= 2;
+        }
+
+        //SPAWN
+        genererEnnemis(1, type, pv, vitesse, largeur, hauteur, distance, degats);
+
+        //SLIME DIVISIBLE
+        if (type == SLIME) {
+            ennemis.back().setPeutSeDiviser(true);
         }
     }
 }
@@ -82,8 +133,8 @@ void Jeu::genererEnnemis(int nombre, TypeEnnemi type, int pv, float vitesse, int
         float centreY = 0;
 
         while (!positionValide) {
-            centreX = posJoueur.x + (rand() % 2500 - 1250);
-            centreY = posJoueur.y + (rand() % 2500 - 1250);
+            centreX = posJoueur.x + (rand() % 4000 - 2000);
+            centreY = posJoueur.y + (rand() % 4000 - 2000);
 
             float dx = centreX - posJoueur.x;
             float dy = centreY - posJoueur.y;
@@ -175,14 +226,17 @@ void Jeu::faireTirerEnnemis(float maintenant) {
         float intervalle = ennemis[i].getArme().getIntervalleTirMs();
         if (maintenant - ennemis[i].getDernierTir() < intervalle) continue;
 
-        Projectile p = creerProjectileDepuisEnnemi(ennemis[i], posJoueur);
-        projectilesEnnemis.push_back(p);
-
+        vector<Projectile> ps = creerProjectilesDepuisEnnemi(ennemis[i], posJoueur);
+        for (unsigned int k = 0; k < ps.size(); k++) {
+            projectilesEnnemis.push_back(ps[k]);
+        }
         ennemis[i].setDernierTir(maintenant);
     }
 }
 
-Projectile Jeu::creerProjectileDepuisEnnemi(const Ennemi& ennemi, const Position& cible) const {
+vector<Projectile> Jeu::creerProjectilesDepuisEnnemi(const Ennemi& ennemi, const Position& cible) const {
+    vector<Projectile> projectiles;
+
     Position pos = ennemi.getPosition();
 
     float dx = cible.x - pos.x;
@@ -194,14 +248,32 @@ Projectile Jeu::creerProjectileDepuisEnnemi(const Ennemi& ennemi, const Position
     dx /= distance;
     dy /= distance;
 
+    float angle = atan2(-dy, dx) * 180 / 3.14159265;
+
     const Arme& arme = ennemi.getArme();
 
-    float vitesse = arme.getVitesseProjectile();
-    int degats = arme.getDegats();
-    float largeur = arme.getLargeurProjectile();
-    float hauteur = arme.getHauteurProjectile();
+    vector<float> angles;
 
-    return Projectile(pos.x, pos.y, dx * vitesse, dy * vitesse, degats, largeur, hauteur);
+    // NORMAL
+    if (ennemi.getType() == ARCHER || ennemi.getType() == SORCIER) {
+        angles.push_back(angle);
+    }
+    // BOSS = multitir
+    else if (ennemi.getType() == BOSS) {
+        angles.push_back(angle - 15);
+        angles.push_back(angle);
+        angles.push_back(angle + 15);
+    }
+
+    for (unsigned int i = 0; i < angles.size(); i++) {
+        float angleRad = angles[i] * 3.14159265 / 180;
+        float dirX = cos(angleRad);
+        float dirY = -sin(angleRad);
+
+        Projectile p(pos.x, pos.y, dirX * arme.getVitesseProjectile(), dirY * arme.getVitesseProjectile(), arme.getDegats(), arme.getLargeurProjectile(), arme.getHauteurProjectile());
+        projectiles.push_back(p);
+    }
+    return projectiles;
 }
 
 void Jeu::deplacerProjectilesAllies() {
@@ -411,7 +483,7 @@ void Jeu::gererMortsEnnemis() {
                     float decalageX = (rand() % 40) - 20;
                     float decalageY = (rand() % 40) - 20;
 
-                    Ennemi petitSlime(pos.x + decalageX, pos.y + decalageY, SLIME, 30, 6, 20, 20, 5);
+                    Ennemi petitSlime(pos.x + decalageX, pos.y + decalageY, SLIME, 30, 6, 65, 65, 5);
                     petitSlime.setPeutSeDiviser(false);
                     ennemisASpawn.push_back(petitSlime);
                 }
@@ -473,16 +545,16 @@ void Jeu::mettreAJourEtatAuraJoueur() {
     Position pos = joueur.getPosition();
 
     // stats selon le niveau
-    float rayon = 150;
+    float rayon = 300;
     int degats = 3;
     float intervalle = 50;
 
     if (niveauAuraJoueur == 2) {
-        rayon = 200;
+        rayon = 450;
         degats = 6;
     }
     else if (niveauAuraJoueur >= 3) {
-        rayon = 250;
+        rayon = 600;
         degats = 10;
         intervalle = 25;
     }

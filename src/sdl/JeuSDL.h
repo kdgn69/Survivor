@@ -33,7 +33,7 @@ private:
     Image im_zombie;
     Image im_archer;
     Image im_healer;
-    Image im_sorciere;
+    Image im_sorcier;
     Image im_slime;
     Image im_boss;
 

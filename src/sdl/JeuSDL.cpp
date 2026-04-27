@@ -133,7 +133,7 @@ JeuSDL::JeuSDL() : jeu(), fenetre(nullptr), rendu(nullptr), police(nullptr) {
     im_zombie.loadFromFile("data/zombie.png", rendu);
     im_archer.loadFromFile("data/archer.png", rendu);
     im_healer.loadFromFile("data/healer.png", rendu);
-    im_sorciere.loadFromFile("data/sorciere.png", rendu);
+    im_sorcier.loadFromFile("data/sorcier.png", rendu);
     im_slime.loadFromFile("data/slime.png", rendu);
     im_boss.loadFromFile("data/boss.png", rendu);
 
@@ -263,8 +263,8 @@ void JeuSDL::afficher() {
         else if (type == HEALER) {
             im_healer.draw(rendu, rect.x, rect.y, rect.w, rect.h);
         }
-        else if (type == SORCIERE) {
-            im_sorciere.draw(rendu, rect.x, rect.y, rect.w, rect.h);
+        else if (type == SORCIER) {
+            im_sorcier.draw(rendu, rect.x, rect.y, rect.w, rect.h);
         }
         else if (type == SLIME) {
             im_slime.draw(rendu, rect.x, rect.y, rect.w, rect.h);
@@ -430,6 +430,7 @@ void JeuSDL::boucle() {
     float dernierSoinHealer = 0;
     float dernierSpawnSorcier = 0;
     float dernierSpawnBoss = 0;
+    float dernierTirBoss = 0;
 
     while (!quitter) {
 
@@ -476,6 +477,7 @@ void JeuSDL::boucle() {
             float intervalleSoinHealer = 1000;
             float intervalleSpawnSorcier = 5000;
             float intervalleSpawnBoss = 10000;
+            float intervalleTirBoss = 400;
 
             //faire tirer le joueur
             if (tempsActuel - dernierTirJoueur >= intervalleTirJoueur) {
@@ -488,11 +490,29 @@ void JeuSDL::boucle() {
                 Position posJoueur = jeu.getJoueur().getPosition();
 
                 for (unsigned int i = 0; i < ennemis.size(); i++) {
-                    if (ennemis[i].getType() != ARCHER && ennemis[i].getType() != SORCIER && ennemis[i].getType() != BOSS) continue;
-                    Projectile p = jeu.creerProjectileDepuisEnnemi(ennemis[i], posJoueur);
-                    jeu.ajouterProjectileEnnemi(p);
+                    if (ennemis[i].getType() != ARCHER && ennemis[i].getType() != SORCIER) continue;
+                    
+                    vector<Projectile> ps = jeu.creerProjectilesDepuisEnnemi(ennemis[i], posJoueur);
+                    for (unsigned int k = 0; k < ps.size(); k++) {
+                        jeu.ajouterProjectileEnnemi(ps[k]);
+                    }
                 }
                 dernierTirEnnemis = tempsActuel;
+            }
+            //faire tirer le boss
+            if (tempsActuel - dernierTirBoss >= intervalleTirBoss) {
+                const vector<Ennemi>& ennemis = jeu.getEnnemis();
+                Position posJoueur = jeu.getJoueur().getPosition();
+
+                for (unsigned int i = 0; i < ennemis.size(); i++) {
+                    if (ennemis[i].getType() != BOSS) continue;
+                    vector<Projectile> ps = jeu.creerProjectilesDepuisEnnemi(ennemis[i], posJoueur);
+
+                    for (unsigned int k = 0; k < ps.size(); k++) {
+                        jeu.ajouterProjectileEnnemi(ps[k]);
+                    }
+                }
+                dernierTirBoss = tempsActuel;
             }
             //degats qu'infligent les ennemis au corps a corps
             if (tempsActuel - dernierDegatsEnnemis >= intervalleDegatsEnnemis) {
@@ -521,7 +541,7 @@ void JeuSDL::boucle() {
                     if (ennemis[i].getType() != SORCIER) continue;
                     
                     for (int k = 0; k < 5; k++) {
-                        jeu.genererEnnemis(1, ZOMBIE, 80, 4, 25, 25, 0, 5);
+                        jeu.genererEnnemis(1, ZOMBIE, 80, 4, 75, 75, 1000, 5);
                     }
                 }
                 dernierSpawnSorcier = tempsActuel;
@@ -534,7 +554,7 @@ void JeuSDL::boucle() {
                     if (ennemis[i].getType() != BOSS) continue;
 
                     for (int k = 0; k < 20; k++) {
-                        jeu.genererEnnemis(1, ZOMBIE, 80, 4, 25, 25, 0, 5);
+                        jeu.genererEnnemis(1, ZOMBIE, 80, 4, 75, 75, 1000, 5);
                     }
                 }
                 dernierSpawnBoss = tempsActuel;

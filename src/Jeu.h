@@ -46,7 +46,7 @@ public:
     void deplacerEnnemisVersJoueur();
     void tirer(float angleDegres);
     void faireTirerEnnemis(float maintenant);
-    Projectile creerProjectileDepuisEnnemi(const Ennemi& ennemi, const Position& cible) const;
+    vector<Projectile> creerProjectilesDepuisEnnemi(const Ennemi& ennemi, const Position& cible) const;
 
     void deplacerProjectilesAllies();
     void deplacerProjectilesEnnemis();

@@ -3,8 +3,8 @@
 Arme::Arme() {
     degats = 50;
     cadence = 2;
-    largeurProjectile = 5;
-    hauteurProjectile = 5;
+    largeurProjectile = 15;
+    hauteurProjectile = 15;
     vitesseProjectile = 8;
 }
 
