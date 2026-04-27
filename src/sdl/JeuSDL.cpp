@@ -168,33 +168,51 @@ void JeuSDL::afficher() {
         return;
     }
 
-    //fond
-    int tailleTile = 1024;
-
-    // centre écran
-    float centreX1 = jeu.getLargeurCarte() / 2;
-    float centreY1 = jeu.getHauteurCarte() / 2;
-
-    Position posJoueur1 = jeu.getJoueur().getPosition();
-
-    int offsetX = (int)posJoueur1.x % tailleTile;
-    int offsetY = (int)posJoueur1.y % tailleTile;
-
-    // on dessine une grille autour du joueur
-    for (int i = -3; i <= 3; i++) {
-        for (int j = -3; j <= 3; j++) {
-
-            float x = centreX1 - offsetX + i * tailleTile;
-            float y = centreY1 - offsetY + j * tailleTile;
-
-            im_fondNiv1.draw(rendu, x, y, tailleTile, tailleTile);
-        }
-    }
-    // CAMERA
+    //centre écran
     float centreX = jeu.getLargeurCarte() / 2;
     float centreY = jeu.getHauteurCarte() / 2;
 
     Position posJoueur = jeu.getJoueur().getPosition();
+
+    //FOND QUADRILLAGE
+    int tailleCase = 100;
+
+    int niveau = jeu.getNiveauActuel();
+
+    Uint8 r = 0, g = 0, b = 0;
+
+    if (niveau == 1) { r = 30; g = 80; b = 30; }
+    else if (niveau == 2) { r = 180; g = 100; b = 30; }
+    else if (niveau == 3) { r = 30; g = 80; b = 180; }
+    else if (niveau == 4) { r = 120; g = 40; b = 160; }
+    else { r = 150; g = 30; b = 30; }
+
+    int caseX = (int)(posJoueur.x / tailleCase);
+    int caseY = (int)(posJoueur.y / tailleCase);
+
+    float decalageX = posJoueur.x - caseX * tailleCase;
+    float decalageY = posJoueur.y - caseY * tailleCase;
+
+    for (int i = -20; i <= 20; i++) {
+        for (int j = -20; j <= 20; j++) {
+
+            int mondeX = caseX + i;
+            int mondeY = caseY + j;
+
+            SDL_FRect rect;
+            rect.x = centreX + (i * tailleCase) - decalageX;
+            rect.y = centreY + (j * tailleCase) - decalageY;
+            rect.w = tailleCase;
+            rect.h = tailleCase;
+
+            if ((mondeX + mondeY) % 2 == 0) {
+                SDL_SetRenderDrawColor(rendu, r, g, b, 255);
+            } else {
+                SDL_SetRenderDrawColor(rendu, r - 20, g - 20, b - 20, 255);
+            }
+            SDL_RenderFillRectF(rendu, &rect);
+        }
+    }
 
     const vector<Aura>& auras = jeu.getAuras();
 
@@ -491,7 +509,7 @@ void JeuSDL::boucle() {
 
                 for (unsigned int i = 0; i < ennemis.size(); i++) {
                     if (ennemis[i].getType() != ARCHER && ennemis[i].getType() != SORCIER) continue;
-                    
+
                     vector<Projectile> ps = jeu.creerProjectilesDepuisEnnemi(ennemis[i], posJoueur);
                     for (unsigned int k = 0; k < ps.size(); k++) {
                         jeu.ajouterProjectileEnnemi(ps[k]);
