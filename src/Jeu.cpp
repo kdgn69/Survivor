@@ -48,14 +48,17 @@ void Jeu::genererVagueActuelle() {
     for (int i = 0; i < nombre; i++) {
         int tirage = rand() % 100;
 
-        if (tirage < 40) {
+        if (tirage < 20) {
             genererEnnemis(1, ZOMBIE, 120, 5, 30, 30, 100, 10);
         }
-        else if (tirage < 80) {
+        else if (tirage < 40) {
             genererEnnemis(1, ARCHER, 80, 4, 25, 25, 400, 5);
         }
-        else if (tirage < 90) {
+        else if (tirage < 60) {
             genererEnnemis(1, HEALER, 150, 3, 25, 25, 300, 5);
+        }
+        else if (tirage < 80) {
+            genererEnnemis(1, SORCIERE, 120, 3, 50, 50, 300, 8);
         }
         else {
             genererEnnemis(1, SLIME, 100, 4, 40, 40, 100, 8);

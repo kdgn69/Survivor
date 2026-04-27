@@ -392,6 +392,7 @@ void JeuSDL::boucle() {
     float dernierTirEnnemis = 0;
     float dernierDegatsEnnemis = 0;
     float dernierSoinHealer = 0;
+    float dernierSpawnSorciere = 0;
 
     while (!quitter) {
 
@@ -436,6 +437,7 @@ void JeuSDL::boucle() {
             float intervalleTirEnnemis = 800;
             float intervalleDegatsEnnemis = 1000;
             float intervalleSoinHealer = 1000;
+            float intervalleSpawnSorciere = 5000;
 
             if (tempsActuel - dernierTirJoueur >= intervalleTirJoueur) {
                 jeu.tirer(angle);
@@ -446,7 +448,7 @@ void JeuSDL::boucle() {
                 Position posJoueur = jeu.getJoueur().getPosition();
 
                 for (unsigned int i = 0; i < ennemis.size(); i++) {
-                    if (ennemis[i].getType() != ARCHER) continue;
+                    if (ennemis[i].getType() != ARCHER && ennemis[i].getType() != SORCIERE) continue;
                     Projectile p = jeu.creerProjectileDepuisEnnemi(ennemis[i], posJoueur);
                     jeu.ajouterProjectileEnnemi(p);
                 }
@@ -468,6 +470,18 @@ void JeuSDL::boucle() {
             if (tempsActuel - dernierSoinHealer >= intervalleSoinHealer) {
                 jeu.soignerEnnemis();
                 dernierSoinHealer = tempsActuel;
+            }
+            if (tempsActuel - dernierSpawnSorciere >= intervalleSpawnSorciere) {
+                const vector<Ennemi>& ennemis = jeu.getEnnemis();
+
+                for (unsigned int i = 0; i < ennemis.size(); i++) {
+                    if (ennemis[i].getType() != SORCIERE) continue;
+                    
+                    for (int k = 0; k < 5; k++) {
+                        jeu.genererEnnemis(1, ZOMBIE, 80, 4, 25, 25, 0, 5);
+                    }
+                }
+                dernierSpawnSorciere = tempsActuel;
             }
             jeu.avancerTour();
         }
