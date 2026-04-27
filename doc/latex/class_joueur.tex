@@ -1,0 +1,164 @@
+\doxysection{Joueur Class Reference}
+\hypertarget{class_joueur}{}\label{class_joueur}\index{Joueur@{Joueur}}
+
+
+{\ttfamily \#include $<$Joueur.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_joueur_add6c98be3020651d84f6d75ccc1d867e}{Joueur}} ()
+\item 
+void \mbox{\hyperlink{class_joueur_aa7c282e016fa394d784cc926367d4916}{set\+Position}} (float x, float y)
+\item 
+void \mbox{\hyperlink{class_joueur_a70d090b0af6b491fde945d2dc799cc77}{deplacer\+Avec\+Direction}} (char direction, const vector$<$ \mbox{\hyperlink{class_ennemi}{Ennemi}} $>$ \&ennemis)
+\item 
+void \mbox{\hyperlink{class_joueur_a2574c73c6e37ce3998da9a30a2ccd849}{augmenter\+Vitesse}} (float bonus)
+\item 
+void \mbox{\hyperlink{class_joueur_ac776a49ffb119ec8a0e227b445b97f38}{prendre\+Degats}} (int degats)
+\item 
+\mbox{\hyperlink{struct_position}{Position}} \mbox{\hyperlink{class_joueur_ab09482bf0c01af702c3c7722fce8fdfc}{get\+Position}} () const
+\item 
+int \mbox{\hyperlink{class_joueur_abbdcc7386f1ed5553586db0f5a1b3779}{get\+Vie}} () const
+\item 
+int \mbox{\hyperlink{class_joueur_ab833c689699b909c9556d642ec938516}{get\+Largeur}} () const
+\item 
+int \mbox{\hyperlink{class_joueur_a488023799e9f4a6add67a5336f0da55f}{get\+Hauteur}} () const
+\item 
+\mbox{\hyperlink{class_arme}{Arme}} \& \mbox{\hyperlink{class_joueur_a6ae35ea77a19165c6e2d0d45a07353a9}{get\+Arme}} ()
+\item 
+const \mbox{\hyperlink{class_arme}{Arme}} \& \mbox{\hyperlink{class_joueur_a24395789d15c487c3beb77c44cd7ca35}{get\+Arme}} () const
+\item 
+\mbox{\hyperlink{struct_rectangle}{Rectangle}} \mbox{\hyperlink{class_joueur_a161cd264c3864ad1602c23ce0c8e3b03}{get\+Rectangle}} () const
+\item 
+\mbox{\hyperlink{struct_rectangle}{Rectangle}} \mbox{\hyperlink{class_joueur_aa50dce055cc4e229a1c3c05d9841977f}{get\+Rectangle\+Avec\+Position}} (float x, float y) const
+\item 
+bool \mbox{\hyperlink{class_joueur_a074250f6081f9b83afd18d0aaa3da996}{a\+Tir\+Perforant}} () const
+\item 
+void \mbox{\hyperlink{class_joueur_a5e066e875bc31d28ae41139f4801eeb9}{activer\+Tir\+Perforant}} ()
+\item 
+float \mbox{\hyperlink{class_joueur_af4cc1805b0f04a35a28ee7692ff5b770}{get\+Dernier\+Tir}} () const
+\item 
+void \mbox{\hyperlink{class_joueur_a80fbf63e35e82aa20ba60814c9bc040e}{set\+Dernier\+Tir}} (float t)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Représente le joueur avec ses déplacements, sa vie et son arme. 
+
+\label{doc-constructors}
+\Hypertarget{class_joueur_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_joueur_add6c98be3020651d84f6d75ccc1d867e}\index{Joueur@{Joueur}!Joueur@{Joueur}}
+\index{Joueur@{Joueur}!Joueur@{Joueur}}
+\doxysubsubsection{\texorpdfstring{Joueur()}{Joueur()}}
+{\footnotesize\ttfamily \label{class_joueur_add6c98be3020651d84f6d75ccc1d867e} 
+Joueur\+::\+Joueur (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Initialise le joueur avec ses valeurs de base. 
+
+\label{doc-func-members}
+\Hypertarget{class_joueur_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_joueur_a5e066e875bc31d28ae41139f4801eeb9}\index{Joueur@{Joueur}!activerTirPerforant@{activerTirPerforant}}
+\index{activerTirPerforant@{activerTirPerforant}!Joueur@{Joueur}}
+\doxysubsubsection{\texorpdfstring{activerTirPerforant()}{activerTirPerforant()}}
+{\footnotesize\ttfamily \label{class_joueur_a5e066e875bc31d28ae41139f4801eeb9} 
+void Joueur\+::activer\+Tir\+Perforant (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Active le tir perforant. \Hypertarget{class_joueur_a074250f6081f9b83afd18d0aaa3da996}\index{Joueur@{Joueur}!aTirPerforant@{aTirPerforant}}
+\index{aTirPerforant@{aTirPerforant}!Joueur@{Joueur}}
+\doxysubsubsection{\texorpdfstring{aTirPerforant()}{aTirPerforant()}}
+{\footnotesize\ttfamily \label{class_joueur_a074250f6081f9b83afd18d0aaa3da996} 
+bool Joueur\+::a\+Tir\+Perforant (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Indique si le tir est perforant. \Hypertarget{class_joueur_a2574c73c6e37ce3998da9a30a2ccd849}\index{Joueur@{Joueur}!augmenterVitesse@{augmenterVitesse}}
+\index{augmenterVitesse@{augmenterVitesse}!Joueur@{Joueur}}
+\doxysubsubsection{\texorpdfstring{augmenterVitesse()}{augmenterVitesse()}}
+{\footnotesize\ttfamily \label{class_joueur_a2574c73c6e37ce3998da9a30a2ccd849} 
+void Joueur\+::augmenter\+Vitesse (\begin{DoxyParamCaption}\item[{float}]{bonus}{}\end{DoxyParamCaption})}
+
+Augmente la vitesse du joueur. \Hypertarget{class_joueur_a70d090b0af6b491fde945d2dc799cc77}\index{Joueur@{Joueur}!deplacerAvecDirection@{deplacerAvecDirection}}
+\index{deplacerAvecDirection@{deplacerAvecDirection}!Joueur@{Joueur}}
+\doxysubsubsection{\texorpdfstring{deplacerAvecDirection()}{deplacerAvecDirection()}}
+{\footnotesize\ttfamily \label{class_joueur_a70d090b0af6b491fde945d2dc799cc77} 
+void Joueur\+::deplacer\+Avec\+Direction (\begin{DoxyParamCaption}\item[{char}]{direction}{, }\item[{const vector$<$ \mbox{\hyperlink{class_ennemi}{Ennemi}} $>$ \&}]{ennemis}{}\end{DoxyParamCaption})}
+
+Déplace le joueur en fonction d’une direction. Prend en compte les collisions avec les ennemis. \Hypertarget{class_joueur_a6ae35ea77a19165c6e2d0d45a07353a9}\index{Joueur@{Joueur}!getArme@{getArme}}
+\index{getArme@{getArme}!Joueur@{Joueur}}
+\doxysubsubsection{\texorpdfstring{getArme()}{getArme()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_joueur_a6ae35ea77a19165c6e2d0d45a07353a9} 
+\mbox{\hyperlink{class_arme}{Arme}} \& Joueur\+::get\+Arme (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Accès à l’arme (modifiable). \Hypertarget{class_joueur_a24395789d15c487c3beb77c44cd7ca35}\index{Joueur@{Joueur}!getArme@{getArme}}
+\index{getArme@{getArme}!Joueur@{Joueur}}
+\doxysubsubsection{\texorpdfstring{getArme()}{getArme()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_joueur_a24395789d15c487c3beb77c44cd7ca35} 
+const \mbox{\hyperlink{class_arme}{Arme}} \& Joueur\+::get\+Arme (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Accès à l’arme (lecture seule). \Hypertarget{class_joueur_af4cc1805b0f04a35a28ee7692ff5b770}\index{Joueur@{Joueur}!getDernierTir@{getDernierTir}}
+\index{getDernierTir@{getDernierTir}!Joueur@{Joueur}}
+\doxysubsubsection{\texorpdfstring{getDernierTir()}{getDernierTir()}}
+{\footnotesize\ttfamily \label{class_joueur_af4cc1805b0f04a35a28ee7692ff5b770} 
+float Joueur\+::get\+Dernier\+Tir (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Retourne le temps du dernier tir. \Hypertarget{class_joueur_a488023799e9f4a6add67a5336f0da55f}\index{Joueur@{Joueur}!getHauteur@{getHauteur}}
+\index{getHauteur@{getHauteur}!Joueur@{Joueur}}
+\doxysubsubsection{\texorpdfstring{getHauteur()}{getHauteur()}}
+{\footnotesize\ttfamily \label{class_joueur_a488023799e9f4a6add67a5336f0da55f} 
+int Joueur\+::get\+Hauteur (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Retourne la hauteur. \Hypertarget{class_joueur_ab833c689699b909c9556d642ec938516}\index{Joueur@{Joueur}!getLargeur@{getLargeur}}
+\index{getLargeur@{getLargeur}!Joueur@{Joueur}}
+\doxysubsubsection{\texorpdfstring{getLargeur()}{getLargeur()}}
+{\footnotesize\ttfamily \label{class_joueur_ab833c689699b909c9556d642ec938516} 
+int Joueur\+::get\+Largeur (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Retourne la largeur. \Hypertarget{class_joueur_ab09482bf0c01af702c3c7722fce8fdfc}\index{Joueur@{Joueur}!getPosition@{getPosition}}
+\index{getPosition@{getPosition}!Joueur@{Joueur}}
+\doxysubsubsection{\texorpdfstring{getPosition()}{getPosition()}}
+{\footnotesize\ttfamily \label{class_joueur_ab09482bf0c01af702c3c7722fce8fdfc} 
+\mbox{\hyperlink{struct_position}{Position}} Joueur\+::get\+Position (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Retourne la position du joueur. \Hypertarget{class_joueur_a161cd264c3864ad1602c23ce0c8e3b03}\index{Joueur@{Joueur}!getRectangle@{getRectangle}}
+\index{getRectangle@{getRectangle}!Joueur@{Joueur}}
+\doxysubsubsection{\texorpdfstring{getRectangle()}{getRectangle()}}
+{\footnotesize\ttfamily \label{class_joueur_a161cd264c3864ad1602c23ce0c8e3b03} 
+\mbox{\hyperlink{struct_rectangle}{Rectangle}} Joueur\+::get\+Rectangle (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Retourne le rectangle pour les collisions. \Hypertarget{class_joueur_aa50dce055cc4e229a1c3c05d9841977f}\index{Joueur@{Joueur}!getRectangleAvecPosition@{getRectangleAvecPosition}}
+\index{getRectangleAvecPosition@{getRectangleAvecPosition}!Joueur@{Joueur}}
+\doxysubsubsection{\texorpdfstring{getRectangleAvecPosition()}{getRectangleAvecPosition()}}
+{\footnotesize\ttfamily \label{class_joueur_aa50dce055cc4e229a1c3c05d9841977f} 
+\mbox{\hyperlink{struct_rectangle}{Rectangle}} Joueur\+::get\+Rectangle\+Avec\+Position (\begin{DoxyParamCaption}\item[{float}]{x}{, }\item[{float}]{y}{}\end{DoxyParamCaption}) const}
+
+Retourne un rectangle à une position donnée. \Hypertarget{class_joueur_abbdcc7386f1ed5553586db0f5a1b3779}\index{Joueur@{Joueur}!getVie@{getVie}}
+\index{getVie@{getVie}!Joueur@{Joueur}}
+\doxysubsubsection{\texorpdfstring{getVie()}{getVie()}}
+{\footnotesize\ttfamily \label{class_joueur_abbdcc7386f1ed5553586db0f5a1b3779} 
+int Joueur\+::get\+Vie (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Retourne les points de vie. \Hypertarget{class_joueur_ac776a49ffb119ec8a0e227b445b97f38}\index{Joueur@{Joueur}!prendreDegats@{prendreDegats}}
+\index{prendreDegats@{prendreDegats}!Joueur@{Joueur}}
+\doxysubsubsection{\texorpdfstring{prendreDegats()}{prendreDegats()}}
+{\footnotesize\ttfamily \label{class_joueur_ac776a49ffb119ec8a0e227b445b97f38} 
+void Joueur\+::prendre\+Degats (\begin{DoxyParamCaption}\item[{int}]{degats}{}\end{DoxyParamCaption})}
+
+Inflige des dégâts au joueur. \Hypertarget{class_joueur_a80fbf63e35e82aa20ba60814c9bc040e}\index{Joueur@{Joueur}!setDernierTir@{setDernierTir}}
+\index{setDernierTir@{setDernierTir}!Joueur@{Joueur}}
+\doxysubsubsection{\texorpdfstring{setDernierTir()}{setDernierTir()}}
+{\footnotesize\ttfamily \label{class_joueur_a80fbf63e35e82aa20ba60814c9bc040e} 
+void Joueur\+::set\+Dernier\+Tir (\begin{DoxyParamCaption}\item[{float}]{t}{}\end{DoxyParamCaption})}
+
+Met à jour le temps du dernier tir. \Hypertarget{class_joueur_aa7c282e016fa394d784cc926367d4916}\index{Joueur@{Joueur}!setPosition@{setPosition}}
+\index{setPosition@{setPosition}!Joueur@{Joueur}}
+\doxysubsubsection{\texorpdfstring{setPosition()}{setPosition()}}
+{\footnotesize\ttfamily \label{class_joueur_aa7c282e016fa394d784cc926367d4916} 
+void Joueur\+::set\+Position (\begin{DoxyParamCaption}\item[{float}]{x}{, }\item[{float}]{y}{}\end{DoxyParamCaption})}
+
+Définit la position du joueur. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_joueur_8h}{Joueur.\+h}}\item 
+src/Joueur.\+cpp\end{DoxyCompactItemize}

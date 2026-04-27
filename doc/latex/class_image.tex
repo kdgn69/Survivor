@@ -1,0 +1,76 @@
+\doxysection{Image Class Reference}
+\hypertarget{class_image}{}\label{class_image}\index{Image@{Image}}
+
+
+{\ttfamily \#include $<$Image.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_image_a58edd1c45b4faeb5f789b0d036d02313}{Image}} ()
+\item 
+\mbox{\hyperlink{class_image_a0294f63700543e11c0f0da85601c7ae5}{\texorpdfstring{$\sim$}{\string~}\+Image}} ()
+\item 
+void \mbox{\hyperlink{class_image_a5f2feaf180c9a370fac38d8933dfc4aa}{set\+Surface}} (SDL\+\_\+\+Surface \texorpdfstring{$\ast$}{*}surface)
+\item 
+bool \mbox{\hyperlink{class_image_a5d31132fc585cf5c8be12e99b4d3cbdb}{load\+From\+Current\+Surface}} (SDL\+\_\+\+Renderer \texorpdfstring{$\ast$}{*}renderer)
+\item 
+bool \mbox{\hyperlink{class_image_aff97b1a2aa3c96bb68c24e1faf7f52c7}{load\+From\+File}} (const std\+::string \&filename, SDL\+\_\+\+Renderer \texorpdfstring{$\ast$}{*}renderer)
+\item 
+void \mbox{\hyperlink{class_image_a9d7fc244d02e4e5068301760361c60d3}{draw}} (SDL\+\_\+\+Renderer \texorpdfstring{$\ast$}{*}renderer, float x, float y, float w, float h) const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Permet de charger une image et de l’afficher à l’écran. 
+
+\label{doc-constructors}
+\Hypertarget{class_image_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_image_a58edd1c45b4faeb5f789b0d036d02313}\index{Image@{Image}!Image@{Image}}
+\index{Image@{Image}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{Image()}{Image()}}
+{\footnotesize\ttfamily \label{class_image_a58edd1c45b4faeb5f789b0d036d02313} 
+Image\+::\+Image (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Initialise une image vide. \Hypertarget{class_image_a0294f63700543e11c0f0da85601c7ae5}\index{Image@{Image}!````~Image@{\texorpdfstring{$\sim$}{\string~}Image}}
+\index{````~Image@{\texorpdfstring{$\sim$}{\string~}Image}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Image()}{\string~Image()}}
+{\footnotesize\ttfamily \label{class_image_a0294f63700543e11c0f0da85601c7ae5} 
+Image\+::\texorpdfstring{$\sim$}{\string~}\+Image (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Libère les ressources. 
+
+\label{doc-func-members}
+\Hypertarget{class_image_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_image_a9d7fc244d02e4e5068301760361c60d3}\index{Image@{Image}!draw@{draw}}
+\index{draw@{draw}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{draw()}{draw()}}
+{\footnotesize\ttfamily \label{class_image_a9d7fc244d02e4e5068301760361c60d3} 
+void Image\+::draw (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Renderer \texorpdfstring{$\ast$}{*}}]{renderer}{, }\item[{float}]{x}{, }\item[{float}]{y}{, }\item[{float}]{w}{, }\item[{float}]{h}{}\end{DoxyParamCaption}) const}
+
+Affiche l’image à l’écran. \Hypertarget{class_image_a5d31132fc585cf5c8be12e99b4d3cbdb}\index{Image@{Image}!loadFromCurrentSurface@{loadFromCurrentSurface}}
+\index{loadFromCurrentSurface@{loadFromCurrentSurface}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{loadFromCurrentSurface()}{loadFromCurrentSurface()}}
+{\footnotesize\ttfamily \label{class_image_a5d31132fc585cf5c8be12e99b4d3cbdb} 
+bool Image\+::load\+From\+Current\+Surface (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Renderer \texorpdfstring{$\ast$}{*}}]{renderer}{}\end{DoxyParamCaption})}
+
+Crée la texture à partir de la surface. \Hypertarget{class_image_aff97b1a2aa3c96bb68c24e1faf7f52c7}\index{Image@{Image}!loadFromFile@{loadFromFile}}
+\index{loadFromFile@{loadFromFile}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{loadFromFile()}{loadFromFile()}}
+{\footnotesize\ttfamily \label{class_image_aff97b1a2aa3c96bb68c24e1faf7f52c7} 
+bool Image\+::load\+From\+File (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename}{, }\item[{SDL\+\_\+\+Renderer \texorpdfstring{$\ast$}{*}}]{renderer}{}\end{DoxyParamCaption})}
+
+Charge une image depuis un fichier. \Hypertarget{class_image_a5f2feaf180c9a370fac38d8933dfc4aa}\index{Image@{Image}!setSurface@{setSurface}}
+\index{setSurface@{setSurface}!Image@{Image}}
+\doxysubsubsection{\texorpdfstring{setSurface()}{setSurface()}}
+{\footnotesize\ttfamily \label{class_image_a5f2feaf180c9a370fac38d8933dfc4aa} 
+void Image\+::set\+Surface (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Surface \texorpdfstring{$\ast$}{*}}]{surface}{}\end{DoxyParamCaption})}
+
+Définit la surface. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/sdl/\mbox{\hyperlink{_image_8h}{Image.\+h}}\item 
+src/sdl/Image.\+cpp\end{DoxyCompactItemize}

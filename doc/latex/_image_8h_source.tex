@@ -1,0 +1,27 @@
+\doxysection{Image.\+h}
+\hypertarget{_image_8h_source}{}\label{_image_8h_source}\index{src/sdl/Image.h@{src/sdl/Image.h}}
+\mbox{\hyperlink{_image_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_image_a58edd1c45b4faeb5f789b0d036d02313}{Image}}\ \{}
+\DoxyCodeLine{00011\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00012\ \ \ \ \ SDL\_Surface*\ m\_surface;\ \ }
+\DoxyCodeLine{00013\ \ \ \ \ SDL\_Texture*\ m\_texture;\ \ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{bool}\ m\_hasChanged;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{class_image_a58edd1c45b4faeb5f789b0d036d02313}{Image}}();}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{class_image_a0294f63700543e11c0f0da85601c7ae5}{\string~Image}}();}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_image_a5f2feaf180c9a370fac38d8933dfc4aa}{setSurface}}(SDL\_Surface*\ surface);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_image_a5d31132fc585cf5c8be12e99b4d3cbdb}{loadFromCurrentSurface}}(SDL\_Renderer*\ renderer);}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_image_aff97b1a2aa3c96bb68c24e1faf7f52c7}{loadFromFile}}(\textcolor{keyword}{const}\ std::string\&\ filename,\ SDL\_Renderer*\ renderer);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_image_a9d7fc244d02e4e5068301760361c60d3}{draw}}(SDL\_Renderer*\ renderer,\ \textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ w,\ \textcolor{keywordtype}{float}\ h)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00046\ \};}
+
+\end{DoxyCode}

@@ -1,0 +1,124 @@
+\doxysection{Aura Class Reference}
+\hypertarget{class_aura}{}\label{class_aura}\index{Aura@{Aura}}
+
+
+{\ttfamily \#include $<$Aura.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_aura_a5cec3df16def3e2d8147378309d88c75}{Aura}} (float x, float y, float r, int d, float dur, float inter, \mbox{\hyperlink{_aura_8h_a62ef9acaff9f7230c98e7995a2915a43}{Type\+Aura}} t)
+\item 
+void \mbox{\hyperlink{class_aura_a3a05845a32b2200f12dd31c0ae28236e}{mettre\+AJour}} ()
+\item 
+bool \mbox{\hyperlink{class_aura_ac15cbbf4fd26f7e1bef6ee7adcd7d59b}{est\+Expiree}} () const
+\item 
+bool \mbox{\hyperlink{class_aura_af4fbb64ebfe3df38cb6c014c758416fd}{peut\+Infliger\+Degats}} ()
+\item 
+\mbox{\hyperlink{struct_position}{Position}} \mbox{\hyperlink{class_aura_a3bcd52ab723d93fd21c615ea8e636e26}{get\+Position}} () const
+\item 
+float \mbox{\hyperlink{class_aura_a2b596be7209aad6f2a6ae64a9399d5c0}{get\+Rayon}} () const
+\item 
+int \mbox{\hyperlink{class_aura_ae75b9a0c715ba79656b4119cd361ded8}{get\+Degats}} () const
+\item 
+\mbox{\hyperlink{_aura_8h_a62ef9acaff9f7230c98e7995a2915a43}{Type\+Aura}} \mbox{\hyperlink{class_aura_a72724806884489a0c1e65e5ca680b91f}{get\+Type}} () const
+\item 
+void \mbox{\hyperlink{class_aura_aeec34e8f5af841342e687c1217973579}{set\+Position}} (float x, float y)
+\item 
+void \mbox{\hyperlink{class_aura_a55d1b874b1219a798a513974614d543f}{set\+Rayon}} (float r)
+\item 
+void \mbox{\hyperlink{class_aura_afd671efc15196fb3b214aca2cd3d3dfd}{set\+Degats}} (int d)
+\item 
+void \mbox{\hyperlink{class_aura_ae62ed9f960ec884725ee8c63560ac8f4}{set\+Intervalle}} (float i)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Représente une zone qui inflige des dégâts dans un rayon. 
+
+\label{doc-constructors}
+\Hypertarget{class_aura_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_aura_a5cec3df16def3e2d8147378309d88c75}\index{Aura@{Aura}!Aura@{Aura}}
+\index{Aura@{Aura}!Aura@{Aura}}
+\doxysubsubsection{\texorpdfstring{Aura()}{Aura()}}
+{\footnotesize\ttfamily \label{class_aura_a5cec3df16def3e2d8147378309d88c75} 
+Aura\+::\+Aura (\begin{DoxyParamCaption}\item[{float}]{x}{, }\item[{float}]{y}{, }\item[{float}]{r}{, }\item[{int}]{d}{, }\item[{float}]{dur}{, }\item[{float}]{inter}{, }\item[{\mbox{\hyperlink{_aura_8h_a62ef9acaff9f7230c98e7995a2915a43}{Type\+Aura}}}]{t}{}\end{DoxyParamCaption})}
+
+Crée une aura avec ses caractéristiques. 
+
+\label{doc-func-members}
+\Hypertarget{class_aura_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_aura_ac15cbbf4fd26f7e1bef6ee7adcd7d59b}\index{Aura@{Aura}!estExpiree@{estExpiree}}
+\index{estExpiree@{estExpiree}!Aura@{Aura}}
+\doxysubsubsection{\texorpdfstring{estExpiree()}{estExpiree()}}
+{\footnotesize\ttfamily \label{class_aura_ac15cbbf4fd26f7e1bef6ee7adcd7d59b} 
+bool Aura\+::est\+Expiree (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Indique si l’aura est expirée. \Hypertarget{class_aura_ae75b9a0c715ba79656b4119cd361ded8}\index{Aura@{Aura}!getDegats@{getDegats}}
+\index{getDegats@{getDegats}!Aura@{Aura}}
+\doxysubsubsection{\texorpdfstring{getDegats()}{getDegats()}}
+{\footnotesize\ttfamily \label{class_aura_ae75b9a0c715ba79656b4119cd361ded8} 
+int Aura\+::get\+Degats (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Retourne les dégâts. \Hypertarget{class_aura_a3bcd52ab723d93fd21c615ea8e636e26}\index{Aura@{Aura}!getPosition@{getPosition}}
+\index{getPosition@{getPosition}!Aura@{Aura}}
+\doxysubsubsection{\texorpdfstring{getPosition()}{getPosition()}}
+{\footnotesize\ttfamily \label{class_aura_a3bcd52ab723d93fd21c615ea8e636e26} 
+\mbox{\hyperlink{struct_position}{Position}} Aura\+::get\+Position (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Retourne la position. \Hypertarget{class_aura_a2b596be7209aad6f2a6ae64a9399d5c0}\index{Aura@{Aura}!getRayon@{getRayon}}
+\index{getRayon@{getRayon}!Aura@{Aura}}
+\doxysubsubsection{\texorpdfstring{getRayon()}{getRayon()}}
+{\footnotesize\ttfamily \label{class_aura_a2b596be7209aad6f2a6ae64a9399d5c0} 
+float Aura\+::get\+Rayon (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Retourne le rayon. \Hypertarget{class_aura_a72724806884489a0c1e65e5ca680b91f}\index{Aura@{Aura}!getType@{getType}}
+\index{getType@{getType}!Aura@{Aura}}
+\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
+{\footnotesize\ttfamily \label{class_aura_a72724806884489a0c1e65e5ca680b91f} 
+\mbox{\hyperlink{_aura_8h_a62ef9acaff9f7230c98e7995a2915a43}{Type\+Aura}} Aura\+::get\+Type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Retourne le type. \Hypertarget{class_aura_a3a05845a32b2200f12dd31c0ae28236e}\index{Aura@{Aura}!mettreAJour@{mettreAJour}}
+\index{mettreAJour@{mettreAJour}!Aura@{Aura}}
+\doxysubsubsection{\texorpdfstring{mettreAJour()}{mettreAJour()}}
+{\footnotesize\ttfamily \label{class_aura_a3a05845a32b2200f12dd31c0ae28236e} 
+void Aura\+::mettre\+AJour (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Met à jour le temps de l’aura. \Hypertarget{class_aura_af4fbb64ebfe3df38cb6c014c758416fd}\index{Aura@{Aura}!peutInfligerDegats@{peutInfligerDegats}}
+\index{peutInfligerDegats@{peutInfligerDegats}!Aura@{Aura}}
+\doxysubsubsection{\texorpdfstring{peutInfligerDegats()}{peutInfligerDegats()}}
+{\footnotesize\ttfamily \label{class_aura_af4fbb64ebfe3df38cb6c014c758416fd} 
+bool Aura\+::peut\+Infliger\+Degats (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Indique si l’aura peut infliger des dégâts. \Hypertarget{class_aura_afd671efc15196fb3b214aca2cd3d3dfd}\index{Aura@{Aura}!setDegats@{setDegats}}
+\index{setDegats@{setDegats}!Aura@{Aura}}
+\doxysubsubsection{\texorpdfstring{setDegats()}{setDegats()}}
+{\footnotesize\ttfamily \label{class_aura_afd671efc15196fb3b214aca2cd3d3dfd} 
+void Aura\+::set\+Degats (\begin{DoxyParamCaption}\item[{int}]{d}{}\end{DoxyParamCaption})}
+
+Modifie les dégâts. \Hypertarget{class_aura_ae62ed9f960ec884725ee8c63560ac8f4}\index{Aura@{Aura}!setIntervalle@{setIntervalle}}
+\index{setIntervalle@{setIntervalle}!Aura@{Aura}}
+\doxysubsubsection{\texorpdfstring{setIntervalle()}{setIntervalle()}}
+{\footnotesize\ttfamily \label{class_aura_ae62ed9f960ec884725ee8c63560ac8f4} 
+void Aura\+::set\+Intervalle (\begin{DoxyParamCaption}\item[{float}]{i}{}\end{DoxyParamCaption})}
+
+Modifie l’intervalle. \Hypertarget{class_aura_aeec34e8f5af841342e687c1217973579}\index{Aura@{Aura}!setPosition@{setPosition}}
+\index{setPosition@{setPosition}!Aura@{Aura}}
+\doxysubsubsection{\texorpdfstring{setPosition()}{setPosition()}}
+{\footnotesize\ttfamily \label{class_aura_aeec34e8f5af841342e687c1217973579} 
+void Aura\+::set\+Position (\begin{DoxyParamCaption}\item[{float}]{x}{, }\item[{float}]{y}{}\end{DoxyParamCaption})}
+
+Modifie la position. \Hypertarget{class_aura_a55d1b874b1219a798a513974614d543f}\index{Aura@{Aura}!setRayon@{setRayon}}
+\index{setRayon@{setRayon}!Aura@{Aura}}
+\doxysubsubsection{\texorpdfstring{setRayon()}{setRayon()}}
+{\footnotesize\ttfamily \label{class_aura_a55d1b874b1219a798a513974614d543f} 
+void Aura\+::set\+Rayon (\begin{DoxyParamCaption}\item[{float}]{r}{}\end{DoxyParamCaption})}
+
+Modifie le rayon. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_aura_8h}{Aura.\+h}}\item 
+src/Aura.\+cpp\end{DoxyCompactItemize}

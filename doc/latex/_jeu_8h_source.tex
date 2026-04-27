@@ -1,0 +1,109 @@
+\doxysection{Jeu.\+h}
+\hypertarget{_jeu_8h_source}{}\label{_jeu_8h_source}\index{src/Jeu.h@{src/Jeu.h}}
+\mbox{\hyperlink{_jeu_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_jeu_acc5795ee00edf75516d3dfe65be3e6d6}{Jeu}}\ \{}
+\DoxyCodeLine{00012\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{class_vague}{Vague}}\ vague;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{int}\ largeurCarte;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{int}\ hauteurCarte;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_joueur}{Joueur}}\ joueur;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00018\ \ \ \ \ vector<Ennemi>\ ennemis;\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00019\ \ \ \ \ vector<Projectile>\ projectilesAllies;\ \ \ }
+\DoxyCodeLine{00020\ \ \ \ \ vector<Projectile>\ projectilesEnnemis;\ \ }
+\DoxyCodeLine{00021\ \ \ \ \ vector<Amelioration>\ choixAmeliorations;}
+\DoxyCodeLine{00022\ \ \ \ \ vector<Aura>\ auras;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{bool}\ enChoixAmelioration;\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{int}\ niveauMultitir;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{int}\ niveauAuraMorts;\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{int}\ niveauAuraJoueur;\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{int}\ niveauFoudre;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{bool}\ jeuTermine;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{bool}\ victoire;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{class_jeu_acc5795ee00edf75516d3dfe65be3e6d6}{Jeu}}();}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_jeu_af7473bba63b6e8ceadb8cb3a695a7bb4}{initialiser}}();}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_jeu_abef5ad4309726c083421ab38f31b0af6}{avancerTour}}();}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_jeu_a33b2a6163ac2b6590d643f14032f1b12}{genererVagueActuelle}}();}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_jeu_a38479c939ad0da86044fd2d3ed063a7a}{genererEnnemis}}(\textcolor{keywordtype}{int}\ nombre,\ \mbox{\hyperlink{_ennemi_8h_abb6ab51d91f812806b579fda0283c0fd}{TypeEnnemi}}\ type,\ \textcolor{keywordtype}{int}\ pv,\ \textcolor{keywordtype}{float}\ vitesse,\ \textcolor{keywordtype}{int}\ largeur,\ \textcolor{keywordtype}{int}\ hauteur,\ \textcolor{keywordtype}{float}\ distanceMinJoueur,\ \textcolor{keywordtype}{int}\ degats);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_jeu_a06f064e9c9a879bc8bdc2a258140f3c6}{deplacerJoueur}}(\textcolor{keywordtype}{char}\ direction);}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_jeu_a7d31d5875762a3eb64b694c8343f15d6}{deplacerEnnemisVersJoueur}}();}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_jeu_a1ef8f2b3573e2354887b87f9a0c76c7b}{tirer}}(\textcolor{keywordtype}{float}\ angleDegres);}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_jeu_abc1731e7b55517345254dc08cab9dfad}{faireTirerEnnemis}}(\textcolor{keywordtype}{float}\ maintenant);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00083\ \ \ \ \ vector<Projectile>\ \mbox{\hyperlink{class_jeu_aa0d2c184bd3bf4dd4ba8748943f6f420}{creerProjectilesDepuisEnnemi}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_ennemi}{Ennemi}}\&\ ennemi,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_position}{Position}}\&\ cible)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_jeu_a955c0d8201124438e81927ce03871afe}{deplacerProjectilesAllies}}();}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_jeu_aa22e3214e94ca8416ef8842215f33c05}{deplacerProjectilesEnnemis}}();}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_jeu_a697a33e195f706207c2eb0e9a778a46c}{gererCollisionsProjectilesAllieSurLesEnnemis}}();}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_jeu_a74984a9046dcd7e491e8a20036763fe9}{gererCollisionsProjectilesEnnemisSurJoueur}}();}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_jeu_a7a7c93346635af3d5c003d0741220faa}{ajouterProjectileEnnemi}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_projectile}{Projectile}}\&\ p);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_jeu_a354b1e1912234d883598ac0425aa1718}{genererChoixAmeliorations}}();}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_jeu_ab01fa98a15f05e5ebff10ab8f59237d2}{appliquerAmeliorationChoisie}}(\textcolor{keywordtype}{int}\ index);}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_jeu_aa7a92e3a436472ea135cb12d54d35b7c}{lancerVagueSuivante}}();}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_jeu_a12974ca1cc033fcaf94f0527f7ff512c}{gererMortsEnnemis}}();}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_jeu_a241152b0c94d9b4fadb7d3d17f80914c}{mettreAJourAuras}}();}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_jeu_a3c1228b0ed85d786aa092621b1017efe}{mettreAJourEtatAuraJoueur}}();}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_jeu_a849bf8902a46e6d257eea8a009d58316}{appliquerDegatsDesAuras}}();}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_jeu_af97dd914c7af74a507ae86c10f4055a1}{soignerEnnemis}}();}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00153\ \ \ \ \ \mbox{\hyperlink{class_joueur}{Joueur}}\&\ \mbox{\hyperlink{class_jeu_adce66fc950c7f86430d4feb20002b3e1}{getJoueur}}();}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_joueur}{Joueur}}\&\ \mbox{\hyperlink{class_jeu_adce66fc950c7f86430d4feb20002b3e1}{getJoueur}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keyword}{const}\ vector<Ennemi>\&\ \mbox{\hyperlink{class_jeu_a3c4d754e2e4b1a2acccaef8b324f2829}{getEnnemis}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keyword}{const}\ vector<Projectile>\&\ \mbox{\hyperlink{class_jeu_abbfab34c5c6fa34c0f3836676d11a35a}{getProjectilesAllies}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keyword}{const}\ vector<Projectile>\&\ \mbox{\hyperlink{class_jeu_a823b0ee183407ece6e3069e3edb7c2db}{getProjectilesEnnemis}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keyword}{const}\ vector<Amelioration>\&\ \mbox{\hyperlink{class_jeu_a64cda8773fd5d656a5fcc1c85803eba9}{getChoixAmeliorations}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keyword}{const}\ vector<Aura>\&\ \mbox{\hyperlink{class_jeu_a5ef677fe43467b8db4ea959b7b8102ce}{getAuras}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_jeu_a47b97dc01bebe8b030fac6b09518212f}{estEnChoixAmelioration}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_jeu_a7afde30338484dc8c831e1a378700b81}{getNiveauActuel}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_jeu_a82218bc2d179abd2e234f6fd1b7aeffc}{getNumeroVague}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_jeu_a8cfc50dc3af7fed745dc916ded25b6a2}{getLargeurCarte}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{keywordtype}{int}\ getHauteurCarte()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00206\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_jeu_adc31e290241e9570f1554296ac2425dc}{getNiveauAuraJoueur}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_jeu_aa1423bdc31da76864f9f7c96359d5c68}{getNombreEnnemisRestants}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_jeu_ace8275a9c7a9c735e8ff7e9b611577f5}{estTermine}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_jeu_a5c625bb8589dd6033b928fe1de419b02}{estVictoire}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00222\ \};}
+
+\end{DoxyCode}

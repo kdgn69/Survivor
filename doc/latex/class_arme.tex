@@ -1,0 +1,99 @@
+\doxysection{Arme Class Reference}
+\hypertarget{class_arme}{}\label{class_arme}\index{Arme@{Arme}}
+
+
+{\ttfamily \#include $<$Arme.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_arme_afb975397e0624d374e759ef586f6a785}{Arme}} ()
+\item 
+int \mbox{\hyperlink{class_arme_a17af696a68a0063e571fe498a5c20c05}{get\+Degats}} () const
+\item 
+float \mbox{\hyperlink{class_arme_ad71870d51d7fc1114dcbb5a15e68b198}{get\+Cadence}} () const
+\item 
+float \mbox{\hyperlink{class_arme_a9a1f178fc2a38f481ab79c37b83f8cf0}{get\+Largeur\+Projectile}} () const
+\item 
+\Hypertarget{class_arme_a5c8b8edd7abf287f17649afe4ff34fab}\label{class_arme_a5c8b8edd7abf287f17649afe4ff34fab} 
+float {\bfseries get\+Hauteur\+Projectile} () const
+\item 
+float \mbox{\hyperlink{class_arme_a3187b1c5c43d08fd26ce03d40da3f06a}{get\+Vitesse\+Projectile}} () const
+\item 
+void \mbox{\hyperlink{class_arme_ac7476591504d2e440cf01fa9f03713d3}{augmenter\+Degats}} (int bonus)
+\item 
+\Hypertarget{class_arme_a1e75124a21867075dea69b4c61139b81}\label{class_arme_a1e75124a21867075dea69b4c61139b81} 
+void {\bfseries augmenter\+Cadence} (float bonus)
+\item 
+\Hypertarget{class_arme_a10f5b42ffe3b93b196afb32174990084}\label{class_arme_a10f5b42ffe3b93b196afb32174990084} 
+void {\bfseries augmenter\+Largeur\+Projectile} (float bonus)
+\item 
+\Hypertarget{class_arme_a944a0214583bd9b0d12b67cc0c3de630}\label{class_arme_a944a0214583bd9b0d12b67cc0c3de630} 
+void {\bfseries augmenter\+Hauteur\+Projectile} (float bonus)
+\item 
+\Hypertarget{class_arme_a6026826015ada03cee60f6730cb7953a}\label{class_arme_a6026826015ada03cee60f6730cb7953a} 
+void {\bfseries augmenter\+Vitesse\+Projectile} (float bonus)
+\item 
+unsigned int \mbox{\hyperlink{class_arme_ad8ae746523a47f6ebc8dc37f756a25d9}{get\+Intervalle\+Tir\+Ms}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contient les statistiques utilisées pour tirer des projectiles. 
+
+\label{doc-constructors}
+\Hypertarget{class_arme_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_arme_afb975397e0624d374e759ef586f6a785}\index{Arme@{Arme}!Arme@{Arme}}
+\index{Arme@{Arme}!Arme@{Arme}}
+\doxysubsubsection{\texorpdfstring{Arme()}{Arme()}}
+{\footnotesize\ttfamily \label{class_arme_afb975397e0624d374e759ef586f6a785} 
+Arme\+::\+Arme (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Initialise l’arme avec des valeurs de base. 
+
+\label{doc-func-members}
+\Hypertarget{class_arme_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_arme_ac7476591504d2e440cf01fa9f03713d3}\index{Arme@{Arme}!augmenterDegats@{augmenterDegats}}
+\index{augmenterDegats@{augmenterDegats}!Arme@{Arme}}
+\doxysubsubsection{\texorpdfstring{augmenterDegats()}{augmenterDegats()}}
+{\footnotesize\ttfamily \label{class_arme_ac7476591504d2e440cf01fa9f03713d3} 
+void Arme\+::augmenter\+Degats (\begin{DoxyParamCaption}\item[{int}]{bonus}{}\end{DoxyParamCaption})}
+
+Modifie les caractéristiques de l’arme. \Hypertarget{class_arme_ad71870d51d7fc1114dcbb5a15e68b198}\index{Arme@{Arme}!getCadence@{getCadence}}
+\index{getCadence@{getCadence}!Arme@{Arme}}
+\doxysubsubsection{\texorpdfstring{getCadence()}{getCadence()}}
+{\footnotesize\ttfamily \label{class_arme_ad71870d51d7fc1114dcbb5a15e68b198} 
+float Arme\+::get\+Cadence (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Retourne la cadence. \Hypertarget{class_arme_a17af696a68a0063e571fe498a5c20c05}\index{Arme@{Arme}!getDegats@{getDegats}}
+\index{getDegats@{getDegats}!Arme@{Arme}}
+\doxysubsubsection{\texorpdfstring{getDegats()}{getDegats()}}
+{\footnotesize\ttfamily \label{class_arme_a17af696a68a0063e571fe498a5c20c05} 
+int Arme\+::get\+Degats (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Retourne les dégâts. \Hypertarget{class_arme_ad8ae746523a47f6ebc8dc37f756a25d9}\index{Arme@{Arme}!getIntervalleTirMs@{getIntervalleTirMs}}
+\index{getIntervalleTirMs@{getIntervalleTirMs}!Arme@{Arme}}
+\doxysubsubsection{\texorpdfstring{getIntervalleTirMs()}{getIntervalleTirMs()}}
+{\footnotesize\ttfamily \label{class_arme_ad8ae746523a47f6ebc8dc37f756a25d9} 
+unsigned int Arme\+::get\+Intervalle\+Tir\+Ms (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Retourne l’intervalle entre deux tirs en millisecondes. \Hypertarget{class_arme_a9a1f178fc2a38f481ab79c37b83f8cf0}\index{Arme@{Arme}!getLargeurProjectile@{getLargeurProjectile}}
+\index{getLargeurProjectile@{getLargeurProjectile}!Arme@{Arme}}
+\doxysubsubsection{\texorpdfstring{getLargeurProjectile()}{getLargeurProjectile()}}
+{\footnotesize\ttfamily \label{class_arme_a9a1f178fc2a38f481ab79c37b83f8cf0} 
+float Arme\+::get\+Largeur\+Projectile (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Dimensions des projectiles. \Hypertarget{class_arme_a3187b1c5c43d08fd26ce03d40da3f06a}\index{Arme@{Arme}!getVitesseProjectile@{getVitesseProjectile}}
+\index{getVitesseProjectile@{getVitesseProjectile}!Arme@{Arme}}
+\doxysubsubsection{\texorpdfstring{getVitesseProjectile()}{getVitesseProjectile()}}
+{\footnotesize\ttfamily \label{class_arme_a3187b1c5c43d08fd26ce03d40da3f06a} 
+float Arme\+::get\+Vitesse\+Projectile (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Retourne la vitesse des projectiles. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_arme_8h}{Arme.\+h}}\item 
+src/Arme.\+cpp\end{DoxyCompactItemize}

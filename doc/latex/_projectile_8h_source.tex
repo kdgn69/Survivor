@@ -1,0 +1,41 @@
+\doxysection{Projectile.\+h}
+\hypertarget{_projectile_8h_source}{}\label{_projectile_8h_source}\index{src/Projectile.h@{src/Projectile.h}}
+\mbox{\hyperlink{_projectile_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_projectile_af10e0af496fcf25c92281d5bf6894a7c}{Projectile}}\ \{}
+\DoxyCodeLine{00011\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00012\ \ \ \ \ \mbox{\hyperlink{struct_position}{Position}}\ pos;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{struct_direction}{Direction}}\ direction;}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{bool}\ actif;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{bool}\ perforant;\ \ \ \ \ }
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{int}\ degats;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{float}\ largeur;\ \ \ \ \ \ }
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{float}\ hauteur;\ \ \ \ \ \ }
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{class_projectile_af10e0af496fcf25c92281d5bf6894a7c}{Projectile}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ dx,\ \textcolor{keywordtype}{float}\ dy,\ \textcolor{keywordtype}{int}\ deg,\ \textcolor{keywordtype}{float}\ larg,\ \textcolor{keywordtype}{float}\ taille);}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_projectile_a19bf77594dcd0c4bade762390aa9fdb1}{avancer}}();}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{struct_position}{Position}}\ \mbox{\hyperlink{class_projectile_a7e749e4e0b7b8fd51dea72a8d34f0f40}{getPosition}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{struct_rectangle}{Rectangle}}\ \mbox{\hyperlink{class_projectile_ae99280aa96fd73d1a7bad52b5d780293}{getRectangle}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_projectile_acbf8f90d9ad374e174c39166dafd9487}{estActif}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_projectile_abd3d597f3a38c1946aee75f31a7301d4}{estPerforant}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_projectile_a80157c203f5ff5b8944f016c34b8e9d7}{getDegats}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_projectile_a1dbbc73c0b922355eb25484ba57406c1}{getLargeur}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_projectile_aa262ad316ddcc76e4b7fc657d6e27428}{getHauteur}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_projectile_a0a897deda25bc0cef92bf998df96db03}{setPerforant}}(\textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_projectile_ad483f702419b9b074624f390484ea812}{desactiver}}();}
+\DoxyCodeLine{00075\ \};}
+
+\end{DoxyCode}

@@ -1,0 +1,35 @@
+\doxysection{src/\+Rectangle.h File Reference}
+\hypertarget{_rectangle_8h}{}\label{_rectangle_8h}\index{src/Rectangle.h@{src/Rectangle.h}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_rectangle}{Rectangle}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{_rectangle_8h_a81530e6280189127f7dfda460e877d11}{collision\+Rectangles}} (const \mbox{\hyperlink{struct_rectangle}{Rectangle}} \&a, const \mbox{\hyperlink{struct_rectangle}{Rectangle}} \&b)
+\item 
+bool \mbox{\hyperlink{_rectangle_8h_a28c131a4745f5f0a53f2cc3b3bfeff80}{rectangles\+Colles}} (const \mbox{\hyperlink{struct_rectangle}{Rectangle}} \&a, const \mbox{\hyperlink{struct_rectangle}{Rectangle}} \&b)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Définit une structure simple pour gérer les collisions. 
+
+\label{doc-func-members}
+\Hypertarget{_rectangle_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{_rectangle_8h_a81530e6280189127f7dfda460e877d11}\index{Rectangle.h@{Rectangle.h}!collisionRectangles@{collisionRectangles}}
+\index{collisionRectangles@{collisionRectangles}!Rectangle.h@{Rectangle.h}}
+\doxysubsubsection{\texorpdfstring{collisionRectangles()}{collisionRectangles()}}
+{\footnotesize\ttfamily \label{_rectangle_8h_a81530e6280189127f7dfda460e877d11} 
+bool collision\+Rectangles (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_rectangle}{Rectangle}} \&}]{a}{, }\item[{const \mbox{\hyperlink{struct_rectangle}{Rectangle}} \&}]{b}{}\end{DoxyParamCaption})}
+
+Vérifie si deux rectangles se chevauchent. \Hypertarget{_rectangle_8h_a28c131a4745f5f0a53f2cc3b3bfeff80}\index{Rectangle.h@{Rectangle.h}!rectanglesColles@{rectanglesColles}}
+\index{rectanglesColles@{rectanglesColles}!Rectangle.h@{Rectangle.h}}
+\doxysubsubsection{\texorpdfstring{rectanglesColles()}{rectanglesColles()}}
+{\footnotesize\ttfamily \label{_rectangle_8h_a28c131a4745f5f0a53f2cc3b3bfeff80} 
+bool rectangles\+Colles (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_rectangle}{Rectangle}} \&}]{a}{, }\item[{const \mbox{\hyperlink{struct_rectangle}{Rectangle}} \&}]{b}{}\end{DoxyParamCaption})}
+
+Vérifie si deux rectangles sont collés (contact sans chevauchement). 

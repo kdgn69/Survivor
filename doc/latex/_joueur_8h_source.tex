@@ -1,0 +1,54 @@
+\doxysection{Joueur.\+h}
+\hypertarget{_joueur_8h_source}{}\label{_joueur_8h_source}\index{src/Joueur.h@{src/Joueur.h}}
+\mbox{\hyperlink{_joueur_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_joueur_add6c98be3020651d84f6d75ccc1d867e}{Joueur}}\ \{}
+\DoxyCodeLine{00011\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00012\ \ \ \ \ \mbox{\hyperlink{struct_position}{Position}}\ pos;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{int}\ vie;\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{float}\ vitesse;\ \ \ \ \ \ }
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{int}\ largeur;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{int}\ hauteur;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_arme}{Arme}}\ arme;\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{bool}\ tirPerforant;\ \ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{float}\ dernierTir;\ \ \ }
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{class_joueur_add6c98be3020651d84f6d75ccc1d867e}{Joueur}}();}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_joueur_aa7c282e016fa394d784cc926367d4916}{setPosition}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_joueur_a70d090b0af6b491fde945d2dc799cc77}{deplacerAvecDirection}}(\textcolor{keywordtype}{char}\ direction,\ \textcolor{keyword}{const}\ vector<Ennemi>\&\ ennemis);}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_joueur_a2574c73c6e37ce3998da9a30a2ccd849}{augmenterVitesse}}(\textcolor{keywordtype}{float}\ bonus);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_joueur_ac776a49ffb119ec8a0e227b445b97f38}{prendreDegats}}(\textcolor{keywordtype}{int}\ degats);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{struct_position}{Position}}\ \mbox{\hyperlink{class_joueur_ab09482bf0c01af702c3c7722fce8fdfc}{getPosition}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_joueur_abbdcc7386f1ed5553586db0f5a1b3779}{getVie}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_joueur_ab833c689699b909c9556d642ec938516}{getLargeur}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_joueur_a488023799e9f4a6add67a5336f0da55f}{getHauteur}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00071\ \ \ \ \ \mbox{\hyperlink{class_arme}{Arme}}\&\ \mbox{\hyperlink{class_joueur_a6ae35ea77a19165c6e2d0d45a07353a9}{getArme}}();}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_arme}{Arme}}\&\ \mbox{\hyperlink{class_joueur_a6ae35ea77a19165c6e2d0d45a07353a9}{getArme}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00081\ \ \ \ \ \mbox{\hyperlink{struct_rectangle}{Rectangle}}\ \mbox{\hyperlink{class_joueur_a161cd264c3864ad1602c23ce0c8e3b03}{getRectangle}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00086\ \ \ \ \ \mbox{\hyperlink{struct_rectangle}{Rectangle}}\ \mbox{\hyperlink{class_joueur_aa50dce055cc4e229a1c3c05d9841977f}{getRectangleAvecPosition}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_joueur_a074250f6081f9b83afd18d0aaa3da996}{aTirPerforant}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_joueur_a5e066e875bc31d28ae41139f4801eeb9}{activerTirPerforant}}();}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_joueur_af4cc1805b0f04a35a28ee7692ff5b770}{getDernierTir}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_joueur_a80fbf63e35e82aa20ba60814c9bc040e}{setDernierTir}}(\textcolor{keywordtype}{float}\ t);}
+\DoxyCodeLine{00107\ \};}
+
+\end{DoxyCode}

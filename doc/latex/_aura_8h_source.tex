@@ -1,0 +1,49 @@
+\doxysection{Aura.\+h}
+\hypertarget{_aura_8h_source}{}\label{_aura_8h_source}\index{src/Aura.h@{src/Aura.h}}
+\mbox{\hyperlink{_aura_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_aura_8h_a62ef9acaff9f7230c98e7995a2915a43}{TypeAura}}\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ AURA\_MORT,}
+\DoxyCodeLine{00012\ \ \ \ \ AURA\_JOUEUR}
+\DoxyCodeLine{00013\ \};}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_aura_a5cec3df16def3e2d8147378309d88c75}{Aura}}\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{struct_position}{Position}}\ pos;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{float}\ rayon;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{int}\ degats;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{float}\ duree;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{float}\ intervalle;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{float}\ tempsDepuisCreation;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{float}\ tempsDepuisDernierDegat;\ \ \ }
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{_aura_8h_a62ef9acaff9f7230c98e7995a2915a43}{TypeAura}}\ type;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{class_aura_a5cec3df16def3e2d8147378309d88c75}{Aura}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ r,\ \textcolor{keywordtype}{int}\ d,\ \textcolor{keywordtype}{float}\ dur,\ \textcolor{keywordtype}{float}\ inter,\ \mbox{\hyperlink{_aura_8h_a62ef9acaff9f7230c98e7995a2915a43}{TypeAura}}\ t);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_aura_a3a05845a32b2200f12dd31c0ae28236e}{mettreAJour}}();}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_aura_ac15cbbf4fd26f7e1bef6ee7adcd7d59b}{estExpiree}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_aura_af4fbb64ebfe3df38cb6c014c758416fd}{peutInfligerDegats}}();}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{struct_position}{Position}}\ \mbox{\hyperlink{class_aura_a3bcd52ab723d93fd21c615ea8e636e26}{getPosition}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_aura_a2b596be7209aad6f2a6ae64a9399d5c0}{getRayon}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_aura_ae75b9a0c715ba79656b4119cd361ded8}{getDegats}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{_aura_8h_a62ef9acaff9f7230c98e7995a2915a43}{TypeAura}}\ \mbox{\hyperlink{class_aura_a72724806884489a0c1e65e5ca680b91f}{getType}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_aura_aeec34e8f5af841342e687c1217973579}{setPosition}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y);}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_aura_a55d1b874b1219a798a513974614d543f}{setRayon}}(\textcolor{keywordtype}{float}\ r);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_aura_afd671efc15196fb3b214aca2cd3d3dfd}{setDegats}}(\textcolor{keywordtype}{int}\ d);}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_aura_ae62ed9f960ec884725ee8c63560ac8f4}{setIntervalle}}(\textcolor{keywordtype}{float}\ i);}
+\DoxyCodeLine{00090\ \};}
+
+\end{DoxyCode}

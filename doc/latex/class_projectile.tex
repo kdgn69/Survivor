@@ -1,0 +1,116 @@
+\doxysection{Projectile Class Reference}
+\hypertarget{class_projectile}{}\label{class_projectile}\index{Projectile@{Projectile}}
+
+
+{\ttfamily \#include $<$Projectile.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_projectile_af10e0af496fcf25c92281d5bf6894a7c}{Projectile}} (float x, float y, float dx, float dy, int deg, float larg, float taille)
+\item 
+void \mbox{\hyperlink{class_projectile_a19bf77594dcd0c4bade762390aa9fdb1}{avancer}} ()
+\item 
+\mbox{\hyperlink{struct_position}{Position}} \mbox{\hyperlink{class_projectile_a7e749e4e0b7b8fd51dea72a8d34f0f40}{get\+Position}} () const
+\item 
+\mbox{\hyperlink{struct_rectangle}{Rectangle}} \mbox{\hyperlink{class_projectile_ae99280aa96fd73d1a7bad52b5d780293}{get\+Rectangle}} () const
+\item 
+bool \mbox{\hyperlink{class_projectile_acbf8f90d9ad374e174c39166dafd9487}{est\+Actif}} () const
+\item 
+bool \mbox{\hyperlink{class_projectile_abd3d597f3a38c1946aee75f31a7301d4}{est\+Perforant}} () const
+\item 
+int \mbox{\hyperlink{class_projectile_a80157c203f5ff5b8944f016c34b8e9d7}{get\+Degats}} () const
+\item 
+float \mbox{\hyperlink{class_projectile_a1dbbc73c0b922355eb25484ba57406c1}{get\+Largeur}} () const
+\item 
+float \mbox{\hyperlink{class_projectile_aa262ad316ddcc76e4b7fc657d6e27428}{get\+Hauteur}} () const
+\item 
+void \mbox{\hyperlink{class_projectile_a0a897deda25bc0cef92bf998df96db03}{set\+Perforant}} (bool val)
+\item 
+void \mbox{\hyperlink{class_projectile_ad483f702419b9b074624f390484ea812}{desactiver}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Représente un projectile avec une position, une direction et des dégâts. 
+
+\label{doc-constructors}
+\Hypertarget{class_projectile_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_projectile_af10e0af496fcf25c92281d5bf6894a7c}\index{Projectile@{Projectile}!Projectile@{Projectile}}
+\index{Projectile@{Projectile}!Projectile@{Projectile}}
+\doxysubsubsection{\texorpdfstring{Projectile()}{Projectile()}}
+{\footnotesize\ttfamily \label{class_projectile_af10e0af496fcf25c92281d5bf6894a7c} 
+Projectile\+::\+Projectile (\begin{DoxyParamCaption}\item[{float}]{x}{, }\item[{float}]{y}{, }\item[{float}]{dx}{, }\item[{float}]{dy}{, }\item[{int}]{deg}{, }\item[{float}]{larg}{, }\item[{float}]{taille}{}\end{DoxyParamCaption})}
+
+Crée un projectile à partir d’une position et d’une direction. 
+
+\label{doc-func-members}
+\Hypertarget{class_projectile_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_projectile_a19bf77594dcd0c4bade762390aa9fdb1}\index{Projectile@{Projectile}!avancer@{avancer}}
+\index{avancer@{avancer}!Projectile@{Projectile}}
+\doxysubsubsection{\texorpdfstring{avancer()}{avancer()}}
+{\footnotesize\ttfamily \label{class_projectile_a19bf77594dcd0c4bade762390aa9fdb1} 
+void Projectile\+::avancer (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Fait avancer le projectile. \Hypertarget{class_projectile_ad483f702419b9b074624f390484ea812}\index{Projectile@{Projectile}!desactiver@{desactiver}}
+\index{desactiver@{desactiver}!Projectile@{Projectile}}
+\doxysubsubsection{\texorpdfstring{desactiver()}{desactiver()}}
+{\footnotesize\ttfamily \label{class_projectile_ad483f702419b9b074624f390484ea812} 
+void Projectile\+::desactiver (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Désactive le projectile. \Hypertarget{class_projectile_acbf8f90d9ad374e174c39166dafd9487}\index{Projectile@{Projectile}!estActif@{estActif}}
+\index{estActif@{estActif}!Projectile@{Projectile}}
+\doxysubsubsection{\texorpdfstring{estActif()}{estActif()}}
+{\footnotesize\ttfamily \label{class_projectile_acbf8f90d9ad374e174c39166dafd9487} 
+bool Projectile\+::est\+Actif (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Indique si le projectile est actif. \Hypertarget{class_projectile_abd3d597f3a38c1946aee75f31a7301d4}\index{Projectile@{Projectile}!estPerforant@{estPerforant}}
+\index{estPerforant@{estPerforant}!Projectile@{Projectile}}
+\doxysubsubsection{\texorpdfstring{estPerforant()}{estPerforant()}}
+{\footnotesize\ttfamily \label{class_projectile_abd3d597f3a38c1946aee75f31a7301d4} 
+bool Projectile\+::est\+Perforant (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Indique si le projectile est perforant. \Hypertarget{class_projectile_a80157c203f5ff5b8944f016c34b8e9d7}\index{Projectile@{Projectile}!getDegats@{getDegats}}
+\index{getDegats@{getDegats}!Projectile@{Projectile}}
+\doxysubsubsection{\texorpdfstring{getDegats()}{getDegats()}}
+{\footnotesize\ttfamily \label{class_projectile_a80157c203f5ff5b8944f016c34b8e9d7} 
+int Projectile\+::get\+Degats (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Retourne les dégâts du projectile. \Hypertarget{class_projectile_aa262ad316ddcc76e4b7fc657d6e27428}\index{Projectile@{Projectile}!getHauteur@{getHauteur}}
+\index{getHauteur@{getHauteur}!Projectile@{Projectile}}
+\doxysubsubsection{\texorpdfstring{getHauteur()}{getHauteur()}}
+{\footnotesize\ttfamily \label{class_projectile_aa262ad316ddcc76e4b7fc657d6e27428} 
+float Projectile\+::get\+Hauteur (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Retourne la hauteur. \Hypertarget{class_projectile_a1dbbc73c0b922355eb25484ba57406c1}\index{Projectile@{Projectile}!getLargeur@{getLargeur}}
+\index{getLargeur@{getLargeur}!Projectile@{Projectile}}
+\doxysubsubsection{\texorpdfstring{getLargeur()}{getLargeur()}}
+{\footnotesize\ttfamily \label{class_projectile_a1dbbc73c0b922355eb25484ba57406c1} 
+float Projectile\+::get\+Largeur (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Retourne la largeur. \Hypertarget{class_projectile_a7e749e4e0b7b8fd51dea72a8d34f0f40}\index{Projectile@{Projectile}!getPosition@{getPosition}}
+\index{getPosition@{getPosition}!Projectile@{Projectile}}
+\doxysubsubsection{\texorpdfstring{getPosition()}{getPosition()}}
+{\footnotesize\ttfamily \label{class_projectile_a7e749e4e0b7b8fd51dea72a8d34f0f40} 
+\mbox{\hyperlink{struct_position}{Position}} Projectile\+::get\+Position (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Retourne la position actuelle. \Hypertarget{class_projectile_ae99280aa96fd73d1a7bad52b5d780293}\index{Projectile@{Projectile}!getRectangle@{getRectangle}}
+\index{getRectangle@{getRectangle}!Projectile@{Projectile}}
+\doxysubsubsection{\texorpdfstring{getRectangle()}{getRectangle()}}
+{\footnotesize\ttfamily \label{class_projectile_ae99280aa96fd73d1a7bad52b5d780293} 
+\mbox{\hyperlink{struct_rectangle}{Rectangle}} Projectile\+::get\+Rectangle (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Retourne le rectangle utilisé pour les collisions. \Hypertarget{class_projectile_a0a897deda25bc0cef92bf998df96db03}\index{Projectile@{Projectile}!setPerforant@{setPerforant}}
+\index{setPerforant@{setPerforant}!Projectile@{Projectile}}
+\doxysubsubsection{\texorpdfstring{setPerforant()}{setPerforant()}}
+{\footnotesize\ttfamily \label{class_projectile_a0a897deda25bc0cef92bf998df96db03} 
+void Projectile\+::set\+Perforant (\begin{DoxyParamCaption}\item[{bool}]{val}{}\end{DoxyParamCaption})}
+
+Active ou désactive le mode perforant. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_projectile_8h}{Projectile.\+h}}\item 
+src/Projectile.\+cpp\end{DoxyCompactItemize}

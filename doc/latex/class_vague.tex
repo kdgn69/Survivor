@@ -1,0 +1,68 @@
+\doxysection{Vague Class Reference}
+\hypertarget{class_vague}{}\label{class_vague}\index{Vague@{Vague}}
+
+
+{\ttfamily \#include $<$Vague.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_vague_ab1e4786aa02ad641431b56658dbbaac3}{Vague}} ()
+\item 
+void \mbox{\hyperlink{class_vague_aecccfc887c38b9a33a98a73da32fd6fd}{passer\+Suivante}} ()
+\item 
+int \mbox{\hyperlink{class_vague_a7af0db8e223b59f0abc198b7acafedbc}{get\+Numero}} () const
+\item 
+int \mbox{\hyperlink{class_vague_a161a93644d37eff714ed833dfa945ad9}{get\+Niveau}} () const
+\item 
+int \mbox{\hyperlink{class_vague_ad939611c9d604c9c86f7a00fe2d60b21}{get\+Nombre\+Ennemis}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Permet de suivre le numéro de vague et le niveau actuel, et de déterminer combien d’ennemis doivent apparaître. 
+
+\label{doc-constructors}
+\Hypertarget{class_vague_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_vague_ab1e4786aa02ad641431b56658dbbaac3}\index{Vague@{Vague}!Vague@{Vague}}
+\index{Vague@{Vague}!Vague@{Vague}}
+\doxysubsubsection{\texorpdfstring{Vague()}{Vague()}}
+{\footnotesize\ttfamily \label{class_vague_ab1e4786aa02ad641431b56658dbbaac3} 
+Vague\+::\+Vague (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Initialise le jeu au niveau 1, vague 1. 
+
+\label{doc-func-members}
+\Hypertarget{class_vague_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_vague_a161a93644d37eff714ed833dfa945ad9}\index{Vague@{Vague}!getNiveau@{getNiveau}}
+\index{getNiveau@{getNiveau}!Vague@{Vague}}
+\doxysubsubsection{\texorpdfstring{getNiveau()}{getNiveau()}}
+{\footnotesize\ttfamily \label{class_vague_a161a93644d37eff714ed833dfa945ad9} 
+int Vague\+::get\+Niveau (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Retourne le niveau actuel. \Hypertarget{class_vague_ad939611c9d604c9c86f7a00fe2d60b21}\index{Vague@{Vague}!getNombreEnnemis@{getNombreEnnemis}}
+\index{getNombreEnnemis@{getNombreEnnemis}!Vague@{Vague}}
+\doxysubsubsection{\texorpdfstring{getNombreEnnemis()}{getNombreEnnemis()}}
+{\footnotesize\ttfamily \label{class_vague_ad939611c9d604c9c86f7a00fe2d60b21} 
+int Vague\+::get\+Nombre\+Ennemis (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Calcule le nombre d’ennemis à générer pour la vague. \Hypertarget{class_vague_a7af0db8e223b59f0abc198b7acafedbc}\index{Vague@{Vague}!getNumero@{getNumero}}
+\index{getNumero@{getNumero}!Vague@{Vague}}
+\doxysubsubsection{\texorpdfstring{getNumero()}{getNumero()}}
+{\footnotesize\ttfamily \label{class_vague_a7af0db8e223b59f0abc198b7acafedbc} 
+int Vague\+::get\+Numero (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Retourne le numéro de la vague actuelle. \Hypertarget{class_vague_aecccfc887c38b9a33a98a73da32fd6fd}\index{Vague@{Vague}!passerSuivante@{passerSuivante}}
+\index{passerSuivante@{passerSuivante}!Vague@{Vague}}
+\doxysubsubsection{\texorpdfstring{passerSuivante()}{passerSuivante()}}
+{\footnotesize\ttfamily \label{class_vague_aecccfc887c38b9a33a98a73da32fd6fd} 
+void Vague\+::passer\+Suivante (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Passe à la vague suivante. Si la vague dépasse 6, on passe au niveau suivant. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_vague_8h}{Vague.\+h}}\item 
+src/Vague.\+cpp\end{DoxyCompactItemize}

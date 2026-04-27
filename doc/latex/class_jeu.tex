@@ -1,0 +1,330 @@
+\doxysection{Jeu Class Reference}
+\hypertarget{class_jeu}{}\label{class_jeu}\index{Jeu@{Jeu}}
+
+
+{\ttfamily \#include $<$Jeu.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_jeu_acc5795ee00edf75516d3dfe65be3e6d6}{Jeu}} ()
+\item 
+void \mbox{\hyperlink{class_jeu_af7473bba63b6e8ceadb8cb3a695a7bb4}{initialiser}} ()
+\item 
+void \mbox{\hyperlink{class_jeu_abef5ad4309726c083421ab38f31b0af6}{avancer\+Tour}} ()
+\item 
+void \mbox{\hyperlink{class_jeu_a33b2a6163ac2b6590d643f14032f1b12}{generer\+Vague\+Actuelle}} ()
+\item 
+void \mbox{\hyperlink{class_jeu_a38479c939ad0da86044fd2d3ed063a7a}{generer\+Ennemis}} (int nombre, \mbox{\hyperlink{_ennemi_8h_abb6ab51d91f812806b579fda0283c0fd}{Type\+Ennemi}} type, int pv, float vitesse, int largeur, int hauteur, float distance\+Min\+Joueur, int degats)
+\item 
+void \mbox{\hyperlink{class_jeu_a06f064e9c9a879bc8bdc2a258140f3c6}{deplacer\+Joueur}} (char direction)
+\item 
+void \mbox{\hyperlink{class_jeu_a7d31d5875762a3eb64b694c8343f15d6}{deplacer\+Ennemis\+Vers\+Joueur}} ()
+\item 
+void \mbox{\hyperlink{class_jeu_a1ef8f2b3573e2354887b87f9a0c76c7b}{tirer}} (float angle\+Degres)
+\item 
+void \mbox{\hyperlink{class_jeu_abc1731e7b55517345254dc08cab9dfad}{faire\+Tirer\+Ennemis}} (float maintenant)
+\item 
+vector$<$ \mbox{\hyperlink{class_projectile}{Projectile}} $>$ \mbox{\hyperlink{class_jeu_aa0d2c184bd3bf4dd4ba8748943f6f420}{creer\+Projectiles\+Depuis\+Ennemi}} (const \mbox{\hyperlink{class_ennemi}{Ennemi}} \&ennemi, const \mbox{\hyperlink{struct_position}{Position}} \&cible) const
+\item 
+void \mbox{\hyperlink{class_jeu_a955c0d8201124438e81927ce03871afe}{deplacer\+Projectiles\+Allies}} ()
+\item 
+void \mbox{\hyperlink{class_jeu_aa22e3214e94ca8416ef8842215f33c05}{deplacer\+Projectiles\+Ennemis}} ()
+\item 
+void \mbox{\hyperlink{class_jeu_a697a33e195f706207c2eb0e9a778a46c}{gerer\+Collisions\+Projectiles\+Allie\+Sur\+Les\+Ennemis}} ()
+\item 
+void \mbox{\hyperlink{class_jeu_a74984a9046dcd7e491e8a20036763fe9}{gerer\+Collisions\+Projectiles\+Ennemis\+Sur\+Joueur}} ()
+\item 
+void \mbox{\hyperlink{class_jeu_a7a7c93346635af3d5c003d0741220faa}{ajouter\+Projectile\+Ennemi}} (const \mbox{\hyperlink{class_projectile}{Projectile}} \&p)
+\item 
+void \mbox{\hyperlink{class_jeu_a354b1e1912234d883598ac0425aa1718}{generer\+Choix\+Ameliorations}} ()
+\item 
+void \mbox{\hyperlink{class_jeu_ab01fa98a15f05e5ebff10ab8f59237d2}{appliquer\+Amelioration\+Choisie}} (int index)
+\item 
+void \mbox{\hyperlink{class_jeu_aa7a92e3a436472ea135cb12d54d35b7c}{lancer\+Vague\+Suivante}} ()
+\item 
+void \mbox{\hyperlink{class_jeu_a12974ca1cc033fcaf94f0527f7ff512c}{gerer\+Morts\+Ennemis}} ()
+\item 
+void \mbox{\hyperlink{class_jeu_a241152b0c94d9b4fadb7d3d17f80914c}{mettre\+AJour\+Auras}} ()
+\item 
+void \mbox{\hyperlink{class_jeu_a3c1228b0ed85d786aa092621b1017efe}{mettre\+AJour\+Etat\+Aura\+Joueur}} ()
+\item 
+void \mbox{\hyperlink{class_jeu_a849bf8902a46e6d257eea8a009d58316}{appliquer\+Degats\+Des\+Auras}} ()
+\item 
+void \mbox{\hyperlink{class_jeu_af97dd914c7af74a507ae86c10f4055a1}{soigner\+Ennemis}} ()
+\item 
+\mbox{\hyperlink{class_joueur}{Joueur}} \& \mbox{\hyperlink{class_jeu_adce66fc950c7f86430d4feb20002b3e1}{get\+Joueur}} ()
+\item 
+\Hypertarget{class_jeu_ac599e64df949f108bcbf87551f568550}\label{class_jeu_ac599e64df949f108bcbf87551f568550} 
+const \mbox{\hyperlink{class_joueur}{Joueur}} \& {\bfseries get\+Joueur} () const
+\item 
+const vector$<$ \mbox{\hyperlink{class_ennemi}{Ennemi}} $>$ \& \mbox{\hyperlink{class_jeu_a3c4d754e2e4b1a2acccaef8b324f2829}{get\+Ennemis}} () const
+\item 
+const vector$<$ \mbox{\hyperlink{class_projectile}{Projectile}} $>$ \& \mbox{\hyperlink{class_jeu_abbfab34c5c6fa34c0f3836676d11a35a}{get\+Projectiles\+Allies}} () const
+\item 
+const vector$<$ \mbox{\hyperlink{class_projectile}{Projectile}} $>$ \& \mbox{\hyperlink{class_jeu_a823b0ee183407ece6e3069e3edb7c2db}{get\+Projectiles\+Ennemis}} () const
+\item 
+const vector$<$ \mbox{\hyperlink{struct_amelioration}{Amelioration}} $>$ \& \mbox{\hyperlink{class_jeu_a64cda8773fd5d656a5fcc1c85803eba9}{get\+Choix\+Ameliorations}} () const
+\item 
+const vector$<$ \mbox{\hyperlink{class_aura}{Aura}} $>$ \& \mbox{\hyperlink{class_jeu_a5ef677fe43467b8db4ea959b7b8102ce}{get\+Auras}} () const
+\item 
+bool \mbox{\hyperlink{class_jeu_a47b97dc01bebe8b030fac6b09518212f}{est\+En\+Choix\+Amelioration}} () const
+\item 
+int \mbox{\hyperlink{class_jeu_a7afde30338484dc8c831e1a378700b81}{get\+Niveau\+Actuel}} () const
+\item 
+int \mbox{\hyperlink{class_jeu_a82218bc2d179abd2e234f6fd1b7aeffc}{get\+Numero\+Vague}} () const
+\item 
+int \mbox{\hyperlink{class_jeu_a8cfc50dc3af7fed745dc916ded25b6a2}{get\+Largeur\+Carte}} () const
+\item 
+\Hypertarget{class_jeu_a411b92ed5766c6bac955548bbb83a45a}\label{class_jeu_a411b92ed5766c6bac955548bbb83a45a} 
+int {\bfseries get\+Hauteur\+Carte} () const
+\item 
+int \mbox{\hyperlink{class_jeu_adc31e290241e9570f1554296ac2425dc}{get\+Niveau\+Aura\+Joueur}} () const
+\item 
+int \mbox{\hyperlink{class_jeu_aa1423bdc31da76864f9f7c96359d5c68}{get\+Nombre\+Ennemis\+Restants}} () const
+\item 
+bool \mbox{\hyperlink{class_jeu_ace8275a9c7a9c735e8ff7e9b611577f5}{est\+Termine}} () const
+\item 
+bool \mbox{\hyperlink{class_jeu_a5c625bb8589dd6033b928fe1de419b02}{est\+Victoire}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Gère l’ensemble du déroulement du jeu \+: joueur, ennemis, projectiles, vagues et améliorations. 
+
+\label{doc-constructors}
+\Hypertarget{class_jeu_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_jeu_acc5795ee00edf75516d3dfe65be3e6d6}\index{Jeu@{Jeu}!Jeu@{Jeu}}
+\index{Jeu@{Jeu}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{Jeu()}{Jeu()}}
+{\footnotesize\ttfamily \label{class_jeu_acc5795ee00edf75516d3dfe65be3e6d6} 
+Jeu\+::\+Jeu (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Initialise les variables du jeu. 
+
+\label{doc-func-members}
+\Hypertarget{class_jeu_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_jeu_a7a7c93346635af3d5c003d0741220faa}\index{Jeu@{Jeu}!ajouterProjectileEnnemi@{ajouterProjectileEnnemi}}
+\index{ajouterProjectileEnnemi@{ajouterProjectileEnnemi}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{ajouterProjectileEnnemi()}{ajouterProjectileEnnemi()}}
+{\footnotesize\ttfamily \label{class_jeu_a7a7c93346635af3d5c003d0741220faa} 
+void Jeu\+::ajouter\+Projectile\+Ennemi (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_projectile}{Projectile}} \&}]{p}{}\end{DoxyParamCaption})}
+
+Ajoute un projectile ennemi. \Hypertarget{class_jeu_ab01fa98a15f05e5ebff10ab8f59237d2}\index{Jeu@{Jeu}!appliquerAmeliorationChoisie@{appliquerAmeliorationChoisie}}
+\index{appliquerAmeliorationChoisie@{appliquerAmeliorationChoisie}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{appliquerAmeliorationChoisie()}{appliquerAmeliorationChoisie()}}
+{\footnotesize\ttfamily \label{class_jeu_ab01fa98a15f05e5ebff10ab8f59237d2} 
+void Jeu\+::appliquer\+Amelioration\+Choisie (\begin{DoxyParamCaption}\item[{int}]{index}{}\end{DoxyParamCaption})}
+
+Applique l’amélioration choisie. \Hypertarget{class_jeu_a849bf8902a46e6d257eea8a009d58316}\index{Jeu@{Jeu}!appliquerDegatsDesAuras@{appliquerDegatsDesAuras}}
+\index{appliquerDegatsDesAuras@{appliquerDegatsDesAuras}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{appliquerDegatsDesAuras()}{appliquerDegatsDesAuras()}}
+{\footnotesize\ttfamily \label{class_jeu_a849bf8902a46e6d257eea8a009d58316} 
+void Jeu\+::appliquer\+Degats\+Des\+Auras (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Applique les dégâts des auras. \Hypertarget{class_jeu_abef5ad4309726c083421ab38f31b0af6}\index{Jeu@{Jeu}!avancerTour@{avancerTour}}
+\index{avancerTour@{avancerTour}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{avancerTour()}{avancerTour()}}
+{\footnotesize\ttfamily \label{class_jeu_abef5ad4309726c083421ab38f31b0af6} 
+void Jeu\+::avancer\+Tour (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Met à jour le jeu à chaque tour. \Hypertarget{class_jeu_aa0d2c184bd3bf4dd4ba8748943f6f420}\index{Jeu@{Jeu}!creerProjectilesDepuisEnnemi@{creerProjectilesDepuisEnnemi}}
+\index{creerProjectilesDepuisEnnemi@{creerProjectilesDepuisEnnemi}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{creerProjectilesDepuisEnnemi()}{creerProjectilesDepuisEnnemi()}}
+{\footnotesize\ttfamily \label{class_jeu_aa0d2c184bd3bf4dd4ba8748943f6f420} 
+vector$<$ \mbox{\hyperlink{class_projectile}{Projectile}} $>$ Jeu\+::creer\+Projectiles\+Depuis\+Ennemi (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_ennemi}{Ennemi}} \&}]{ennemi}{, }\item[{const \mbox{\hyperlink{struct_position}{Position}} \&}]{cible}{}\end{DoxyParamCaption}) const}
+
+Crée des projectiles à partir d’un ennemi. \Hypertarget{class_jeu_a7d31d5875762a3eb64b694c8343f15d6}\index{Jeu@{Jeu}!deplacerEnnemisVersJoueur@{deplacerEnnemisVersJoueur}}
+\index{deplacerEnnemisVersJoueur@{deplacerEnnemisVersJoueur}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{deplacerEnnemisVersJoueur()}{deplacerEnnemisVersJoueur()}}
+{\footnotesize\ttfamily \label{class_jeu_a7d31d5875762a3eb64b694c8343f15d6} 
+void Jeu\+::deplacer\+Ennemis\+Vers\+Joueur (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Fait se déplacer les ennemis vers le joueur. \Hypertarget{class_jeu_a06f064e9c9a879bc8bdc2a258140f3c6}\index{Jeu@{Jeu}!deplacerJoueur@{deplacerJoueur}}
+\index{deplacerJoueur@{deplacerJoueur}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{deplacerJoueur()}{deplacerJoueur()}}
+{\footnotesize\ttfamily \label{class_jeu_a06f064e9c9a879bc8bdc2a258140f3c6} 
+void Jeu\+::deplacer\+Joueur (\begin{DoxyParamCaption}\item[{char}]{direction}{}\end{DoxyParamCaption})}
+
+Déplace le joueur. \Hypertarget{class_jeu_a955c0d8201124438e81927ce03871afe}\index{Jeu@{Jeu}!deplacerProjectilesAllies@{deplacerProjectilesAllies}}
+\index{deplacerProjectilesAllies@{deplacerProjectilesAllies}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{deplacerProjectilesAllies()}{deplacerProjectilesAllies()}}
+{\footnotesize\ttfamily \label{class_jeu_a955c0d8201124438e81927ce03871afe} 
+void Jeu\+::deplacer\+Projectiles\+Allies (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Déplace les projectiles du joueur. \Hypertarget{class_jeu_aa22e3214e94ca8416ef8842215f33c05}\index{Jeu@{Jeu}!deplacerProjectilesEnnemis@{deplacerProjectilesEnnemis}}
+\index{deplacerProjectilesEnnemis@{deplacerProjectilesEnnemis}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{deplacerProjectilesEnnemis()}{deplacerProjectilesEnnemis()}}
+{\footnotesize\ttfamily \label{class_jeu_aa22e3214e94ca8416ef8842215f33c05} 
+void Jeu\+::deplacer\+Projectiles\+Ennemis (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Déplace les projectiles ennemis. \Hypertarget{class_jeu_a47b97dc01bebe8b030fac6b09518212f}\index{Jeu@{Jeu}!estEnChoixAmelioration@{estEnChoixAmelioration}}
+\index{estEnChoixAmelioration@{estEnChoixAmelioration}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{estEnChoixAmelioration()}{estEnChoixAmelioration()}}
+{\footnotesize\ttfamily \label{class_jeu_a47b97dc01bebe8b030fac6b09518212f} 
+bool Jeu\+::est\+En\+Choix\+Amelioration (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Indique si on est en phase de choix d’amélioration. \Hypertarget{class_jeu_ace8275a9c7a9c735e8ff7e9b611577f5}\index{Jeu@{Jeu}!estTermine@{estTermine}}
+\index{estTermine@{estTermine}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{estTermine()}{estTermine()}}
+{\footnotesize\ttfamily \label{class_jeu_ace8275a9c7a9c735e8ff7e9b611577f5} 
+bool Jeu\+::est\+Termine (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Indique si la partie est terminée. \Hypertarget{class_jeu_a5c625bb8589dd6033b928fe1de419b02}\index{Jeu@{Jeu}!estVictoire@{estVictoire}}
+\index{estVictoire@{estVictoire}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{estVictoire()}{estVictoire()}}
+{\footnotesize\ttfamily \label{class_jeu_a5c625bb8589dd6033b928fe1de419b02} 
+bool Jeu\+::est\+Victoire (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Indique si le joueur a gagné. \Hypertarget{class_jeu_abc1731e7b55517345254dc08cab9dfad}\index{Jeu@{Jeu}!faireTirerEnnemis@{faireTirerEnnemis}}
+\index{faireTirerEnnemis@{faireTirerEnnemis}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{faireTirerEnnemis()}{faireTirerEnnemis()}}
+{\footnotesize\ttfamily \label{class_jeu_abc1731e7b55517345254dc08cab9dfad} 
+void Jeu\+::faire\+Tirer\+Ennemis (\begin{DoxyParamCaption}\item[{float}]{maintenant}{}\end{DoxyParamCaption})}
+
+Fait tirer les ennemis. \Hypertarget{class_jeu_a354b1e1912234d883598ac0425aa1718}\index{Jeu@{Jeu}!genererChoixAmeliorations@{genererChoixAmeliorations}}
+\index{genererChoixAmeliorations@{genererChoixAmeliorations}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{genererChoixAmeliorations()}{genererChoixAmeliorations()}}
+{\footnotesize\ttfamily \label{class_jeu_a354b1e1912234d883598ac0425aa1718} 
+void Jeu\+::generer\+Choix\+Ameliorations (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Génère les choix d’améliorations. \Hypertarget{class_jeu_a38479c939ad0da86044fd2d3ed063a7a}\index{Jeu@{Jeu}!genererEnnemis@{genererEnnemis}}
+\index{genererEnnemis@{genererEnnemis}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{genererEnnemis()}{genererEnnemis()}}
+{\footnotesize\ttfamily \label{class_jeu_a38479c939ad0da86044fd2d3ed063a7a} 
+void Jeu\+::generer\+Ennemis (\begin{DoxyParamCaption}\item[{int}]{nombre}{, }\item[{\mbox{\hyperlink{_ennemi_8h_abb6ab51d91f812806b579fda0283c0fd}{Type\+Ennemi}}}]{type}{, }\item[{int}]{pv}{, }\item[{float}]{vitesse}{, }\item[{int}]{largeur}{, }\item[{int}]{hauteur}{, }\item[{float}]{distance\+Min\+Joueur}{, }\item[{int}]{degats}{}\end{DoxyParamCaption})}
+
+Génère des ennemis avec des caractéristiques données. \Hypertarget{class_jeu_a33b2a6163ac2b6590d643f14032f1b12}\index{Jeu@{Jeu}!genererVagueActuelle@{genererVagueActuelle}}
+\index{genererVagueActuelle@{genererVagueActuelle}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{genererVagueActuelle()}{genererVagueActuelle()}}
+{\footnotesize\ttfamily \label{class_jeu_a33b2a6163ac2b6590d643f14032f1b12} 
+void Jeu\+::generer\+Vague\+Actuelle (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Génère la vague actuelle d’ennemis. \Hypertarget{class_jeu_a697a33e195f706207c2eb0e9a778a46c}\index{Jeu@{Jeu}!gererCollisionsProjectilesAllieSurLesEnnemis@{gererCollisionsProjectilesAllieSurLesEnnemis}}
+\index{gererCollisionsProjectilesAllieSurLesEnnemis@{gererCollisionsProjectilesAllieSurLesEnnemis}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{gererCollisionsProjectilesAllieSurLesEnnemis()}{gererCollisionsProjectilesAllieSurLesEnnemis()}}
+{\footnotesize\ttfamily \label{class_jeu_a697a33e195f706207c2eb0e9a778a46c} 
+void Jeu\+::gerer\+Collisions\+Projectiles\+Allie\+Sur\+Les\+Ennemis (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Gère les collisions des projectiles du joueur avec les ennemis. \Hypertarget{class_jeu_a74984a9046dcd7e491e8a20036763fe9}\index{Jeu@{Jeu}!gererCollisionsProjectilesEnnemisSurJoueur@{gererCollisionsProjectilesEnnemisSurJoueur}}
+\index{gererCollisionsProjectilesEnnemisSurJoueur@{gererCollisionsProjectilesEnnemisSurJoueur}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{gererCollisionsProjectilesEnnemisSurJoueur()}{gererCollisionsProjectilesEnnemisSurJoueur()}}
+{\footnotesize\ttfamily \label{class_jeu_a74984a9046dcd7e491e8a20036763fe9} 
+void Jeu\+::gerer\+Collisions\+Projectiles\+Ennemis\+Sur\+Joueur (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Gère les collisions des projectiles ennemis avec le joueur. \Hypertarget{class_jeu_a12974ca1cc033fcaf94f0527f7ff512c}\index{Jeu@{Jeu}!gererMortsEnnemis@{gererMortsEnnemis}}
+\index{gererMortsEnnemis@{gererMortsEnnemis}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{gererMortsEnnemis()}{gererMortsEnnemis()}}
+{\footnotesize\ttfamily \label{class_jeu_a12974ca1cc033fcaf94f0527f7ff512c} 
+void Jeu\+::gerer\+Morts\+Ennemis (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Supprime les ennemis morts et applique les effets associés. \Hypertarget{class_jeu_a5ef677fe43467b8db4ea959b7b8102ce}\index{Jeu@{Jeu}!getAuras@{getAuras}}
+\index{getAuras@{getAuras}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{getAuras()}{getAuras()}}
+{\footnotesize\ttfamily \label{class_jeu_a5ef677fe43467b8db4ea959b7b8102ce} 
+const vector$<$ \mbox{\hyperlink{class_aura}{Aura}} $>$ \& Jeu\+::get\+Auras (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Accès aux auras. \Hypertarget{class_jeu_a64cda8773fd5d656a5fcc1c85803eba9}\index{Jeu@{Jeu}!getChoixAmeliorations@{getChoixAmeliorations}}
+\index{getChoixAmeliorations@{getChoixAmeliorations}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{getChoixAmeliorations()}{getChoixAmeliorations()}}
+{\footnotesize\ttfamily \label{class_jeu_a64cda8773fd5d656a5fcc1c85803eba9} 
+const vector$<$ \mbox{\hyperlink{struct_amelioration}{Amelioration}} $>$ \& Jeu\+::get\+Choix\+Ameliorations (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Accès aux choix d’améliorations. \Hypertarget{class_jeu_a3c4d754e2e4b1a2acccaef8b324f2829}\index{Jeu@{Jeu}!getEnnemis@{getEnnemis}}
+\index{getEnnemis@{getEnnemis}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{getEnnemis()}{getEnnemis()}}
+{\footnotesize\ttfamily \label{class_jeu_a3c4d754e2e4b1a2acccaef8b324f2829} 
+const vector$<$ \mbox{\hyperlink{class_ennemi}{Ennemi}} $>$ \& Jeu\+::get\+Ennemis (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Accès aux ennemis. \Hypertarget{class_jeu_adce66fc950c7f86430d4feb20002b3e1}\index{Jeu@{Jeu}!getJoueur@{getJoueur}}
+\index{getJoueur@{getJoueur}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{getJoueur()}{getJoueur()}}
+{\footnotesize\ttfamily \label{class_jeu_adce66fc950c7f86430d4feb20002b3e1} 
+\mbox{\hyperlink{class_joueur}{Joueur}} \& Jeu\+::get\+Joueur (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Accès au joueur. \Hypertarget{class_jeu_a8cfc50dc3af7fed745dc916ded25b6a2}\index{Jeu@{Jeu}!getLargeurCarte@{getLargeurCarte}}
+\index{getLargeurCarte@{getLargeurCarte}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{getLargeurCarte()}{getLargeurCarte()}}
+{\footnotesize\ttfamily \label{class_jeu_a8cfc50dc3af7fed745dc916ded25b6a2} 
+int Jeu\+::get\+Largeur\+Carte (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Dimensions de la carte. \Hypertarget{class_jeu_a7afde30338484dc8c831e1a378700b81}\index{Jeu@{Jeu}!getNiveauActuel@{getNiveauActuel}}
+\index{getNiveauActuel@{getNiveauActuel}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{getNiveauActuel()}{getNiveauActuel()}}
+{\footnotesize\ttfamily \label{class_jeu_a7afde30338484dc8c831e1a378700b81} 
+int Jeu\+::get\+Niveau\+Actuel (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Retourne le niveau actuel. \Hypertarget{class_jeu_adc31e290241e9570f1554296ac2425dc}\index{Jeu@{Jeu}!getNiveauAuraJoueur@{getNiveauAuraJoueur}}
+\index{getNiveauAuraJoueur@{getNiveauAuraJoueur}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{getNiveauAuraJoueur()}{getNiveauAuraJoueur()}}
+{\footnotesize\ttfamily \label{class_jeu_adc31e290241e9570f1554296ac2425dc} 
+int Jeu\+::get\+Niveau\+Aura\+Joueur (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Niveau de l’aura du joueur. \Hypertarget{class_jeu_aa1423bdc31da76864f9f7c96359d5c68}\index{Jeu@{Jeu}!getNombreEnnemisRestants@{getNombreEnnemisRestants}}
+\index{getNombreEnnemisRestants@{getNombreEnnemisRestants}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{getNombreEnnemisRestants()}{getNombreEnnemisRestants()}}
+{\footnotesize\ttfamily \label{class_jeu_aa1423bdc31da76864f9f7c96359d5c68} 
+int Jeu\+::get\+Nombre\+Ennemis\+Restants (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Nombre d’ennemis restants. \Hypertarget{class_jeu_a82218bc2d179abd2e234f6fd1b7aeffc}\index{Jeu@{Jeu}!getNumeroVague@{getNumeroVague}}
+\index{getNumeroVague@{getNumeroVague}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{getNumeroVague()}{getNumeroVague()}}
+{\footnotesize\ttfamily \label{class_jeu_a82218bc2d179abd2e234f6fd1b7aeffc} 
+int Jeu\+::get\+Numero\+Vague (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Retourne le numéro de la vague. \Hypertarget{class_jeu_abbfab34c5c6fa34c0f3836676d11a35a}\index{Jeu@{Jeu}!getProjectilesAllies@{getProjectilesAllies}}
+\index{getProjectilesAllies@{getProjectilesAllies}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{getProjectilesAllies()}{getProjectilesAllies()}}
+{\footnotesize\ttfamily \label{class_jeu_abbfab34c5c6fa34c0f3836676d11a35a} 
+const vector$<$ \mbox{\hyperlink{class_projectile}{Projectile}} $>$ \& Jeu\+::get\+Projectiles\+Allies (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Accès aux projectiles du joueur. \Hypertarget{class_jeu_a823b0ee183407ece6e3069e3edb7c2db}\index{Jeu@{Jeu}!getProjectilesEnnemis@{getProjectilesEnnemis}}
+\index{getProjectilesEnnemis@{getProjectilesEnnemis}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{getProjectilesEnnemis()}{getProjectilesEnnemis()}}
+{\footnotesize\ttfamily \label{class_jeu_a823b0ee183407ece6e3069e3edb7c2db} 
+const vector$<$ \mbox{\hyperlink{class_projectile}{Projectile}} $>$ \& Jeu\+::get\+Projectiles\+Ennemis (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Accès aux projectiles ennemis. \Hypertarget{class_jeu_af7473bba63b6e8ceadb8cb3a695a7bb4}\index{Jeu@{Jeu}!initialiser@{initialiser}}
+\index{initialiser@{initialiser}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{initialiser()}{initialiser()}}
+{\footnotesize\ttfamily \label{class_jeu_af7473bba63b6e8ceadb8cb3a695a7bb4} 
+void Jeu\+::initialiser (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Initialise la partie (position joueur, première vague). \Hypertarget{class_jeu_aa7a92e3a436472ea135cb12d54d35b7c}\index{Jeu@{Jeu}!lancerVagueSuivante@{lancerVagueSuivante}}
+\index{lancerVagueSuivante@{lancerVagueSuivante}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{lancerVagueSuivante()}{lancerVagueSuivante()}}
+{\footnotesize\ttfamily \label{class_jeu_aa7a92e3a436472ea135cb12d54d35b7c} 
+void Jeu\+::lancer\+Vague\+Suivante (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Lance la vague suivante. \Hypertarget{class_jeu_a241152b0c94d9b4fadb7d3d17f80914c}\index{Jeu@{Jeu}!mettreAJourAuras@{mettreAJourAuras}}
+\index{mettreAJourAuras@{mettreAJourAuras}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{mettreAJourAuras()}{mettreAJourAuras()}}
+{\footnotesize\ttfamily \label{class_jeu_a241152b0c94d9b4fadb7d3d17f80914c} 
+void Jeu\+::mettre\+AJour\+Auras (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Met à jour les auras. \Hypertarget{class_jeu_a3c1228b0ed85d786aa092621b1017efe}\index{Jeu@{Jeu}!mettreAJourEtatAuraJoueur@{mettreAJourEtatAuraJoueur}}
+\index{mettreAJourEtatAuraJoueur@{mettreAJourEtatAuraJoueur}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{mettreAJourEtatAuraJoueur()}{mettreAJourEtatAuraJoueur()}}
+{\footnotesize\ttfamily \label{class_jeu_a3c1228b0ed85d786aa092621b1017efe} 
+void Jeu\+::mettre\+AJour\+Etat\+Aura\+Joueur (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Met à jour l’aura du joueur. \Hypertarget{class_jeu_af97dd914c7af74a507ae86c10f4055a1}\index{Jeu@{Jeu}!soignerEnnemis@{soignerEnnemis}}
+\index{soignerEnnemis@{soignerEnnemis}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{soignerEnnemis()}{soignerEnnemis()}}
+{\footnotesize\ttfamily \label{class_jeu_af97dd914c7af74a507ae86c10f4055a1} 
+void Jeu\+::soigner\+Ennemis (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Soigne les ennemis dans les zones de soin. \Hypertarget{class_jeu_a1ef8f2b3573e2354887b87f9a0c76c7b}\index{Jeu@{Jeu}!tirer@{tirer}}
+\index{tirer@{tirer}!Jeu@{Jeu}}
+\doxysubsubsection{\texorpdfstring{tirer()}{tirer()}}
+{\footnotesize\ttfamily \label{class_jeu_a1ef8f2b3573e2354887b87f9a0c76c7b} 
+void Jeu\+::tirer (\begin{DoxyParamCaption}\item[{float}]{angle\+Degres}{}\end{DoxyParamCaption})}
+
+Fait tirer le joueur. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_jeu_8h}{Jeu.\+h}}\item 
+src/Jeu.\+cpp\end{DoxyCompactItemize}
