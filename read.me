@@ -1,0 +1,86 @@
+# Survivor
+
+## Informations générales
+
+Projet réalisé par :
+Morgan TISSOT — p2306667
+Kyliann DOGNON — p2305137
+
+Dépôt du projet :
+https://github.com/kdgn69/Survivor
+
+
+## Manuel d’utilisation
+
+### Compilation
+
+Depuis la racine du projet :
+
+make
+make sdl
+make console
+
+### Exécution
+
+Version SDL :
+./bin/jeusdl
+
+Version console :
+./bin/jeuconsole
+
+---
+
+## Règles du jeu
+
+Le joueur contrôle un personnage placé au centre de la carte.
+Des vagues successives d’ennemis apparaissent et se dirigent vers lui.
+
+Objectif : survivre jusqu’au niveau final et battre le boss.
+
+Le joueur peut se déplacer avec ZQSD et tirer automatiquement vers la souris.
+
+Les ennemis infligent des dégâts au contact. Certains tirent à distance, d’autres soignent ou invoquent des ennemis.
+
+À la fin de chaque vague, le joueur choisit une amélioration parmi trois propositions.
+
+Le jeu se termine lorsque les points de vie du joueur atteignent 0 (défaite) ou lorsque le boss du dernier niveau est vaincu (victoire).
+
+---
+
+## Fonctionnalités
+
+* Système de vagues et progression par niveaux
+* Différents types d’ennemis (zombie, archer, healer, sorcier, slime, boss)
+* Système de tir avec projectiles
+* Améliorations du joueur (dégâts, cadence, taille, vitesse, multitir, aura, perforant, foudre)
+* Auras de dégâts (joueur et ennemis morts)
+* Interface graphique avec SDL
+* Version console du jeu
+* Écran de fin (victoire ou défaite)
+
+---
+
+## Organisation du projet
+
+/src : code source
+/src/sdl : version graphique
+/src/txt : version console
+
+/data : assets (images, police)
+
+/bin : exécutables
+
+/doc : documentation (UML, Gantt, présentation, doxygen)
+
+/obj : fichiers objets
+
+lib 
+
+SDL2
+SDL2_image
+SDL2_ttf
+
+## Remarques
+
+Les exécutables sont générés dans le dossier bin.
+Les fichiers objets et fichiers inutiles doivent être supprimés avant la remise.
